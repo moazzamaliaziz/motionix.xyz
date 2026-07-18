@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Inter Tight";
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/intertight/v8/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mjDw.woff2") format("woff2");
+}
+
+@theme {
+  /* ============ Fonts ============ */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", "Cormorant Garamond", Georgia, ui-serif, serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ============ Marketing palette (Aura pastels on warm paper background) ============ */
+  --color-background: oklch(0.985 0.008 80);
+  --color-foreground: oklch(0.25 0.015 50);
+
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.25 0.015 50);
+
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.25 0.015 50);
+
+  --color-primary: oklch(0.74 0.14 38);
+  --color-primary-foreground: oklch(0.99 0 0);
+
+  --color-secondary: oklch(0.96 0.01 80);
+  --color-secondary-foreground: oklch(0.25 0.015 50);
+
+  --color-muted: oklch(0.96 0.01 80);
+  --color-muted-foreground: oklch(0.5 0.015 60);
+
+  --color-accent: oklch(0.74 0.14 38);
+  --color-accent-foreground: oklch(0.99 0 0);
+
+  --color-destructive: oklch(0.65 0.22 25);
+  --color-destructive-foreground: oklch(0.99 0 0);
+
+  --color-border: oklch(0.92 0.01 70 / 0.6);
+  --color-input: oklch(0.92 0.01 70);
+  --color-ring: oklch(0.74 0.14 38);
+
+  /* Pastel washes */
+  --color-peach: oklch(0.93 0.04 50);
+  --color-sky: oklch(0.91 0.035 240);
+  --color-mint: oklch(0.93 0.025 165);
+  --color-blush: oklch(0.93 0.035 20);
+  --color-paper: oklch(0.94 0.012 80);
+  --color-ember: oklch(0.93 0.06 60);
+
+  /* Cream/ink (tool-page neutrals) */
+  --color-cream: oklch(0.96 0.012 85);
+  --color-ink: oklch(0.16 0.012 85);
+
+  /* Radius scale */
+  --radius: 1rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ============ Tool-page mode (cream/ink neutrals via [data-mode="tool"]) ============ */
+[data-mode="tool"] {
+  --color-background: oklch(0.96 0.012 85);
+  --color-foreground: oklch(0.16 0.012 85);
+  --color-muted: oklch(0.92 0.015 85);
+  --color-muted-foreground: oklch(0.45 0.012 85);
+  --color-border: oklch(0.85 0.015 85);
+  --color-input: oklch(0.85 0.015 85);
+  --color-card: oklch(0.94 0.012 85);
+  --color-secondary: oklch(0.92 0.015 85);
+  --color-primary: oklch(0.16 0.012 85);
+  --color-primary-foreground: oklch(0.96 0.012 85);
+  --color-accent: oklch(0.74 0.14 38);
+  --color-accent-foreground: oklch(0.99 0 0);
+  --color-ring: oklch(0.16 0.012 85);
+  --radius: 0.5rem;
+}
+
+/* ============ Base layer ============ */
+* {
+  border-color: oklch(0.92 0.01 70 / 0.6);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: oklch(0.93 0.04 50 / 0.45);
+}
+
+/* ============ Keyframes ============ */
+@keyframes drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(40px, -30px) scale(1.08); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes wash-in {
+  from { opacity: 0; filter: blur(20px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 oklch(0.74 0.14 38 / 0.45); }
+  70%  { box-shadow: 0 0 0 18px oklch(0.74 0.14 38 / 0); }
+  100% { box-shadow: 0 0 0 0 oklch(0.74 0.14 38 / 0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+@keyframes border-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes tone-pulse {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.95; }
+}
+
+/* ============ Utilities ============ */
+@utility animate-fade-up {
+  animation: fade-up 0.8s var(--ease-out-expo) both;
+}
+@utility animate-wash-in {
+  animation: wash-in 2s var(--ease-out-expo) both;
+}
+@utility animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+@utility animate-drift {
+  animation: drift 14s ease-in-out infinite;
+}
+@utility animate-marquee {
+  animation: marquee-x 40s linear infinite;
+}
+@utility animate-marquee-fast {
+  animation: marquee-x 22s linear infinite;
+}
+@utility animate-pulse-ring {
+  animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@utility animate-spin-slow {
+  animation: spin-slow 28s linear infinite;
+}
+@utility animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 7s ease infinite;
+}
+@utility animate-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+}
+@utility animate-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@utility text-shimmer {
+  background: linear-gradient(90deg, var(--color-foreground) 0%, var(--color-primary) 50%, var(--color-foreground) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+@utility scrollbar-hide {
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+@utility font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  line-height: 0.92;
+}
+@utility font-serif-italic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+@utility eyebrow-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+/* Brutalist primitives (used on trust pages) */
+@utility brutal-border {
+  border: 2px solid black;
+  box-shadow: 4px 4px 0 0 black;
+}
+@utility brutal-border-hover {
+  transition: transform 200ms var(--ease-out-expo), box-shadow 200ms var(--ease-out-expo);
+}
+@utility brutal-border-hover-hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 black;
+}

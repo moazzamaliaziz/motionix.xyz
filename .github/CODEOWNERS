@@ -1,0 +1,9 @@
+# CODEOWNERS — auto-suggest reviewers for PRs.
+# Replace `@motionix-team` with a real GitHub team handle (or your handle) once
+# the org feature is set up. Until then, no auto-assignment happens.
+
+# Default owner for everything in this repo:
+# *       @motionix-team
+
+# Documentation:
+# *.md     @motionix-team

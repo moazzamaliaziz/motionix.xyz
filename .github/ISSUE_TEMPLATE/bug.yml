@@ -1,0 +1,42 @@
+---
+name: Bug report
+about: Something didn't work as expected
+title: ''
+labels: bug
+assignees: ''
+---
+
+## What happened
+
+A short, honest description of what went wrong.
+
+## What you expected
+
+What you thought would happen instead.
+
+## Tool / page
+
+Which tool or page were you on? (link helps)
+
+## Browser
+
+- [ ] Chrome / Edge / Safari / Firefox / Other
+- Version (e.g. Chrome 134):
+- OS:
+
+## File details (optional)
+
+- File name or type (PNG / JPG / MP4 / etc.):
+- Approx size (MB):
+- Anything special about the file (HEIC from iPhone, screen capture,
+  rotated, etc.):
+
+## Reproduction
+
+The smallest steps that reproduce the problem — *"Open the passport
+photo maker, drop in [my file], click run, see a 503 during download"*.
+
+## Logs / screenshots
+
+If a red error appeared, paste it. A screenshot or short video is worth a
+thousand words. (No personal info, please.)
