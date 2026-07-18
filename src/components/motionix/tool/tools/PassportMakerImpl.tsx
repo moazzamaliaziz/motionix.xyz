@@ -66,7 +66,7 @@ export function PassportMakerImpl() {
     setStatus("loading");
     setProgress("Fetching the small AI model that swaps backgrounds…");
     const { removeBackground } = await import("@imgly/background-removal");
-    removeFnRef.current = (b) => removeBackground(b, { publicPath: "https://cdn.img.ly/models/" });
+    removeFnRef.current = (b) => removeBackground(b);
     setStatus("idle");
   };
 

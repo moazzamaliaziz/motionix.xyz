@@ -23,7 +23,7 @@ export default function CookiesPage() {
 
         <Section title="3. Embedded models">
           <p>
-            The AI model in the background remover is fetched from cdn.img.ly and cached by
+            The AI model in the background remover is fetched from staticimg.ly and cached by
             your browser&apos;s normal HTTP cache. We don&apos;t control their caching — but they
             don&apos;t set cookies for our site.
           </p>

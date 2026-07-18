@@ -80,7 +80,7 @@ export function ResumePhotoMakerImpl() {
     let remove: null | ((b: Blob) => Promise<Blob>) = null;
     try {
       const { removeBackground } = await import("@imgly/background-removal");
-      remove = async (b) => await removeBackground(b, { publicPath: "https://cdn.img.ly/models/" });
+      remove = async (b) => await removeBackground(b);
       setRemoveFn(() => remove!);
     } catch (e) {
       console.warn("imgly load failed", e);

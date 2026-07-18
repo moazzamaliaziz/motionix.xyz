@@ -96,16 +96,9 @@ export function BackgroundRemoverImpl() {
     setProgress("Fetching the small model that does the cutout (cached after first run)…");
     const { removeBackground } = await import("@imgly/background-removal");
 
-    // We can't intercept CDN fetches directly without monkey-patching; we wrap
-    // the result and rely on the user's browser HTTP cache (disk cache) for repeat
-    // visits. The IndexedDB cache is still useful for the WASM binary.
-    void readModel(); // sanity check — not currently used since @imgly hosts the model on its CDN
     setProgress("Almost there…");
     removeFnRef.current = async (blob: Blob) => {
-      const out = await removeBackground(blob, {
-        // publicPath points to model hosting on cdn.img.ly — browser will HTTP-cache
-        publicPath: "https://cdn.img.ly/models/",
-      });
+      const out = await removeBackground(blob);
       return out;
     };
     setStatus("ready");

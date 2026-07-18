@@ -19,7 +19,7 @@ export function PrivacyPolicy() {
           </p>
           <p>
             The AI model (a small file, around 88 MB for the ISNet fp16 background model) is
-            fetched once from our CDN at cdn.img.ly and cached by your browser. After the first
+            fetched once from our CDN at staticimg.ly and cached by your browser. After the first
             run, the model loads almost instantly from cache.
           </p>
         </Section>
