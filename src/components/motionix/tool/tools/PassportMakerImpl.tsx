@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { LuCheck, LuDownload, LuExternalLink, LuLoader, LuTrash2 } from "react-icons/lu";
 import { ToolDropzone } from "../ToolDropzone";
 import { ToolResult } from "../ToolResult";
 import type { CountryPreset } from "@/lib/tools";
 import { getPaymentLink } from "@/lib/stripe-links";
 import { SaveToHistory } from "@/components/motionix/tool/SaveToHistory";
+import { removeBackgroundOnce } from "../lib/useBackgroundRemoval";
 
 type Mode = "strict" | "admission" | "resume" | "relaxed";
 
@@ -47,8 +48,6 @@ export function PassportMakerImpl() {
   const [error, setError] = useState<string | null>(null);
   const [historySaved, setHistorySaved] = useState(false);
 
-  const removeFnRef = useRef<null | ((b: Blob) => Promise<Blob>)>(null);
-
   useEffect(
     () => () => {
       if (srcUrl) URL.revokeObjectURL(srcUrl);
@@ -62,12 +61,8 @@ export function PassportMakerImpl() {
   }, []);
 
   const ensureRemove = async () => {
-    if (removeFnRef.current) return;
     setStatus("loading");
     setProgress("Fetching the small AI model that swaps backgrounds…");
-    const { removeBackground } = await import("@imgly/background-removal");
-    removeFnRef.current = (b) => removeBackground(b);
-    setStatus("idle");
   };
 
   const startOver = () => {
@@ -96,7 +91,7 @@ export function PassportMakerImpl() {
 
       if (mode === "resume" || mode === "relaxed") {
         await ensureRemove();
-        const cutoutBlob = await removeFnRef.current!(file);
+        const cutoutBlob = await removeBackgroundOnce(file);
         processedBlob = await composeWithBackground(cutoutBlob, bgColor, country);
       } else {
         // Strict & admission: NO AI, only Canvas — keep originals exactly.

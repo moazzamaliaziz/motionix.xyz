@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { OptionalClerkProvider } from "@/components/motionix/auth/OptionalClerkProvider";
 import { AnalyticsProvider } from "@/components/motionix/analytics/AnalyticsProvider";
+import { BackgroundRemovalPreloader } from "@/components/motionix/tool/BackgroundRemovalPreloader";
 
 export const metadata: Metadata = {
   title: "Motionix — Free AI tools for images and video",
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <OptionalClerkProvider>
+          <BackgroundRemovalPreloader />
           {children}
           <AnalyticsProvider />
         </OptionalClerkProvider>

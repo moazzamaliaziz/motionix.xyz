@@ -7,6 +7,7 @@ import { ToolResult } from "../ToolResult";
 import { SaveToHistory } from "../SaveToHistory";
 import { CloudflareUpload } from "../CloudflareUpload";
 import Link from "next/link";
+import { removeBackgroundOnce } from "../lib/useBackgroundRemoval";
 
 export function BackgroundRemoverImpl() {
   const [status, setStatus] = useState<"idle" | "loading" | "ready" | "running" | "done" | "error">("idle");
@@ -21,30 +22,6 @@ export function BackgroundRemoverImpl() {
   const [shadowSize, setShadowSize] = useState<number>(1);
   const [showComplianceNudge, setShowComplianceNudge] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const removeFnRef = useRef<null | ((input: Blob) => Promise<Blob>)>(null);
-
-  // Lazy init: load the @imgly module only when a file is dropped.
-  const ensureEngine = async () => {
-    if (removeFnRef.current) return;
-    setStatus("loading");
-    setProgressPct(0);
-    setProgress("Downloading the AI model (cached after first run)…");
-    const { removeBackground } = await import("@imgly/background-removal");
-
-    removeFnRef.current = async (blob: Blob) => {
-      const out = await removeBackground(blob, {
-        progress: (key: string, current: number, total: number) => {
-          const pct = total > 0 ? Math.round((current / total) * 100) : 0;
-          setProgressPct(pct);
-          const mb = (current / (1024 * 1024)).toFixed(1);
-          setProgress(`${key}: ${pct}% (${mb} MB)`);
-        },
-      });
-      return out;
-    };
-    setStatus("ready");
-    setProgressPct(0);
-  };
 
   useEffect(
     () => () => {
@@ -64,11 +41,15 @@ export function BackgroundRemoverImpl() {
     setSrcUrl(URL.createObjectURL(file));
 
     try {
-      await ensureEngine();
-      setStatus("running");
+      setStatus("loading");
       setProgressPct(0);
-      setProgress("Running the model on your device…");
-      const blob = await removeFnRef.current!(file);
+      setProgress("Downloading the AI model (cached after first run)…");
+      const blob = await removeBackgroundOnce(file, (key, current, total) => {
+        const pct = total > 0 ? Math.round((current / total) * 100) : 0;
+        setProgressPct(pct);
+        const mb = (current / (1024 * 1024)).toFixed(1);
+        setProgress(`${key}: ${pct}% (${mb} MB)`);
+      });
       if (outUrl) URL.revokeObjectURL(outUrl);
       setOutBlob(blob);
       setOutUrl(URL.createObjectURL(blob));

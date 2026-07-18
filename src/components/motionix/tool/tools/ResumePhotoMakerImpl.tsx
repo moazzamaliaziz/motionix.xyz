@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { LuCheck, LuDownload, LuLoader } from "react-icons/lu";
 import { ToolDropzone } from "../ToolDropzone";
 import { ToolResult } from "../ToolResult";
+import { removeBackgroundOnce } from "../lib/useBackgroundRemoval";
 
 /**
  * Resume / LinkedIn photo maker — leans on the same background-removal engine
@@ -46,8 +47,6 @@ export function ResumePhotoMakerImpl() {
   const [error, setError] = useState<string | null>(null);
   const [text, setText] = useState("");
 
-  const removeFnRef = useState<(() => (b: Blob) => Promise<Blob>) | null>(null);
-
   useEffect(
     () => () => {
       if (srcUrl) URL.revokeObjectURL(srcUrl);
@@ -56,9 +55,6 @@ export function ResumePhotoMakerImpl() {
     },
     [srcUrl, cutoutUrl, outUrl],
   );
-
-  const [, setRemoveFn] = removeFnRef;
-
   const handleFile = (f: File) => {
     setFile(f);
     if (srcUrl) URL.revokeObjectURL(srcUrl);
@@ -77,22 +73,10 @@ export function ResumePhotoMakerImpl() {
     setText("Loading the on-device AI model…");
     setError(null);
 
-    let remove: null | ((b: Blob) => Promise<Blob>) = null;
-    try {
-      const { removeBackground } = await import("@imgly/background-removal");
-      remove = async (b) => await removeBackground(b);
-      setRemoveFn(() => remove!);
-    } catch (e) {
-      console.warn("imgly load failed", e);
-      setError("Could not load the AI model in your browser. Try again in Chrome or Edge.");
-      setStatus("error");
-      return;
-    }
-
     setStatus("running");
     setText("Cutting out your headshot on-device…");
     try {
-      const cutout = await remove(file);
+      const cutout = await removeBackgroundOnce(file);
       if (cutoutUrl) URL.revokeObjectURL(cutoutUrl);
       setCutoutUrl(URL.createObjectURL(cutout));
 
