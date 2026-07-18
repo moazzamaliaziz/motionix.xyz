@@ -16,6 +16,8 @@ export function BackgroundRemoverImpl() {
   const [outBlob, setOutBlob] = useState<Blob | null>(null);
   const [outUrl, setOutUrl] = useState<string | null>(null);
   const [bgColor, setBgColor] = useState<string>("transparent");
+  const [shadowOpacity, setShadowOpacity] = useState<number>(0.25);
+  const [shadowSize, setShadowSize] = useState<number>(1);
   const [error, setError] = useState<string | null>(null);
   const removeFnRef = useRef<null | ((input: Blob) => Promise<Blob>)>(null);
 
@@ -83,21 +85,92 @@ export function BackgroundRemoverImpl() {
 
   const applyBackground = async () => {
     if (!outBlob) return;
-    const sourceCanvas = document.createElement("canvas");
     const outImg = new Image();
     outImg.src = URL.createObjectURL(outBlob);
     await new Promise((res) => (outImg.onload = res));
-    sourceCanvas.width = outImg.naturalWidth;
-    sourceCanvas.height = outImg.naturalHeight;
-    const ctx = sourceCanvas.getContext("2d")!;
-    if (bgColor !== "transparent") {
+
+    const w = outImg.naturalWidth;
+    const h = outImg.naturalHeight;
+    const isTransparent = bgColor === "transparent";
+    const hasShadow = !isTransparent && shadowOpacity > 0;
+
+    const main = document.createElement("canvas");
+    main.width = w;
+    main.height = h + (hasShadow ? Math.round(h * 0.12 * shadowSize) : 0);
+    const ctx = main.getContext("2d")!;
+
+    if (!isTransparent) {
       ctx.fillStyle = bgColor;
-      ctx.fillRect(0, 0, sourceCanvas.width, sourceCanvas.height);
+      ctx.fillRect(0, 0, main.width, main.height);
     }
+
+    if (hasShadow) {
+      const shadowCanvas = document.createElement("canvas");
+      shadowCanvas.width = w;
+      shadowCanvas.height = h;
+      const sctx = shadowCanvas.getContext("2d")!;
+      sctx.drawImage(outImg, 0, 0);
+
+      const imageData = sctx.getImageData(0, 0, w, h);
+      const alpha = imageData.data;
+
+      // Build bottom contour: for each column, find the lowest opaque pixel
+      const contour: { x: number; y: number }[] = [];
+      const step = Math.max(1, Math.round(w / 120)); // ~120 points along width
+      for (let col = 0; col < w; col += step) {
+        let lowestY = -1;
+        for (let row = h - 1; row >= 0; row--) {
+          const a = alpha[(row * w + col) * 4 + 3];
+          if (a > 30) {
+            // Find the actual bottom-most opaque pixel in this column for the bottom edge
+            for (let r = row; r < Math.min(h, row + 5); r++) {
+              if (alpha[(r * w + col) * 4 + 3] === 0) break;
+              lowestY = r;
+            }
+            break;
+          }
+        }
+        if (lowestY >= 0) contour.push({ x: col, y: lowestY });
+      }
+
+      // Discard points that are noise above others in the same region
+      const filtered: { x: number; y: number }[] = [];
+      for (let i = 0; i < contour.length; i++) {
+        const neighbors = contour.filter((_, j) => Math.abs(j - i) <= 3 && j !== i);
+        const avgNeighborY = neighbors.length ? neighbors.reduce((s, c) => s + c.y, 0) / neighbors.length : contour[i].y;
+        if (contour[i].y >= avgNeighborY - 10) filtered.push(contour[i]); // keep only points not too far above neighbors
+      }
+
+      if (filtered.length >= 2) {
+        const shadowY = h + Math.round(h * 0.06 * shadowSize);
+        const blurPx = Math.round(Math.min(w, h) * 0.04 * shadowSize);
+
+        // ponytail: shadowBlur is GPU-accelerated canvas, no CPU overhead
+        ctx.save();
+        ctx.shadowColor = `rgba(0,0,0,${shadowOpacity})`;
+        ctx.shadowBlur = blurPx;
+        ctx.shadowOffsetY = 0;
+        ctx.beginPath();
+        ctx.moveTo(filtered[0].x, shadowY + (filtered[0].y - h * 0.5) * 0.08);
+        for (let i = 1; i < filtered.length; i++) {
+          const pointY = shadowY + (filtered[i].y - h * 0.5) * 0.08; // slight Y modulation for natural shape
+          ctx.lineTo(filtered[i].x, pointY);
+        }
+        for (let i = filtered.length - 1; i >= 0; i--) {
+          ctx.lineTo(filtered[i].x, shadowY - shadowSize * 6);
+        }
+        ctx.closePath();
+        ctx.fillStyle = "#000";
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Draw the subject on top (at y=0, above shadow)
     ctx.drawImage(outImg, 0, 0);
 
     const finalBlob: Blob = await new Promise((resolve) =>
-      sourceCanvas.toBlob((b) => resolve(b!), "image/png"),
+      main.toBlob((b) => resolve(b!), "image/png"),
     );
     if (outUrl) URL.revokeObjectURL(outUrl);
     setOutBlob(finalBlob);
@@ -181,7 +254,10 @@ export function BackgroundRemoverImpl() {
                   <button
                     key={c.token}
                     type="button"
-                    onClick={() => setBgColor(c.token)}
+                    onClick={() => {
+                        setBgColor(c.token);
+                        if (c.token !== "transparent") setTimeout(applyBackground, 0);
+                      }}
                     className={`size-10 rounded-lg border transition-all ${
                       bgColor === c.token
                         ? "border-foreground ring-2 ring-primary ring-offset-2"
@@ -198,6 +274,48 @@ export function BackgroundRemoverImpl() {
                 ))}
               </div>
             </div>
+            {bgColor !== "transparent" ? (
+              <div>
+                <p className="eyebrow-mono text-foreground/50 mb-2">Shadow</p>
+                <div className="grid grid-cols-2 gap-3 max-w-xs">
+                  <label className="flex flex-col gap-1">
+                    <span className="text-xs text-foreground/50">Opacity</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="0.6"
+                      step="0.05"
+                      value={shadowOpacity}
+                      onChange={(e) => {
+                        const v = Number(e.target.value);
+                        setShadowOpacity(v);
+                        if (v === 0) return;
+                        // ponytail: auto-apply on slide — no separate "apply" click
+                        setTimeout(applyBackground, 0);
+                      }}
+                      className="accent-primary w-full"
+                    />
+                  </label>
+                  <label className="flex flex-col gap-1">
+                    <span className="text-xs text-foreground/50">Size</span>
+                    <input
+                      type="range"
+                      min="0.5"
+                      max="2.5"
+                      step="0.1"
+                      value={shadowSize}
+                      onChange={(e) => {
+                        const v = Number(e.target.value);
+                        setShadowSize(v);
+                        if (shadowOpacity === 0) return;
+                        setTimeout(applyBackground, 0);
+                      }}
+                      className="accent-primary w-full"
+                    />
+                  </label>
+                </div>
+              </div>
+            ) : null}
             <div className="flex flex-wrap gap-3">
               <a
                 href={outUrl}
@@ -212,7 +330,7 @@ export function BackgroundRemoverImpl() {
                   onClick={applyBackground}
                   className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-white px-5 py-2.5 text-sm font-medium hover:bg-foreground/5 transition"
                 >
-                  Apply background color
+                  Apply background &amp; shadow
                 </button>
               ) : null}
               <SaveToHistory
