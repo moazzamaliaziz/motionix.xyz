@@ -51,7 +51,7 @@ export default function ToolsIndexPage() {
           <div className="max-w-7xl mx-auto">
             <RevealOnScroll>
               <h2 className="font-serif text-3xl md:text-4xl italic mb-8 leading-tight">
-                The seven tools we keep using.
+                The eight tools we keep using.
               </h2>
             </RevealOnScroll>
 
@@ -69,23 +69,6 @@ export default function ToolsIndexPage() {
           </div>
         </section>
 
-        <section className="px-6 pb-24 max-w-4xl mx-auto">
-          <RevealOnScroll>
-            <div className="rounded-3xl border border-foreground/10 bg-paper/60 p-8 md:p-12">
-              <p className="eyebrow-mono text-primary mb-3">Note on timing</p>
-              <h2 className="font-serif text-2xl md:text-3xl italic leading-snug mb-4">
-                Why aren&apos;t all seven tools functioning on day one?
-              </h2>
-              <p className="text-sm md:text-base text-foreground/70 leading-relaxed">
-                Shipping tools that work takes longer than shipping pages that pretend to. The five
-                stubs on this page have real, distinct FAQ and use-case content for SEO — but
-                their dropzones are honest. Frame them as "coming up in Phase 2", then come back
-                when the engine is real. The two functional tools (<Link href="/tools/background-remover" className="text-primary underline-offset-4 hover:underline">background remover</Link>{" "}
-                and <Link href="/tools/passport-photo-maker" className="text-primary underline-offset-4 hover:underline">passport maker</Link>) work right now in your browser.
-              </p>
-            </div>
-          </RevealOnScroll>
-        </section>
       </main>
       <SiteFooter />
     </>

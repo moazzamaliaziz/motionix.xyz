@@ -1,0 +1,243 @@
+- generic [active] [ref=f5e1]:
+  - generic [ref=f5e2]:
+    - generic [ref=f5e3]:
+      - text: Motionix is free in your browser. No account. No upload. ✕
+      - button "Close announcement" [ref=f5e6]: ✕
+    - banner [ref=f5e7]:
+      - generic [ref=f5e8]:
+        - link "motionix" [ref=f5e9] [cursor=pointer]:
+          - /url: /
+        - navigation [ref=f5e12]:
+          - link "Home" [ref=f5e13] [cursor=pointer]:
+            - /url: /
+          - link "Tools" [ref=f5e14] [cursor=pointer]:
+            - /url: /tools
+          - link "How it works" [ref=f5e15] [cursor=pointer]:
+            - /url: /#how
+          - link "FAQ" [ref=f5e16] [cursor=pointer]:
+            - /url: /#faq
+          - link "Blog" [ref=f5e17] [cursor=pointer]:
+            - /url: /blog
+        - generic [ref=f5e18]:
+          - link "Search tools" [ref=f5e19] [cursor=pointer]:
+            - /url: /tools
+            - text: Quick find
+          - link "Try a tool" [ref=f5e22] [cursor=pointer]:
+            - /url: /tools/background-remover
+            - generic [ref=f5e24]: →
+    - main [ref=f5e25]:
+      - generic [ref=f5e26]:
+        - generic [ref=f5e27]:
+          - paragraph [ref=f5e28]: Motionix · tools · functional
+          - heading "Signature maker" [level=1] [ref=f5e29]
+          - paragraph [ref=f5e30]: Draw a signature, type one, or upload a paper scan. Get a transparent PNG suitable for contracts and email signatures.
+        - generic [ref=f5e31]:
+          - button "Draw" [ref=f5e32]
+          - button "Upload a scan" [ref=f5e35]
+        - generic [ref=f5e36]:
+          - generic "Signature canvas" [ref=f5e38]
+          - generic [ref=f5e39]:
+            - paragraph [ref=f5e40]: Ink
+            - button "Ink" [ref=f5e41]
+            - button "Navy" [ref=f5e42]
+            - button "Sepia" [ref=f5e43]
+            - button "Wine" [ref=f5e44]
+            - button "Clear" [ref=f5e45]
+          - generic [ref=f5e50]:
+            - generic [ref=f5e51]:
+              - button "Download PNG" [disabled] [ref=f5e52]
+              - button "Download SVG" [disabled] [ref=f5e56]
+            - paragraph [ref=f5e57]: Sign above. We auto-trim the canvas so the PNG has no padding around the strokes.
+        - complementary [ref=f5e58]:
+          - generic [ref=f5e59]:
+            - paragraph [ref=f5e65]: History
+            - button [ref=f5e66]
+          - generic [ref=f5e71]:
+            - paragraph [ref=f5e72]: No history yet.
+            - paragraph [ref=f5e73]: After you complete a tool, tap “Save to history” to bookmark the result. We only store a thumbnail + description — never the photo itself.
+            - paragraph [ref=f5e74]:
+              - text: Sign in
+              - link [ref=f5e75] [cursor=pointer]:
+                - /url: /sign-in
+                - text: here
+              - text: when auth is live to keep history across sessions.
+        - button "Open history" [ref=f5e76]: History
+        - generic [ref=f5e81]: local-only while auth is staging
+        - generic [ref=f5e82]:
+          - paragraph [ref=f5e83]: How it works
+          - heading "About 4 minutes, max." [level=2] [ref=f5e84]
+          - generic [ref=f5e85]:
+            - generic [ref=f5e86]:
+              - generic [ref=f5e87]:
+                - generic [ref=f5e88]: "01"
+                - generic [ref=f5e89]: →
+              - heading "Sign with your trackpad, mouse, or finger" [level=3] [ref=f5e90]
+              - paragraph [ref=f5e91]: It looks handwritten, because it is.
+            - generic [ref=f5e92]:
+              - generic [ref=f5e93]:
+                - generic [ref=f5e94]: "02"
+                - generic [ref=f5e95]: →
+              - heading "Or upload a scan" [level=3] [ref=f5e96]
+              - paragraph [ref=f5e97]: We&apos;ll auto-trim and remove the paper color.
+            - generic [ref=f5e98]:
+              - generic [ref=f5e99]:
+                - generic [ref=f5e100]: "03"
+                - generic [ref=f5e101]: →
+              - heading "Pick a style" [level=3] [ref=f5e102]
+              - paragraph [ref=f5e103]: Black ink, navy ink, or transparent stroke.
+            - generic [ref=f5e104]:
+              - generic [ref=f5e105]:
+                - generic [ref=f5e106]: "04"
+                - generic [ref=f5e107]: →
+              - heading "Download a transparent PNG" [level=3] [ref=f5e108]
+              - paragraph [ref=f5e109]: Or an SVG if you want a vectorized signature.
+        - generic [ref=f5e110]:
+          - paragraph [ref=f5e111]: Use cases
+          - heading "People use it for…" [level=2] [ref=f5e112]
+          - generic [ref=f5e113]:
+            - generic [ref=f5e114]:
+              - generic [ref=f5e115]: ★
+              - heading "PDF contracts 01" [level=3] [ref=f5e117]:
+                - text: PDF contracts
+                - generic [ref=f5e118]: "01"
+              - paragraph [ref=f5e119]: Drop a transparent signature into a PDF contract without a wet ink scan.
+            - generic [ref=f5e120]:
+              - generic [ref=f5e121]: ★
+              - heading "Email signatures 02" [level=3] [ref=f5e123]:
+                - text: Email signatures
+                - generic [ref=f5e124]: "02"
+              - paragraph [ref=f5e125]: Use it as a small PNG signature in your email footer.
+            - generic [ref=f5e126]:
+              - generic [ref=f5e127]: ★
+              - heading "Resume attachments 03" [level=3] [ref=f5e129]:
+                - text: Resume attachments
+                - generic [ref=f5e130]: "03"
+              - paragraph [ref=f5e131]: Sign the bottom of a PDF version without touching a printer.
+            - generic [ref=f5e132]:
+              - generic [ref=f5e133]: ★
+              - heading "Form attachments 04" [level=3] [ref=f5e135]:
+                - text: Form attachments
+                - generic [ref=f5e136]: "04"
+              - paragraph [ref=f5e137]: Attach a clean signature to any form that allows PNG uploads.
+        - generic [ref=f5e138]:
+          - paragraph [ref=f5e139]: Supports
+          - generic [ref=f5e140]:
+            - generic [ref=f5e141]:
+              - generic [ref=f5e142]: PNG
+              - generic [ref=f5e143]: SVG
+              - generic [ref=f5e144]: PNG
+              - generic [ref=f5e145]: SVG
+            - generic [ref=f5e146]:
+              - generic [ref=f5e147]: PNG
+              - generic [ref=f5e148]: SVG
+              - generic [ref=f5e149]: PNG
+              - generic [ref=f5e150]: SVG
+        - generic [ref=f5e151]:
+          - paragraph [ref=f5e152]: FAQ
+          - heading "Frequently asked." [level=2] [ref=f5e153]
+          - list [ref=f5e154]:
+            - listitem [ref=f5e155]:
+              - button "Will it look handwritten?" [expanded] [ref=f5e156]:
+                - generic [ref=f5e158]: +
+              - paragraph [ref=f5e160]: Yes — your strokes are recorded with pen pressure (where your device supports it) and reproduced at SVG resolution.
+            - listitem [ref=f5e161]:
+              - button "Can I sign with my finger on a phone?" [ref=f5e162]:
+                - generic [ref=f5e164]: +
+              - paragraph [ref=f5e166]: Yes — we record touch paths at the same fidelity.
+            - listitem [ref=f5e167]:
+              - button "Is the signature legally valid?" [ref=f5e168]:
+                - generic [ref=f5e170]: +
+              - paragraph [ref=f5e172]: It depends on the jurisdiction and the document. PDF e-signatures with cryptographic audit trails use software like DocuSign; this tool produces a transparent image you drop into any document.
+            - listitem [ref=f5e173]:
+              - button "Where does the file go?" [ref=f5e174]:
+                - generic [ref=f5e176]: +
+              - paragraph [ref=f5e178]: It never leaves your browser. We can&apos;t see what you sign.
+            - listitem [ref=f5e179]:
+              - button "Why does the page ask for a name?" [ref=f5e180]:
+                - generic [ref=f5e182]: +
+              - paragraph [ref=f5e184]: It doesn&apos;t — we never ask for it.
+        - generic [ref=f5e185]:
+          - generic [ref=f5e186]: Did it work?
+          - button "Yes, it worked" [ref=f5e187]
+          - button "No, something was off" [ref=f5e190]
+        - generic [ref=f5e193]:
+          - generic [ref=f5e194]:
+            - paragraph [ref=f5e195]: Try another
+            - heading "While you're here" [level=2] [ref=f5e196]
+          - generic [ref=f5e197]:
+            - link [ref=f5e198] [cursor=pointer]:
+              - /url: /tools/photo-resizer
+              - paragraph [ref=f5e199]: "01"
+              - paragraph [ref=f5e200]: Photo resizer
+              - paragraph [ref=f5e201]: Resize to an exact pixel size or KB target. No weird resampling.
+              - paragraph [ref=f5e202]: Open →
+            - link [ref=f5e203] [cursor=pointer]:
+              - /url: /tools/image-compressor
+              - paragraph [ref=f5e204]: "02"
+              - paragraph [ref=f5e205]: Image compressor
+              - paragraph [ref=f5e206]: Shrink a JPG, PNG, or WebP to a fraction of its size — visually identical.
+              - paragraph [ref=f5e207]: Open →
+            - link [ref=f5e208] [cursor=pointer]:
+              - /url: /tools/resume-photo-maker
+              - paragraph [ref=f5e209]: "03"
+              - paragraph [ref=f5e210]: Resume & LinkedIn photo
+              - paragraph [ref=f5e211]: Headshots for resumes, LinkedIn, and X — clean background, recruiter-friendly.
+              - paragraph [ref=f5e212]: Open →
+    - contentinfo [ref=f5e213]:
+      - generic [ref=f5e214]:
+        - generic [ref=f5e215]:
+          - generic [ref=f5e216]: motionix
+          - paragraph [ref=f5e219]: Free image and video tools that respect your privacy. We don't upload anything unless a tool explicitly says we have to.
+          - paragraph [ref=f5e220]: Made with a small slice of pineapple pizza.
+        - generic [ref=f5e221]:
+          - paragraph [ref=f5e222]: Tools
+          - list [ref=f5e223]:
+            - listitem [ref=f5e224]:
+              - link "Background remover" [ref=f5e225] [cursor=pointer]:
+                - /url: /tools/background-remover
+            - listitem [ref=f5e226]:
+              - link "Passport photo maker" [ref=f5e227] [cursor=pointer]:
+                - /url: /tools/passport-photo-maker
+            - listitem [ref=f5e228]:
+              - link "Student ID photo" [ref=f5e229] [cursor=pointer]:
+                - /url: /tools/student-id-photo-maker
+            - listitem [ref=f5e230]:
+              - link "Resume photo" [ref=f5e231] [cursor=pointer]:
+                - /url: /tools/resume-photo-maker
+            - listitem [ref=f5e232]:
+              - link "Signature maker" [ref=f5e233] [cursor=pointer]:
+                - /url: /tools/signature-maker
+            - listitem [ref=f5e234]:
+              - link "Photo resizer" [ref=f5e235] [cursor=pointer]:
+                - /url: /tools/photo-resizer
+            - listitem [ref=f5e236]:
+              - link "Image compressor" [ref=f5e237] [cursor=pointer]:
+                - /url: /tools/image-compressor
+        - generic [ref=f5e238]:
+          - paragraph [ref=f5e239]: Company
+          - list [ref=f5e240]:
+            - listitem [ref=f5e241]:
+              - link "About" [ref=f5e242] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=f5e243]:
+              - link "Blog" [ref=f5e244] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=f5e245]:
+              - link "Privacy" [ref=f5e246] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=f5e247]:
+              - link "Terms" [ref=f5e248] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=f5e249]:
+              - link "Cookies" [ref=f5e250] [cursor=pointer]:
+                - /url: /cookies
+            - listitem [ref=f5e251]:
+              - link "Contact" [ref=f5e252] [cursor=pointer]:
+                - /url: /contact
+      - generic [ref=f5e254]:
+        - paragraph [ref=f5e255]: © 2026 Motionix. No accounts required.
+        - paragraph [ref=f5e256]:
+          - text: Hosted on the edge ·
+          - link "sitemap" [ref=f5e257] [cursor=pointer]:
+            - /url: https://motionix.xyz/sitemap.xml
+  - alert [ref=f5e258]

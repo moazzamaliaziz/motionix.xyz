@@ -1,0 +1,434 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - text: Motionix is free in your browser. No account. No upload. ✕
+    - button "Close announcement" [ref=e5]: ✕
+  - banner [ref=e6]:
+    - generic [ref=e7]:
+      - link "motionix" [ref=e8] [cursor=pointer]:
+        - /url: /
+      - navigation [ref=e11]:
+        - link "Home" [ref=e12] [cursor=pointer]:
+          - /url: /
+        - link "Tools" [ref=e13] [cursor=pointer]:
+          - /url: /tools
+        - link "How it works" [ref=e14] [cursor=pointer]:
+          - /url: /#how
+        - link "FAQ" [ref=e15] [cursor=pointer]:
+          - /url: /#faq
+        - link "Blog" [ref=e16] [cursor=pointer]:
+          - /url: /blog
+      - generic [ref=e17]:
+        - link "Search tools" [ref=e18] [cursor=pointer]:
+          - /url: /tools
+          - text: Quick find
+        - link "Try a tool" [ref=e21] [cursor=pointer]:
+          - /url: /tools/background-remover
+          - generic [ref=e23]: →
+  - main [ref=e24]:
+    - generic [ref=e27]:
+      - generic [ref=e28]: v1.0 — privacy-first image tools, no account needed
+      - heading "Tools that actually finish the job." [level=1] [ref=e30]: Tools thatactually finish the job.
+      - paragraph [ref=e31]: Resize a photo, swap a background, shrink an image for a passport — no upload, no signup, no ads in your face. Your file never leaves the browser for the things that don't need a server.
+      - generic [ref=e32]:
+        - link "Remove a background →" [ref=e33] [cursor=pointer]:
+          - /url: /tools/background-remover
+        - link [ref=e35] [cursor=pointer]:
+          - /url: /tools/passport-photo-maker
+      - generic [ref=e42]:
+        - generic [ref=e43]: Passport
+        - generic [ref=e46]: Resume
+        - generic [ref=e49]: Compress
+        - generic [ref=e52]: Resize
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e58]: "0"
+          - generic [ref=e59]: free tools
+        - generic [ref=e60]:
+          - generic [ref=e61]: "0"
+          - generic [ref=e62]: accounts needed
+        - generic [ref=e63]:
+          - generic [ref=e64]: "0"
+          - generic [ref=e65]: ms median completion
+        - generic [ref=e66]:
+          - generic [ref=e67]: "0"
+          - generic [ref=e68]: minutes to long-form task
+      - generic [ref=e70]:
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - generic [ref=e73]: supports
+            - generic [ref=e74]: PNG
+          - generic [ref=e75]:
+            - generic [ref=e76]: supports
+            - generic [ref=e77]: JPEG
+          - generic [ref=e78]:
+            - generic [ref=e79]: supports
+            - generic [ref=e80]: WebP
+          - generic [ref=e81]:
+            - generic [ref=e82]: supports
+            - generic [ref=e83]: HEIC
+          - generic [ref=e84]:
+            - generic [ref=e85]: supports
+            - generic [ref=e86]: AVIF
+          - generic [ref=e87]:
+            - generic [ref=e88]: supports
+            - generic [ref=e89]: TIFF
+          - generic [ref=e90]:
+            - generic [ref=e91]: supports
+            - generic [ref=e92]: BMP
+          - generic [ref=e93]:
+            - generic [ref=e94]: supports
+            - generic [ref=e95]: GIF
+        - generic [ref=e96]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: supports
+            - generic [ref=e99]: PNG
+          - generic [ref=e100]:
+            - generic [ref=e101]: supports
+            - generic [ref=e102]: JPEG
+          - generic [ref=e103]:
+            - generic [ref=e104]: supports
+            - generic [ref=e105]: WebP
+          - generic [ref=e106]:
+            - generic [ref=e107]: supports
+            - generic [ref=e108]: HEIC
+          - generic [ref=e109]:
+            - generic [ref=e110]: supports
+            - generic [ref=e111]: AVIF
+          - generic [ref=e112]:
+            - generic [ref=e113]: supports
+            - generic [ref=e114]: TIFF
+          - generic [ref=e115]:
+            - generic [ref=e116]: supports
+            - generic [ref=e117]: BMP
+          - generic [ref=e118]:
+            - generic [ref=e119]: supports
+            - generic [ref=e120]: GIF
+    - generic [ref=e122]:
+      - generic [ref=e123]:
+        - paragraph [ref=e124]: The Process
+        - heading "Four steps. No mystery." [level=2] [ref=e125]
+      - generic [ref=e126]:
+        - generic [ref=e127]:
+          - generic [ref=e128]:
+            - generic [ref=e129]: "01"
+            - generic [ref=e130]: →
+          - heading "Drop your file" [level=3] [ref=e131]
+          - paragraph [ref=e132]: Drop it in. We support JPG, PNG, WebP, HEIC, AVIF — whatever your phone gave you.
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - generic [ref=e135]: "02"
+            - generic [ref=e136]: →
+          - heading "Pick what to do" [level=3] [ref=e137]
+          - paragraph [ref=e138]: Resize, compress, swap a background, prep a passport photo. One click.
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - generic [ref=e141]: "03"
+            - generic [ref=e142]: →
+          - heading "We do it in your browser" [level=3] [ref=e143]
+          - paragraph [ref=e144]: For things that don't need a server, your file stays on your device. The download link is instant.
+        - generic [ref=e145]:
+          - generic [ref=e146]:
+            - generic [ref=e147]: "04"
+            - generic [ref=e148]: →
+          - heading "Ship it" [level=3] [ref=e149]
+          - paragraph [ref=e150]: Drop into the form, save in the right size, attach to the email. No watermark. No login wall.
+    - generic [ref=e151]:
+      - generic [ref=e153]:
+        - paragraph [ref=e154]: The catalog
+        - heading "The ones we keep using." [level=2] [ref=e155]
+        - paragraph [ref=e156]: Seven tools right now. The two with real work to do are flagged as functional. The rest are stubs we're filling out — they don't break the page; we just refuse to ship empty promises.
+      - generic [ref=e157]:
+        - generic [ref=e158]:
+          - generic [ref=e159]: ★
+          - heading "Background remover 01 · functional" [level=3] [ref=e161]:
+            - text: Background remover
+            - generic [ref=e162]: 01 · functional
+          - paragraph [ref=e163]: Erase the background from a portrait, product, or pet in seconds.
+          - link "Open →" [ref=e164] [cursor=pointer]:
+            - /url: /tools/background-remover
+        - generic [ref=e165]:
+          - generic [ref=e166]: ★
+          - heading "Passport photo maker 02 · functional" [level=3] [ref=e168]:
+            - text: Passport photo maker
+            - generic [ref=e169]: 02 · functional
+          - paragraph [ref=e170]: Frame a passport, visa, or ID photo that won&apos;t get rejected at the embassy.
+          - link "Open →" [ref=e171] [cursor=pointer]:
+            - /url: /tools/passport-photo-maker
+        - generic [ref=e172]:
+          - generic [ref=e173]: ★
+          - heading "Student ID photo maker 03 · functional" [level=3] [ref=e175]:
+            - text: Student ID photo maker
+            - generic [ref=e176]: 03 · functional
+          - paragraph [ref=e177]: ID photos sized for college portals, scholarship forms, and exam applications.
+          - link "Open →" [ref=e178] [cursor=pointer]:
+            - /url: /tools/student-id-photo-maker
+        - generic [ref=e179]:
+          - generic [ref=e180]: ★
+          - heading "Resume & LinkedIn photo 04 · functional" [level=3] [ref=e182]:
+            - text: Resume & LinkedIn photo
+            - generic [ref=e183]: 04 · functional
+          - paragraph [ref=e184]: Headshots for resumes, LinkedIn, and X — clean background, recruiter-friendly.
+          - link "Open →" [ref=e185] [cursor=pointer]:
+            - /url: /tools/resume-photo-maker
+        - generic [ref=e186]:
+          - generic [ref=e187]: ★
+          - heading "Signature maker 05 · functional" [level=3] [ref=e189]:
+            - text: Signature maker
+            - generic [ref=e190]: 05 · functional
+          - paragraph [ref=e191]: Make a transparent signature PNG — read, sign, send.
+          - link "Open →" [ref=e192] [cursor=pointer]:
+            - /url: /tools/signature-maker
+        - generic [ref=e193]:
+          - generic [ref=e194]: ★
+          - heading "Photo resizer 06 · functional" [level=3] [ref=e196]:
+            - text: Photo resizer
+            - generic [ref=e197]: 06 · functional
+          - paragraph [ref=e198]: Resize to an exact pixel size or KB target. No weird resampling.
+          - link "Open →" [ref=e199] [cursor=pointer]:
+            - /url: /tools/photo-resizer
+        - generic [ref=e200]:
+          - generic [ref=e201]: ★
+          - heading "Image compressor 07 · functional" [level=3] [ref=e203]:
+            - text: Image compressor
+            - generic [ref=e204]: 07 · functional
+          - paragraph [ref=e205]: Shrink a JPG, PNG, or WebP to a fraction of its size — visually identical.
+          - link "Open →" [ref=e206] [cursor=pointer]:
+            - /url: /tools/image-compressor
+        - generic [ref=e207]:
+          - generic [ref=e208]: ★
+          - heading "Video compressor 08 · functional" [level=3] [ref=e210]:
+            - text: Video compressor
+            - generic [ref=e211]: 08 · functional
+          - paragraph [ref=e212]: Shrink an MP4 or MOV to email-able size without re-uploading it.
+          - link "Open →" [ref=e213] [cursor=pointer]:
+            - /url: /tools/video-compressor
+      - link "See the full list →" [ref=e215] [cursor=pointer]:
+        - /url: /tools
+    - generic [ref=e216]:
+      - generic [ref=e218]:
+        - paragraph [ref=e219]: From the field
+        - heading "Notes from real humans." [level=2] [ref=e220]
+      - generic [ref=e221]:
+        - generic [ref=e222]:
+          - generic [ref=e223]:
+            - generic [ref=e224]: “
+            - paragraph [ref=e225]: I made my kid's passport photo in 4 minutes on my couch. Used it at the consulate next morning. Stamp.
+            - generic [ref=e226]:
+              - generic [ref=e227]: Parent of two
+              - generic [ref=e228]: London, UK
+          - generic [ref=e229]:
+            - generic [ref=e230]: “
+            - paragraph [ref=e231]: Background remover for product shots used to mean another SaaS login. This is in my browser.
+            - generic [ref=e232]:
+              - generic [ref=e233]: Maya R.
+              - generic [ref=e234]: Etsy seller
+          - generic [ref=e235]:
+            - generic [ref=e236]: “
+            - paragraph [ref=e237]: Got a 12 MB photo down to 380 KB. Email form had a 4 MB cap and we were racing a deadline.
+            - generic [ref=e238]:
+              - generic [ref=e239]: Devon
+              - generic [ref=e240]: Designer
+          - generic [ref=e241]:
+            - generic [ref=e242]: “
+            - paragraph [ref=e243]: The fact that it just runs in the browser is the feature. I don't want to upload every photo to someone's server.
+            - generic [ref=e244]:
+              - generic [ref=e245]: Sara K.
+              - generic [ref=e246]: Photographer
+          - generic [ref=e247]:
+            - generic [ref=e248]: “
+            - paragraph [ref=e249]: Used the resume photo tool. Got a clean white background without paying $20/mo.
+            - generic [ref=e250]:
+              - generic [ref=e251]: Aiden P.
+              - generic [ref=e252]: Job seeker
+        - generic [ref=e253]:
+          - generic [ref=e254]:
+            - generic [ref=e255]: “
+            - paragraph [ref=e256]: I made my kid's passport photo in 4 minutes on my couch. Used it at the consulate next morning. Stamp.
+            - generic [ref=e257]:
+              - generic [ref=e258]: Parent of two
+              - generic [ref=e259]: London, UK
+          - generic [ref=e260]:
+            - generic [ref=e261]: “
+            - paragraph [ref=e262]: Background remover for product shots used to mean another SaaS login. This is in my browser.
+            - generic [ref=e263]:
+              - generic [ref=e264]: Maya R.
+              - generic [ref=e265]: Etsy seller
+          - generic [ref=e266]:
+            - generic [ref=e267]: “
+            - paragraph [ref=e268]: Got a 12 MB photo down to 380 KB. Email form had a 4 MB cap and we were racing a deadline.
+            - generic [ref=e269]:
+              - generic [ref=e270]: Devon
+              - generic [ref=e271]: Designer
+          - generic [ref=e272]:
+            - generic [ref=e273]: “
+            - paragraph [ref=e274]: The fact that it just runs in the browser is the feature. I don't want to upload every photo to someone's server.
+            - generic [ref=e275]:
+              - generic [ref=e276]: Sara K.
+              - generic [ref=e277]: Photographer
+          - generic [ref=e278]:
+            - generic [ref=e279]: “
+            - paragraph [ref=e280]: Used the resume photo tool. Got a clean white background without paying $20/mo.
+            - generic [ref=e281]:
+              - generic [ref=e282]: Aiden P.
+              - generic [ref=e283]: Job seeker
+    - generic [ref=e284]:
+      - generic [ref=e286]:
+        - paragraph [ref=e287]: Pricing
+        - heading "Free, simple. Forever." [level=2] [ref=e288]
+      - generic [ref=e289]:
+        - generic [ref=e291]:
+          - heading "Free" [level=3] [ref=e292]
+          - generic [ref=e293]:
+            - generic [ref=e294]: $0
+            - generic [ref=e295]: forever
+          - list [ref=e296]:
+            - listitem [ref=e297]:
+              - generic [ref=e298]: ✓
+              - generic [ref=e299]: Every tool in the catalog
+            - listitem [ref=e300]:
+              - generic [ref=e301]: ✓
+              - generic [ref=e302]: No watermarks
+            - listitem [ref=e303]:
+              - generic [ref=e304]: ✓
+              - generic [ref=e305]: No account required
+            - listitem [ref=e306]:
+              - generic [ref=e307]: ✓
+              - generic [ref=e308]: Files stay in your browser
+          - link "Use a tool now" [ref=e310] [cursor=pointer]:
+            - /url: /tools
+        - generic [ref=e312]:
+          - generic [ref=e313]: Most-chosen
+          - heading "Freee to use with friend" [level=3] [ref=e314]
+          - generic [ref=e315]:
+            - generic [ref=e316]: $0
+            - generic [ref=e317]: — tell one friend
+          - list [ref=e318]:
+            - listitem [ref=e319]:
+              - generic [ref=e320]: ✓
+              - generic [ref=e321]: Everything in Free
+            - listitem [ref=e322]:
+              - generic [ref=e323]: ✓
+              - generic [ref=e324]: Bring a friend who has a passport photo to make
+            - listitem [ref=e325]:
+              - generic [ref=e326]: ✓
+              - generic [ref=e327]: First to know when site-wide apps launch
+            - listitem [ref=e328]:
+              - generic [ref=e329]: ✓
+              - generic [ref=e330]: Optional signup keeps history
+          - link "Share motionix" [ref=e332] [cursor=pointer]:
+            - /url: /about
+        - generic [ref=e334]:
+          - heading "For studios" [level=3] [ref=e335]
+          - generic [ref=e336]:
+            - generic [ref=e337]: Open
+            - generic [ref=e338]: for teams
+          - list [ref=e339]:
+            - listitem [ref=e340]:
+              - generic [ref=e341]: ✓
+              - generic [ref=e342]: Bulk processing
+            - listitem [ref=e343]:
+              - generic [ref=e344]: ✓
+              - generic [ref=e345]: Same engine, less waiting around
+            - listitem [ref=e346]:
+              - generic [ref=e347]: ✓
+              - generic [ref=e348]: White-glove privacy review
+            - listitem [ref=e349]:
+              - generic [ref=e350]: ✓
+              - generic [ref=e351]: Per-team billing on request
+          - link "Email us" [ref=e353] [cursor=pointer]:
+            - /url: /contact
+    - generic [ref=e354]:
+      - generic [ref=e355]:
+        - paragraph [ref=e356]: FAQ
+        - heading "What people ask." [level=2] [ref=e357]
+      - list [ref=e358]:
+        - listitem [ref=e359]:
+          - button "Do I need an account?" [expanded] [ref=e360]:
+            - generic [ref=e362]: +
+          - paragraph [ref=e364]: No. Drop your file, get the result. We don't ask for an email. No signup wall greets you after your first task.
+        - listitem [ref=e365]:
+          - button "Does my file get uploaded?" [ref=e366]:
+            - generic [ref=e368]: +
+          - paragraph [ref=e370]: For the tools that can run in your browser — background removal, image compression, format conversion — your file stays on your device. Nothing on our servers. For tools that genuinely need a server (we have very few right now), we tell you that before you upload.
+        - listitem [ref=e371]:
+          - button "Are these tools accurate for passport photos?" [ref=e372]:
+            - generic [ref=e374]: +
+          - paragraph [ref=e376]: Our passport tool supports the four highest-volume country specs (US, UK, India, Schengen). We always recommend printing a low-stakes test before mailing the final photo. We don't replace the studio — we replace the photo-booth trip and the $15 fee.
+        - listitem [ref=e377]:
+          - button "Is the passport tool really free?" [ref=e378]:
+            - generic [ref=e380]: +
+          - paragraph [ref=e382]: Yes, in Phase 1. We may add a small payment option later for the print-ready high-resolution download (we charge under $5), but free preview is permanent.
+        - listitem [ref=e383]:
+          - button "What about my privacy?" [ref=e384]:
+            - generic [ref=e386]: +
+          - paragraph [ref=e388]: "Read the privacy page for the legal copy. The short version: we don't store media, we don't sell data, we don't show ads in tools, we don't track which image you uploaded. We track which tool you used and whether it completed successfully — that's how we know what's working."
+        - listitem [ref=e389]:
+          - button "Why is there no signup but tons of free stuff?" [ref=e390]:
+            - generic [ref=e392]: +
+          - paragraph [ref=e394]: Because ad-soup free sites are tiring. We let the tool talk for itself and we run on small ads in the log pages and tool explanations — not over your work.
+        - listitem [ref=e395]:
+          - button "Can I use my favourite browser?" [ref=e396]:
+            - generic [ref=e398]: +
+          - paragraph [ref=e400]: Chrome, Edge, Safari 16.4+, and Firefox 111+ all work. Safari on iOS works for everything except the video compressor (which we're rolling out in Phase 2).
+        - listitem [ref=e401]:
+          - button "Who builds this thing?" [ref=e402]:
+            - generic [ref=e404]: +
+          - paragraph [ref=e406]: A solo operator (me). Send nice notes via the contact page; I'll read them. Report a bug the same way.
+  - contentinfo [ref=e407]:
+    - generic [ref=e408]:
+      - generic [ref=e409]:
+        - generic [ref=e410]: motionix
+        - paragraph [ref=e413]: Free image and video tools that respect your privacy. We don't upload anything unless a tool explicitly says we have to.
+        - paragraph [ref=e414]: Made with a small slice of pineapple pizza.
+      - generic [ref=e415]:
+        - paragraph [ref=e416]: Tools
+        - list [ref=e417]:
+          - listitem [ref=e418]:
+            - link "Background remover" [ref=e419] [cursor=pointer]:
+              - /url: /tools/background-remover
+          - listitem [ref=e420]:
+            - link "Passport photo maker" [ref=e421] [cursor=pointer]:
+              - /url: /tools/passport-photo-maker
+          - listitem [ref=e422]:
+            - link "Student ID photo" [ref=e423] [cursor=pointer]:
+              - /url: /tools/student-id-photo-maker
+          - listitem [ref=e424]:
+            - link "Resume photo" [ref=e425] [cursor=pointer]:
+              - /url: /tools/resume-photo-maker
+          - listitem [ref=e426]:
+            - link "Signature maker" [ref=e427] [cursor=pointer]:
+              - /url: /tools/signature-maker
+          - listitem [ref=e428]:
+            - link "Photo resizer" [ref=e429] [cursor=pointer]:
+              - /url: /tools/photo-resizer
+          - listitem [ref=e430]:
+            - link "Image compressor" [ref=e431] [cursor=pointer]:
+              - /url: /tools/image-compressor
+      - generic [ref=e432]:
+        - paragraph [ref=e433]: Company
+        - list [ref=e434]:
+          - listitem [ref=e435]:
+            - link "About" [ref=e436] [cursor=pointer]:
+              - /url: /about
+          - listitem [ref=e437]:
+            - link "Blog" [ref=e438] [cursor=pointer]:
+              - /url: /blog
+          - listitem [ref=e439]:
+            - link "Privacy" [ref=e440] [cursor=pointer]:
+              - /url: /privacy
+          - listitem [ref=e441]:
+            - link "Terms" [ref=e442] [cursor=pointer]:
+              - /url: /terms
+          - listitem [ref=e443]:
+            - link "Cookies" [ref=e444] [cursor=pointer]:
+              - /url: /cookies
+          - listitem [ref=e445]:
+            - link "Contact" [ref=e446] [cursor=pointer]:
+              - /url: /contact
+    - generic [ref=e448]:
+      - paragraph [ref=e449]: © 2026 Motionix. No accounts required.
+      - paragraph [ref=e450]:
+        - text: Hosted on the edge ·
+        - link "sitemap" [ref=e451] [cursor=pointer]:
+          - /url: https://motionix.xyz/sitemap.xml

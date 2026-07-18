@@ -1,12 +1,11 @@
 /**
  * Single source of truth for every tool on Motionix.
  *
- * The 7 tools currently shipped (Phase 1):
- *   - 2 functional (background-remover, passport-photo-maker)
- *   - 5 stub tool pages with real, distinct content + schema
- *
- * The video-compressor is intentionally absent from Phase 1 — explained on the
- * landing page, deferred to Phase 2 because ffmpeg.wasm first-load is too heavy.
+ * All 8 tools are functional and run client-side:
+ *   - background-remover, passport-photo-maker (ONNX/compliance)
+ *   - student-id-photo-maker, resume-photo-maker, signature-maker,
+ *     photo-resizer, image-compressor (canvas)
+ *   - video-compressor (WebCodecs/Mediabunny)
  *
  * NEVER add a slug-collision; NEVER use a slug like "watermark-remover" or
  * "youtube-downloader" — those are legal/red-flag categories.
@@ -230,7 +229,7 @@ export const tools: Tool[] = [
       "Make ID photos sized for the Common App, scholarship portals, and university admissions. Free, no signup, runs in your browser.",
     faqs: [
       { q: "Is this for kids?", a: "Any age. The Common App and scholarship presets assume adult headshot framing." },
-      { q: "Why isn&apos;t it online yet?", a: "It uses the same engine as the passport tool — we just need to add the school presets. Coming up next." },
+      { q: "Is it the same as the passport tool?", a: "Same engine — different presets. We added Common App, scholarship, and exam-day specs on top of the passport cropping logic." },
       { q: "Will it always be free?", a: "Yes, the photo cropping is free. If a school asks for a quick mail-back print service, that&apos;s the part we may charge for." },
       { q: "What&apos;s the privacy story?", a: "Same as the rest of the site — your photo stays in your browser." },
       { q: "What file size limits?", a: "Right now we cap at 10 MB and a max 4096-pixel edge. Higher portals, larger requirements? Email us." },
@@ -461,7 +460,6 @@ export const tools: Tool[] = [
 
 export const toolsByPhase = {
   functional: tools.filter((t) => t.phase === "functional"),
-  stub: tools.filter((t) => t.phase === "stub"),
 } as const;
 
 export const TOOL_COUNT = tools.length;

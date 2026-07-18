@@ -29,7 +29,7 @@ const items = [
   },
   {
     q: "Can I use my favourite browser?",
-    a: "Chrome, Edge, Safari 16.4+, and Firefox 111+ all work. Safari on iOS works for everything except the video compressor (which we're rolling out in Phase 2).",
+    a: "Chrome, Edge, Safari 16.4+, and Firefox 111+ all work. Safari on iOS works for everything except the video compressor (which requires WebCodecs — available in Safari 16.4+ on macOS, and in Chrome/Edge on iOS).",
   },
   {
     q: "Who builds this thing?",

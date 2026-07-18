@@ -24,9 +24,9 @@ export default function AboutPage() {
           I know about it before you do, but if I miss it, tell me anyway.
         </p>
         <p>
-          The site is open about its limits. If a tool says "coming up in Phase 2", it is. If we
-          can&apos;t run something in your browser because the model is too big, we say so and don&apos;t
-          hide a server call behind a "magic" button.
+          The site is open about its limits. All eight tools run in your browser — no server calls,
+          no hidden uploads. If we can&apos;t run something client-side because the model is too big,
+          we say so and don&apos;t hide a server call behind a &quot;magic&quot; button.
         </p>
         <p>
           The site runs free. We make a small amount of money from ads on the log/blog side of

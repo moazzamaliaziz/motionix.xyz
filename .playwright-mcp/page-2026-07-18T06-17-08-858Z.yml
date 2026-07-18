@@ -1,0 +1,241 @@
+- generic [active] [ref=f6e1]:
+  - generic [ref=f6e2]:
+    - generic [ref=f6e3]:
+      - text: Motionix is free in your browser. No account. No upload. ✕
+      - button "Close announcement" [ref=f6e6]: ✕
+    - banner [ref=f6e7]:
+      - generic [ref=f6e8]:
+        - link "motionix" [ref=f6e9] [cursor=pointer]:
+          - /url: /
+        - navigation [ref=f6e12]:
+          - link "Home" [ref=f6e13] [cursor=pointer]:
+            - /url: /
+          - link "Tools" [ref=f6e14] [cursor=pointer]:
+            - /url: /tools
+          - link "How it works" [ref=f6e15] [cursor=pointer]:
+            - /url: /#how
+          - link "FAQ" [ref=f6e16] [cursor=pointer]:
+            - /url: /#faq
+          - link "Blog" [ref=f6e17] [cursor=pointer]:
+            - /url: /blog
+        - generic [ref=f6e18]:
+          - link "Search tools" [ref=f6e19] [cursor=pointer]:
+            - /url: /tools
+            - text: Quick find
+          - link "Try a tool" [ref=f6e22] [cursor=pointer]:
+            - /url: /tools/background-remover
+            - generic [ref=f6e24]: →
+    - main [ref=f6e25]:
+      - generic [ref=f6e26]:
+        - generic [ref=f6e27]:
+          - paragraph [ref=f6e28]: Motionix · tools · functional
+          - heading "Video compressor" [level=1] [ref=f6e29]
+          - paragraph [ref=f6e30]: Drop a video file and pick a target size or quality. We transcode in your browser using WebCodecs — no upload, no waiting on a server.
+        - generic [ref=f6e31]:
+          - paragraph [ref=f6e32]: Your browser doesn't support WebCodecs yet.
+          - paragraph [ref=f6e33]: Try Chrome / Edge / Safari 16.4+. We need hardware video encoding for this tool to run in your tab without uploading.
+        - complementary [ref=f6e34]:
+          - generic [ref=f6e35]:
+            - paragraph [ref=f6e41]: History
+            - button [ref=f6e42]
+          - generic [ref=f6e47]:
+            - paragraph [ref=f6e48]: No history yet.
+            - paragraph [ref=f6e49]: After you complete a tool, tap “Save to history” to bookmark the result. We only store a thumbnail + description — never the photo itself.
+            - paragraph [ref=f6e50]:
+              - text: Sign in
+              - link [ref=f6e51] [cursor=pointer]:
+                - /url: /sign-in
+                - text: here
+              - text: when auth is live to keep history across sessions.
+        - button "Open history" [ref=f6e52]: History
+        - generic [ref=f6e57]: local-only while auth is staging
+        - generic [ref=f6e58]:
+          - paragraph [ref=f6e59]: How it works
+          - heading "About 4 minutes, max." [level=2] [ref=f6e60]
+          - generic [ref=f6e61]:
+            - generic [ref=f6e62]:
+              - generic [ref=f6e63]:
+                - generic [ref=f6e64]: "01"
+                - generic [ref=f6e65]: →
+              - heading "Drop your video" [level=3] [ref=f6e66]
+              - paragraph [ref=f6e67]: MP4, MOV, MKV, or WebM. Up to 200 MB; larger files need a server is too long.
+            - generic [ref=f6e68]:
+              - generic [ref=f6e69]:
+                - generic [ref=f6e70]: "02"
+                - generic [ref=f6e71]: →
+              - heading "Pick a target" [level=3] [ref=f6e72]
+              - paragraph [ref=f6e73]: Target KB, a percentage of the original, or pick a fixed bitrate.
+            - generic [ref=f6e74]:
+              - generic [ref=f6e75]:
+                - generic [ref=f6e76]: "03"
+                - generic [ref=f6e77]: →
+              - heading "We transcode" [level=3] [ref=f6e78]
+              - paragraph [ref=f6e79]: The browser re-encodes via WebCodecs. On a typical laptop a 60 MB MP4 takes about 30–60 seconds.
+            - generic [ref=f6e80]:
+              - generic [ref=f6e81]:
+                - generic [ref=f6e82]: "04"
+                - generic [ref=f6e83]: →
+              - heading "Download" [level=3] [ref=f6e84]
+              - paragraph [ref=f6e85]: Save the resulting MP4. We don&apos;t move your file anywhere in the meantime.
+        - generic [ref=f6e86]:
+          - paragraph [ref=f6e87]: Use cases
+          - heading "People use it for…" [level=2] [ref=f6e88]
+          - generic [ref=f6e89]:
+            - generic [ref=f6e90]:
+              - generic [ref=f6e91]: ★
+              - heading "Email attachments 01" [level=3] [ref=f6e93]:
+                - text: Email attachments
+                - generic [ref=f6e94]: "01"
+              - paragraph [ref=f6e95]: Most email forms cap at 10-20 MB. Compress a 50 MB MP4 down to fit.
+            - generic [ref=f6e96]:
+              - generic [ref=f6e97]: ★
+              - heading "Slack / Teams / Discord 02" [level=3] [ref=f6e99]:
+                - text: Slack / Teams / Discord
+                - generic [ref=f6e100]: "02"
+              - paragraph [ref=f6e101]: Most messenger clients compress or choke on files over 50 MB. Pre-shrink them.
+            - generic [ref=f6e102]:
+              - generic [ref=f6e103]: ★
+              - heading "WhatsApp status 03" [level=3] [ref=f6e105]:
+                - text: WhatsApp status
+                - generic [ref=f6e106]: "03"
+              - paragraph [ref=f6e107]: WhatsApp caps videos at ~16 MB on iOS. Pick a target and ship.
+            - generic [ref=f6e108]:
+              - generic [ref=f6e109]: ★
+              - heading "Backup cleanup 04" [level=3] [ref=f6e111]:
+                - text: Backup cleanup
+                - generic [ref=f6e112]: "04"
+              - paragraph [ref=f6e113]: Re-encode old recordings at a sensible bitrate before archival.
+        - generic [ref=f6e114]:
+          - paragraph [ref=f6e115]: Supports
+          - generic [ref=f6e116]:
+            - generic [ref=f6e117]:
+              - generic [ref=f6e118]: MP4
+              - generic [ref=f6e119]: MOV
+              - generic [ref=f6e120]: MKV
+              - generic [ref=f6e121]: WebM
+              - generic [ref=f6e122]: MP4
+              - generic [ref=f6e123]: MOV
+              - generic [ref=f6e124]: MKV
+              - generic [ref=f6e125]: WebM
+            - generic [ref=f6e126]:
+              - generic [ref=f6e127]: MP4
+              - generic [ref=f6e128]: MOV
+              - generic [ref=f6e129]: MKV
+              - generic [ref=f6e130]: WebM
+              - generic [ref=f6e131]: MP4
+              - generic [ref=f6e132]: MOV
+              - generic [ref=f6e133]: MKV
+              - generic [ref=f6e134]: WebM
+        - generic [ref=f6e135]:
+          - paragraph [ref=f6e136]: FAQ
+          - heading "Frequently asked." [level=2] [ref=f6e137]
+          - list [ref=f6e138]:
+            - listitem [ref=f6e139]:
+              - button "Why is this faster than online compressors?" [expanded] [ref=f6e140]:
+                - generic [ref=f6e142]: +
+              - paragraph [ref=f6e144]: Because we never upload your file. The transcoder runs on your machine via WebCodecs.
+            - listitem [ref=f6e145]:
+              - button "Is audio re-encoded too?" [ref=f6e146]:
+                - generic [ref=f6e148]: +
+              - paragraph [ref=f6e150]: Yes — we keep audio at AAC. If your source has multiple audio tracks we keep the first one.
+            - listitem [ref=f6e151]:
+              - button "Why no file over 200 MB?" [ref=f6e152]:
+                - generic [ref=f6e154]: +
+              - paragraph [ref=f6e156]: Browser tab memory limits. A 4 GB file would crash most tabs. We&apos;re honest about the cap.
+            - listitem [ref=f6e157]:
+              - button "Does it support vertical videos?" [ref=f6e158]:
+                - generic [ref=f6e160]: +
+              - paragraph [ref=f6e162]: Yes — aspect ratio is preserved as-is. We don&apos;t change orientation.
+            - listitem [ref=f6e163]:
+              - button "What about subtitles?" [ref=f6e164]:
+                - generic [ref=f6e166]: +
+              - paragraph [ref=f6e168]: Phase 2 stretch goal. Right now they are dropped.
+            - listitem [ref=f6e169]:
+              - button "Where does the file go?" [ref=f6e170]:
+                - generic [ref=f6e172]: +
+              - paragraph [ref=f6e174]: Browser. Always. We don&apos;t see it.
+        - generic [ref=f6e175]:
+          - generic [ref=f6e176]: Did it work?
+          - button "Yes, it worked" [ref=f6e177]
+          - button "No, something was off" [ref=f6e180]
+        - generic [ref=f6e183]:
+          - generic [ref=f6e184]:
+            - paragraph [ref=f6e185]: Try another
+            - heading "While you're here" [level=2] [ref=f6e186]
+          - generic [ref=f6e187]:
+            - link [ref=f6e188] [cursor=pointer]:
+              - /url: /tools/image-compressor
+              - paragraph [ref=f6e189]: "01"
+              - paragraph [ref=f6e190]: Image compressor
+              - paragraph [ref=f6e191]: Shrink a JPG, PNG, or WebP to a fraction of its size — visually identical.
+              - paragraph [ref=f6e192]: Open →
+            - link [ref=f6e193] [cursor=pointer]:
+              - /url: /tools/photo-resizer
+              - paragraph [ref=f6e194]: "02"
+              - paragraph [ref=f6e195]: Photo resizer
+              - paragraph [ref=f6e196]: Resize to an exact pixel size or KB target. No weird resampling.
+              - paragraph [ref=f6e197]: Open →
+            - link [ref=f6e198] [cursor=pointer]:
+              - /url: /tools/background-remover
+              - paragraph [ref=f6e199]: "03"
+              - paragraph [ref=f6e200]: Background remover
+              - paragraph [ref=f6e201]: Erase the background from a portrait, product, or pet in seconds.
+              - paragraph [ref=f6e202]: Open →
+    - contentinfo [ref=f6e203]:
+      - generic [ref=f6e204]:
+        - generic [ref=f6e205]:
+          - generic [ref=f6e206]: motionix
+          - paragraph [ref=f6e209]: Free image and video tools that respect your privacy. We don't upload anything unless a tool explicitly says we have to.
+          - paragraph [ref=f6e210]: Made with a small slice of pineapple pizza.
+        - generic [ref=f6e211]:
+          - paragraph [ref=f6e212]: Tools
+          - list [ref=f6e213]:
+            - listitem [ref=f6e214]:
+              - link "Background remover" [ref=f6e215] [cursor=pointer]:
+                - /url: /tools/background-remover
+            - listitem [ref=f6e216]:
+              - link "Passport photo maker" [ref=f6e217] [cursor=pointer]:
+                - /url: /tools/passport-photo-maker
+            - listitem [ref=f6e218]:
+              - link "Student ID photo" [ref=f6e219] [cursor=pointer]:
+                - /url: /tools/student-id-photo-maker
+            - listitem [ref=f6e220]:
+              - link "Resume photo" [ref=f6e221] [cursor=pointer]:
+                - /url: /tools/resume-photo-maker
+            - listitem [ref=f6e222]:
+              - link "Signature maker" [ref=f6e223] [cursor=pointer]:
+                - /url: /tools/signature-maker
+            - listitem [ref=f6e224]:
+              - link "Photo resizer" [ref=f6e225] [cursor=pointer]:
+                - /url: /tools/photo-resizer
+            - listitem [ref=f6e226]:
+              - link "Image compressor" [ref=f6e227] [cursor=pointer]:
+                - /url: /tools/image-compressor
+        - generic [ref=f6e228]:
+          - paragraph [ref=f6e229]: Company
+          - list [ref=f6e230]:
+            - listitem [ref=f6e231]:
+              - link "About" [ref=f6e232] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=f6e233]:
+              - link "Blog" [ref=f6e234] [cursor=pointer]:
+                - /url: /blog
+            - listitem [ref=f6e235]:
+              - link "Privacy" [ref=f6e236] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=f6e237]:
+              - link "Terms" [ref=f6e238] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=f6e239]:
+              - link "Cookies" [ref=f6e240] [cursor=pointer]:
+                - /url: /cookies
+            - listitem [ref=f6e241]:
+              - link "Contact" [ref=f6e242] [cursor=pointer]:
+                - /url: /contact
+      - generic [ref=f6e244]:
+        - paragraph [ref=f6e245]: © 2026 Motionix. No accounts required.
+        - paragraph [ref=f6e246]:
+          - text: Hosted on the edge ·
+          - link "sitemap" [ref=f6e247] [cursor=pointer]:
+            - /url: https://motionix.xyz/sitemap.xml
+  - alert [ref=f6e248]

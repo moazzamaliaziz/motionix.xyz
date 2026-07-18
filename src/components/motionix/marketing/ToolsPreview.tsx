@@ -26,9 +26,7 @@ export function ToolsPreview() {
             The ones we keep using.
           </h2>
           <p className="mt-4 text-foreground/60">
-            Seven tools right now. The two with real work to do are flagged as functional.
-            The rest are stubs we&apos;re filling out — they don&apos;t break the page; we just
-            refuse to ship empty promises.
+            Eight tools, all running in your browser. No upload, no account, no tracking.
           </p>
         </RevealOnScroll>
       </div>
@@ -36,7 +34,7 @@ export function ToolsPreview() {
       <MagicBento
         cells={tools.map((t, i) => ({
           title: t.name,
-          meta: t.phase === "functional" ? `${String(i + 1).padStart(2, "0")} · functional` : `${String(i + 1).padStart(2, "0")} · stub`,
+          meta: `${String(i + 1).padStart(2, "0")} · live`,
           description: t.tagline,
           tone: (["peach", "mint", "blush", "sky", "paper", "ember", "peach"] as const)[i % 7] ?? "paper",
           icon: <span className="text-foreground/80 text-2xl">★</span>,
