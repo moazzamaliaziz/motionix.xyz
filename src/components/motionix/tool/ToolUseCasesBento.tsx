@@ -15,14 +15,6 @@ export function ToolFormats({ tool }: { tool: Tool }) {
             {f}
           </span>
         ))}
-        {tool.formats.map((f) => (
-          <span
-            key={`${f}b`}
-            className="font-display text-3xl text-foreground/60 tracking-tight"
-          >
-            {f}
-          </span>
-        ))}
       </Marquee>
     </section>
   );

@@ -1,11 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { LuDownload, LuLoader, LuTrash2 } from "react-icons/lu";
+import { LuDownload, LuLoader, LuTrash2, LuShieldAlert, LuX } from "react-icons/lu";
 import { ToolDropzone } from "../ToolDropzone";
 import { ToolResult } from "../ToolResult";
 import { SaveToHistory } from "../SaveToHistory";
 import { CloudflareUpload } from "../CloudflareUpload";
+import Link from "next/link";
 
 export function BackgroundRemoverImpl() {
   const [status, setStatus] = useState<"idle" | "loading" | "ready" | "running" | "done" | "error">("idle");
@@ -18,6 +19,7 @@ export function BackgroundRemoverImpl() {
   const [bgColor, setBgColor] = useState<string>("transparent");
   const [shadowOpacity, setShadowOpacity] = useState<number>(0.25);
   const [shadowSize, setShadowSize] = useState<number>(1);
+  const [showComplianceNudge, setShowComplianceNudge] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const removeFnRef = useRef<null | ((input: Blob) => Promise<Blob>)>(null);
 
@@ -247,6 +249,30 @@ export function BackgroundRemoverImpl() {
       {outUrl ? (
         <ToolResult>
           <div className="space-y-4">
+            {showComplianceNudge ? (
+              <div className="flex items-start gap-2.5 rounded-2xl border border-amber-300/40 bg-amber-50/70 p-3 text-xs text-foreground/70 leading-relaxed">
+                <LuShieldAlert className="size-4 shrink-0 mt-0.5 text-amber-700" />
+                <div className="flex-1">
+                  <strong>Using this for a passport, visa, or government ID?</strong>{" "}
+                  Digital edits get rejected by most issuing authorities. The{" "}
+                  <Link
+                    href="/tools/passport-photo-maker"
+                    className="text-primary underline-offset-4 hover:underline"
+                  >
+                    Passport Photo Maker
+                  </Link>{" "}
+                  never edits a single pixel of your face.
+                </div>
+                <button
+                  type="button"
+                  aria-label="Dismiss"
+                  onClick={() => setShowComplianceNudge(false)}
+                  className="text-foreground/40 hover:text-foreground/70 shrink-0"
+                >
+                  <LuX className="size-3.5" />
+                </button>
+              </div>
+            ) : null}
             <div>
               <p className="eyebrow-mono text-foreground/50 mb-2">Background color</p>
               <div className="flex flex-wrap gap-2">

@@ -36,19 +36,19 @@ const nextConfig: NextConfig = {
     return [
       {
         // Default strict CSP — applies to everything except the ONNX tool routes below.
-        source: "/((?!tools/background-remover|tools/passport-photo-maker).*)",
+        source: "/((?!tools/background-remover|tools/passport-photo-maker|tools/student-id-photo-maker|tools/resume-photo-maker).*)",
         headers: [
           {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.img.ly",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.img.ly https://staticimgly.com",
               "worker-src 'self' blob:",
               "img-src 'self' data: blob: https:",
               "media-src 'self' blob:",
               "font-src 'self' data: https://fonts.gstatic.com",
               "style-src 'self' 'unsafe-inline'",
-              "connect-src 'self' https://cdn.img.ly https://*.r2.cloudflarestorage.com",
+              "connect-src 'self' https://cdn.img.ly https://staticimgly.com https://*.r2.cloudflarestorage.com",
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",
@@ -69,20 +69,20 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // ONNX/WASM permissions tool pages.
-        source: "/tools/(background-remover|passport-photo-maker)(.*)",
+        // ONNX/WASM permissions — all Photo Compliance engine tools.
+        source: "/tools/(background-remover|passport-photo-maker|student-id-photo-maker|resume-photo-maker)(.*)",
         headers: [
           {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.img.ly",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://cdn.img.ly https://staticimgly.com",
               "worker-src 'self' blob:",
               "img-src 'self' data: blob: https:",
               "media-src 'self' blob:",
               "font-src 'self' data: https://fonts.gstatic.com",
               "style-src 'self' 'unsafe-inline'",
-              "connect-src 'self' https://cdn.img.ly https://*.r2.cloudflarestorage.com",
+              "connect-src 'self' https://cdn.img.ly https://staticimgly.com https://*.r2.cloudflarestorage.com",
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",
