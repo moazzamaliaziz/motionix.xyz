@@ -9,6 +9,7 @@ export const maxDuration = 60;
 /**
  * POST /api/admin/cleanup
  *   Headers: x-cron-secret: <CRON_SECRET>
+ *            OR Authorization: Bearer <CRON_SECRET>  (Vercel Cron convention)
  *   Body (optional JSON): { maxAgeHours?: number; dryRun?: boolean }
  *
  * Purpose:
@@ -17,23 +18,29 @@ export const maxDuration = 60;
  *     rules are slow, delayed, or not configured at all.
  *
  * Cadence:
- *   - Hit this once an hour from Vercel Cron, GitHub Actions, etc.
+ *   - Once daily at 03:00 UTC via Vercel Cron (Hobby plan limit: 1 cron/day).
  *   - Or replace it entirely with a Cloudflare R2 lifecycle rule that deletes
  *     objects older than 24h (suffix or prefix wildcard). The endpoint
  *     stays useful as a belt-and-braces audit.
  *
  * Auth:
- *   - The shared secret comes from CRON_SECRET (env var). We compare with
- *     a constant-time check so an attacker scraping logs can't extract it
- *     via response timing differences.
+ *   - Vercel Cron sends `Authorization: Bearer <CRON_SECRET>` automatically.
+ *   - Manual callers use `x-cron-secret: <CRON_SECRET>`.
+ *   - Constant-time comparison prevents timing side-channel attacks.
  */
 export async function POST(req: Request) {
   if (!isR2Enabled()) {
     return NextResponse.json({ ok: false, reason: "r2_disabled" }, { status: 503 });
   }
-  const auth = req.headers.get("x-cron-secret") ?? "";
   const expected = process.env.CRON_SECRET ?? "";
-  if (!expected || !safeEqual(auth, expected)) {
+  if (!expected) {
+    return NextResponse.json({ ok: false, reason: "unauthorized" }, { status: 401 });
+  }
+
+  // Accept x-cron-secret (curl) or Authorization: Bearer (Vercel Cron)
+  const xSecret = req.headers.get("x-cron-secret") ?? "";
+  const bearer = (req.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "");
+  if (!safeEqual(xSecret, expected) && !safeEqual(bearer, expected)) {
     return NextResponse.json({ ok: false, reason: "unauthorized" }, { status: 401 });
   }
 
@@ -61,7 +68,7 @@ export async function POST(req: Request) {
 
 /**
  * GET is supported to make curl-based diagnostics easier — still requires the
- * secret and accepts the same query params.
+ * secret and accepts the same query params. Vercel Cron also calls GET.
  */
 export async function GET(req: Request) {
   return POST(req);
