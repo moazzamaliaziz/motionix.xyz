@@ -46,3 +46,5 @@ next-env.d.ts
 *.tmp
 .env.local
 .env.*.local
+
+.playwright-mcp/
