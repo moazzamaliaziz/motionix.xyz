@@ -1,86 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { LuDownload, LuLoader, LuTrash2 } from "react-icons/lu";
 import { ToolDropzone } from "../ToolDropzone";
 import { ToolResult } from "../ToolResult";
 import { SaveToHistory } from "../SaveToHistory";
 import { CloudflareUpload } from "../CloudflareUpload";
 
-/**
- * IndexedDB-backed ONNX model cache.
- *
- * @imgly/background-removal does not implement native IndexedDB cache (issue
- * #139 still open as of July 2026). We wrap the worker/model with a tiny
- * IndexedDB proxy so the 88MB ISNet model is downloaded once and reused across
- * sessions.
- */
-
-type CachedAsset = {
-  id: string;
-  blob: Blob;
-  size: number;
-  ts: number;
-};
-
-const DB_NAME = "motionix-onnx";
-const STORE = "models";
-const MODEL_KEY = "isnet_fp16";
-
-function isIdbAvailable(): boolean {
-  if (typeof indexedDB === "undefined") return false;
-  try {
-    return !!indexedDB.open;
-  } catch {
-    return false;
-  }
-}
-
-async function readModel(): Promise<Blob | null> {
-  if (!isIdbAvailable()) return null;
-  return new Promise((resolve) => {
-    const req = indexedDB.open(DB_NAME, 1);
-    req.onerror = () => resolve(null);
-    req.onupgradeneeded = () => {
-      const db = (req as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: "id" });
-    };
-    req.onsuccess = () => {
-      const db = (req as IDBOpenDBRequest).result;
-      const tx = db.transaction(STORE, "readonly");
-      const r = tx.objectStore(STORE).get(MODEL_KEY);
-      r.onsuccess = () => resolve((r.result as CachedAsset | undefined)?.blob ?? null);
-      r.onerror = () => resolve(null);
-    };
-  });
-}
-
-async function writeModel(blob: Blob): Promise<void> {
-  if (!isIdbAvailable()) return;
-  return new Promise((resolve) => {
-    const req = indexedDB.open(DB_NAME, 1);
-    req.onupgradeneeded = () => {
-      const db = (req as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: "id" });
-    };
-    req.onerror = () => resolve();
-    req.onsuccess = () => {
-      const db = (req as IDBOpenDBRequest).result;
-      const tx = db.transaction(STORE, "readwrite");
-      tx.objectStore(STORE).put({
-        id: MODEL_KEY,
-        blob,
-        size: blob.size,
-        ts: Date.now(),
-      } satisfies CachedAsset);
-      tx.oncomplete = () => resolve();
-    };
-  });
-}
-
 export function BackgroundRemoverImpl() {
   const [status, setStatus] = useState<"idle" | "loading" | "ready" | "running" | "done" | "error">("idle");
   const [progress, setProgress] = useState<string>("");
+  const [progressPct, setProgressPct] = useState<number>(0);
   const [srcBlob, setSrcBlob] = useState<File | null>(null);
   const [srcUrl, setSrcUrl] = useState<string | null>(null);
   const [outBlob, setOutBlob] = useState<Blob | null>(null);
@@ -93,15 +23,23 @@ export function BackgroundRemoverImpl() {
   const ensureEngine = async () => {
     if (removeFnRef.current) return;
     setStatus("loading");
-    setProgress("Fetching the small model that does the cutout (cached after first run)…");
+    setProgressPct(0);
+    setProgress("Downloading the AI model (cached after first run)…");
     const { removeBackground } = await import("@imgly/background-removal");
 
-    setProgress("Almost there…");
     removeFnRef.current = async (blob: Blob) => {
-      const out = await removeBackground(blob);
+      const out = await removeBackground(blob, {
+        progress: (key: string, current: number, total: number) => {
+          const pct = total > 0 ? Math.round((current / total) * 100) : 0;
+          setProgressPct(pct);
+          const mb = (current / (1024 * 1024)).toFixed(1);
+          setProgress(`${key}: ${pct}% (${mb} MB)`);
+        },
+      });
       return out;
     };
     setStatus("ready");
+    setProgressPct(0);
   };
 
   useEffect(
@@ -124,11 +62,10 @@ export function BackgroundRemoverImpl() {
     try {
       await ensureEngine();
       setStatus("running");
+      setProgressPct(0);
       setProgress("Running the model on your device…");
       const blob = await removeFnRef.current!(file);
       if (outUrl) URL.revokeObjectURL(outUrl);
-      // Cache the model so the next run is faster (workaround: @imgly issue #139)
-      await writeModel(blob);
       setOutBlob(blob);
       setOutUrl(URL.createObjectURL(blob));
       setStatus("done");
@@ -175,6 +112,7 @@ export function BackgroundRemoverImpl() {
     if (outUrl) URL.revokeObjectURL(outUrl);
     setOutUrl(null);
     setError(null);
+    setProgressPct(0);
     setStatus("idle");
   };
 
@@ -200,14 +138,31 @@ export function BackgroundRemoverImpl() {
 
   return (
     <div className="space-y-5">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {outUrl ? (
+        <BeforeAfterSlider original={srcUrl || ""} processed={outUrl} />
+      ) : (
         <ResultPanel label="Original" src={srcUrl || ""} />
-        {outUrl ? <ResultPanel label="Background removed" src={outUrl} /> : null}
-      </div>
+      )}
 
-      {status === "loading" || status === "running" ? (
+      {status === "loading" ? (
+        <div className="space-y-2">
+          <div className="flex items-center gap-3 text-sm text-foreground/60">
+            <LuLoader className="size-4 animate-spin shrink-0" />
+            {progress}
+          </div>
+          {progressPct > 0 ? (
+            <div className="w-full max-w-xs h-1.5 bg-foreground/10 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-primary rounded-full transition-all duration-300 ease-out"
+                style={{ width: `${progressPct}%` }}
+              />
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+      {status === "running" ? (
         <div className="flex items-center gap-3 text-sm text-foreground/60">
-          <LuLoader className="size-4 animate-spin" />
+          <LuLoader className="size-4 animate-spin shrink-0" />
           {progress}
         </div>
       ) : null}
@@ -300,6 +255,88 @@ function ResultPanel({ label, src }: { label: string; src: string }) {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt={label} className="object-contain w-full h-full" />
+      </div>
+    </div>
+  );
+}
+
+function BeforeAfterSlider({ original, processed }: { original: string; processed: string }) {
+  const [split, setSplit] = useState(50); // percent — left = original, right = processed
+  const dragging = useRef(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const getPct = useCallback((clientX: number) => {
+    const rect = sliderRef.current?.getBoundingClientRect();
+    if (!rect) return 50;
+    return Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+  }, []);
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      if (!dragging.current) return;
+      setSplit(getPct(e.clientX));
+    };
+    const onUp = () => {
+      dragging.current = false;
+    };
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
+    return () => {
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+    };
+  }, [getPct]);
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (dragging.current && e.nativeEvent.touches?.[0]) {
+      setSplit(getPct(e.nativeEvent.touches[0].clientX));
+    }
+  };
+
+  return (
+    <div className="rounded-2xl border border-foreground/10 bg-white p-3">
+      <p className="eyebrow-mono text-foreground/50 mb-2 px-1">
+        Before & after — drag the divider
+        <span className="text-foreground/30 ml-2">{split}%</span>
+      </p>
+      <div
+        ref={sliderRef}
+        className="relative rounded-xl overflow-hidden aspect-square select-none"
+        style={{
+          background:
+            "linear-gradient(45deg, #e5e7eb 25%, transparent 25%, transparent 75%, #e5e7eb 75%) 0 0/16px 16px, linear-gradient(45deg, #e5e7eb 25%, #fff 25%, #fff 75%, #e5e7eb 75%) 8px 8px/16px 16px",
+        }}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          dragging.current = true;
+        }}
+        onTouchStart={() => {
+          dragging.current = true;
+        }}
+        onTouchEnd={() => {
+          dragging.current = false;
+        }}
+        onTouchMove={onTouchMove}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={processed} alt="Processed" className="absolute inset-0 w-full h-full object-contain" />
+        <div className="absolute inset-0 select-none" style={{ clipPath: `inset(0 ${100 - split}% 0 0)` }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={original} alt="Original" className="absolute inset-0 w-full h-full object-contain" />
+        </div>
+        <div className="absolute top-0 bottom-0 z-10" style={{ left: `${split}%` }}>
+          <div className="h-full w-0.5 bg-white shadow-md" />
+          <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 size-8 rounded-full bg-white border-2 border-foreground/20 shadow flex items-center justify-center cursor-ew-resize">
+            <svg width="12" height="12" viewBox="0 0 12 12" className="text-foreground/60">
+              <line x1="3" y1="2" x2="3" y2="10" stroke="currentColor" strokeWidth="1.5" />
+              <line x1="7" y1="2" x2="7" y2="10" stroke="currentColor" strokeWidth="1.5" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-between mt-2 px-1 text-xs text-foreground/40">
+        <span>Original</span>
+        <span>Processed</span>
       </div>
     </div>
   );

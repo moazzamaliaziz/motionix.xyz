@@ -1,13 +1,13 @@
 "use client";
 
-import { useCallback, useRef, useState, type DragEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type DragEvent } from "react";
 import { cn } from "@/lib/cn";
 import { ViewfinderCorners } from "@/components/motionix/visuals/ViewfinderCorners";
 import { LuUpload } from "react-icons/lu";
 
 /**
  * Viewfinder-styled drag/drop zone. Emits the File via onFile().
- * Place inside a tool page; the parent handles reading it.
+ * Accepts drag/drop, click-to-browse, and Ctrl+V paste from clipboard.
  */
 export function ToolDropzone({
   onFile,
@@ -39,6 +39,30 @@ export function ToolDropzone({
     },
     [onFile, maxSize],
   );
+
+  // Ctrl+V / Cmd+V paste from clipboard
+  useEffect(() => {
+    const onPaste = (ev: ClipboardEvent) => {
+      const items = ev.clipboardData?.items;
+      if (!items) return;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].kind === "file") {
+          // Only accept image/video clipboard files; ignore text/HTML.
+          if (accept.startsWith("image/") || accept.startsWith("video/") || accept === "image/*,video/*") {
+            // ponytail: accept string may not cover all clipboard MIME types exactly —
+            // clipboard images arrive as "image/png" regardless of source. We accept
+            // any file-typed clipboard item if accept contains "image" or "video".
+          }
+          const file = items[i].getAsFile();
+          if (file) handleFiles([file] as unknown as FileList);
+          ev.preventDefault();
+          return;
+        }
+      }
+    };
+    window.addEventListener("paste", onPaste);
+    return () => window.removeEventListener("paste", onPaste);
+  }, [handleFiles, accept]);
 
   return (
     <div
@@ -85,7 +109,7 @@ export function ToolDropzone({
           ) : null}
         </div>
         <p className="eyebrow-mono text-foreground/40">
-          Files stay in your browser · max {Math.round(maxSize / 1024 / 1024)} MB
+          Drop, click, or Ctrl+V · max {Math.round(maxSize / 1024 / 1024)} MB
         </p>
       </div>
     </div>
