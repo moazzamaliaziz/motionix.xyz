@@ -33,13 +33,9 @@ export function SiteHeader() {
           scrolled ? "scale-[0.98]" : ""
         }`}
       >
-        <Link href="/" className="flex items-center gap-2 shrink-0">
+        <Link href="/" className="flex items-center shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-icon.svg" alt="" className="size-7 w-auto h-auto" aria-hidden="true" />
-          <span className="font-display text-sm tracking-tight hidden sm:inline">
-            <span className="text-foreground">motion</span>
-            <span className="text-primary">ix</span>
-          </span>
+          <img src="/logo-icon.svg" alt="Motionix" className="size-6 w-6 h-6" />
         </Link>
 
         <nav className="hidden md:flex gap-6 text-[13px] font-medium text-foreground/60">
