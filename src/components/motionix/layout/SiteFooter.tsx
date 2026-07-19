@@ -25,11 +25,9 @@ export function SiteFooter() {
     <footer className="mt-32 border-t border-foreground/5 bg-cream/40">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-12 gap-10">
         <div className="md:col-span-5">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="size-6 rounded-full bg-primary" aria-hidden />
-            <span className="font-display text-base tracking-tight">
-              motion<span className="text-primary">ix</span>
-            </span>
+          <div className="flex items-center gap-2.5 mb-4">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-full.svg" alt="Motionix" className="h-8 w-auto" />
           </div>
           <p className="text-sm text-foreground/60 max-w-sm leading-relaxed">
             Free image and video tools that respect your privacy. We don&apos;t upload anything unless a tool explicitly says we have to.

@@ -34,8 +34,9 @@ export function SiteHeader() {
         }`}
       >
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <span className="size-6 rounded-full bg-primary animate-pulse-ring" aria-hidden />
-          <span className="font-display text-sm tracking-tight">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-icon.svg" alt="" className="size-7 w-auto h-auto" aria-hidden="true" />
+          <span className="font-display text-sm tracking-tight hidden sm:inline">
             <span className="text-foreground">motion</span>
             <span className="text-primary">ix</span>
           </span>
