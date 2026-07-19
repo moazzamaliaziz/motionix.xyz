@@ -77,8 +77,15 @@ export function ToolDropzone({
         handleFiles(e.dataTransfer.files);
       }}
       onClick={() => fileRef.current?.click()}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          fileRef.current?.click();
+        }
+      }}
       role="button"
       tabIndex={0}
+      aria-label={hint}
       className={cn(
         "group relative aspect-[16/10] md:aspect-[21/9]",
         "flex flex-col items-center justify-center cursor-pointer",

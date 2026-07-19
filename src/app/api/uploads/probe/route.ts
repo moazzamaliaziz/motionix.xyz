@@ -47,6 +47,6 @@ export async function GET() {
     maxBytes: MAX_BYTES,
     allowed: ALLOWED_TYPES,
     hostOk: probe.ok,
-    hostError: probe.ok ? undefined : probe.error,
+    hostError: probe.ok ? undefined : "host_unreachable",
   });
 }

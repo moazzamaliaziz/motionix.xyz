@@ -1,3 +1,26 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service — Motionix",
+  description:
+    "Motionix terms of service. Be kind, be useful. Free tools that run in your browser.",
+  openGraph: {
+    title: "Terms of Service — Motionix",
+    description:
+      "Motionix terms of service. Be kind, be useful. Free tools that run in your browser.",
+    url: "https://motionix.xyz/terms",
+    siteName: "Motionix",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service — Motionix",
+    description:
+      "Motionix terms of service. Be kind, be useful. Free tools that run in your browser.",
+  },
+  alternates: { canonical: "https://motionix.xyz/terms" },
+};
+
 export default function TermsPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-32">
@@ -40,7 +63,7 @@ export default function TermsPage() {
 
         <Section title="5. Liability">
           <p>
-            The site is provided "as is". For the official documents and passport photos, follow
+            The site is provided &quot;as is&quot;. For the official documents and passport photos, follow
             the actual consular authority. For any sensitive visual content, keep originals.
           </p>
         </Section>

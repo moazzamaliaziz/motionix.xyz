@@ -43,7 +43,7 @@ export default function HomePage() {
     <>
       <AnnouncementBar />
       <Suspense fallback={null}><SiteHeader /></Suspense>
-      <main className="flex-1">
+      <main id="main-content" className="flex-1">
         <Hero />
         <StatsMarquee />
         <WorkflowGrid />

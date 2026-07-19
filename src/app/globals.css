@@ -1,10 +1,6 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Inter Tight";
-  font-display: swap;
-  src: url("https://fonts.gstatic.com/s/intertight/v8/NGSnv5HMAFg6IuGlBNMjxJEL2VmU3NS7Z2mjDw.woff2") format("woff2");
-}
+/* ponytail: fonts loaded via next/font/google in layout.tsx — self-hosted, no external DNS */
 
 @theme {
   /* ============ Fonts ============ */
@@ -93,6 +89,22 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+}
+
+/* Accessibility: focus-visible outline for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Accessibility: disable all animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {

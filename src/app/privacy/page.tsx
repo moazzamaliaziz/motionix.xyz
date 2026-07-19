@@ -1,4 +1,27 @@
-export function PrivacyPolicy() {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy — Motionix",
+  description:
+    "Motionix privacy policy. We don't store photos, don't sell data, and run all tools in your browser.",
+  openGraph: {
+    title: "Privacy Policy — Motionix",
+    description:
+      "Motionix privacy policy. We don't store photos, don't sell data, and run all tools in your browser.",
+    url: "https://motionix.xyz/privacy",
+    siteName: "Motionix",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy — Motionix",
+    description:
+      "Motionix privacy policy. We don't store photos, don't sell data, and run all tools in your browser.",
+  },
+  alternates: { canonical: "https://motionix.xyz/privacy" },
+};
+
+export default function PrivacyPolicy() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-32">
       <p className="eyebrow-mono text-primary mb-3">Privacy</p>
@@ -42,8 +65,8 @@ export function PrivacyPolicy() {
 
         <Section title="3. Cookies">
           <p>
-            We don&apos;t use advertising cookies. We use a single functional cookie for "did this
-            visitor already see the announcement bar?" — no third parties, no fingerprinting.
+            We don&apos;t use advertising cookies. We use a single functional cookie for &quot;did this
+            visitor already see the announcement bar?&quot; — no third parties, no fingerprinting.
           </p>
         </Section>
 
@@ -92,5 +115,3 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </section>
   );
 }
-
-export default PrivacyPolicy;

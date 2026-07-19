@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { sendContact, isEmailEnabled } from "@/lib/email";
+import { sendContact } from "@/lib/email";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,11 +17,19 @@ export const dynamic = "force-dynamic";
  *   - Honeypot field (`website`) — must be empty.
  *   - Body length sanity check (browser already does this, this is the
  *     server-side second line of defense).
+ *   - Rate limit: 10 requests per minute per IP.
  */
 const MAX_BODY_LENGTH = 5000;
 const MIN_BODY_LENGTH = 8;
 
 export async function POST(req: Request) {
+  // Rate limit: 10 req/min per IP
+  const ip = getClientIp(req);
+  const { limited } = checkRateLimit(`contact:${ip}`, { windowMs: 60_000, max: 10 });
+  if (limited) {
+    return NextResponse.json({ ok: false, hint: "Too many requests. Try again in a minute." }, { status: 429 });
+  }
+
   let payload: {
     name?: string;
     email?: string;
@@ -63,7 +72,7 @@ export async function POST(req: Request) {
   });
 
   if (result.ok) {
-    return NextResponse.json({ ok: true, delivered: true, id: result.id, emailEnabled: isEmailEnabled() });
+    return NextResponse.json({ ok: true, delivered: true, id: result.id });
   }
 
   // Even if Resend is disabled (dev/preview), we accept the form but log it.
@@ -73,7 +82,6 @@ export async function POST(req: Request) {
       ok: true,
       delivered: false,
       reason: "resend_disabled",
-      emailEnabled: false,
     });
   }
 

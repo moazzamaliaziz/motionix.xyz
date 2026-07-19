@@ -17,12 +17,11 @@ const nextConfig: NextConfig = {
     optimizePackageImports: [
       "lucide-react",
       "react-icons",
-      "@paper-design/shaders-react",
       "motion",
     ] as never,
   },
 
-  serverExternalPackages: ["mongodb"],
+  serverExternalPackages: ["mongodb", "@aws-sdk/client-s3", "@aws-sdk/s3-request-presigner"],
 
   images: {
     formats: ["image/avif", "image/webp"],

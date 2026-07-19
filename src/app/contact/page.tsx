@@ -1,5 +1,27 @@
+import type { Metadata } from "next";
 import { SpotlightCard } from "@/components/motionix/visuals/SpotlightCard";
 import { ContactForm } from "@/components/motionix/marketing/ContactForm";
+
+export const metadata: Metadata = {
+  title: "Contact — Motionix",
+  description:
+    "Get in touch with Motionix. General questions, bug reports, press inquiries, and data/deletion requests.",
+  openGraph: {
+    title: "Contact — Motionix",
+    description:
+      "Get in touch with Motionix. General questions, bug reports, press inquiries, and data/deletion requests.",
+    url: "https://motionix.xyz/contact",
+    siteName: "Motionix",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact — Motionix",
+    description:
+      "Get in touch with Motionix. General questions, bug reports, press inquiries, and data/deletion requests.",
+  },
+  alternates: { canonical: "https://motionix.xyz/contact" },
+};
 
 export default function ContactPage() {
   return (
@@ -51,7 +73,7 @@ export default function ContactPage() {
         <p>
           We do not own a customer support team. Replies are sent by a human. Please be patient.
           If your message is genuinely urgent (something affecting legal documents or
-          livelihoods), put "urgent" in the subject.
+          livelihoods), put &quot;urgent&quot; in the subject.
         </p>
       </div>
 

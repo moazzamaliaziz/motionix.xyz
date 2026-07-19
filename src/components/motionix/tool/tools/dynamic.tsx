@@ -2,93 +2,47 @@
 
 import dynamic from "next/dynamic";
 
-export function DynamicBackgroundRemover() {
-  const Comp = dynamic(
-    async () => (await import("./BackgroundRemoverImpl")).BackgroundRemoverImpl as unknown as React.ComponentType<unknown>,
-    {
-      ssr: false,
-      loading: () => <Skeleton label="Loading the background remover…" />,
-    } as never,
-  );
-  return <Comp />;
-}
+const DynamicBackgroundRemover = dynamic(
+  async () => (await import("./BackgroundRemoverImpl")).BackgroundRemoverImpl as unknown as React.ComponentType<unknown>,
+  { ssr: false, loading: () => <Skeleton label="Loading the background remover…" /> } as never,
+);
 
-export function DynamicPassportMaker() {
-  const Comp = dynamic(
-    async () => (await import("./PassportMakerImpl")).PassportMakerImpl as unknown as React.ComponentType<unknown>,
-    {
-      ssr: false,
-      loading: () => <Skeleton label="Loading the passport tool…" />,
-    } as never,
-  );
-  return <Comp />;
-}
+const DynamicPassportMaker = dynamic(
+  async () => (await import("./PassportMakerImpl")).PassportMakerImpl as unknown as React.ComponentType<unknown>,
+  { ssr: false, loading: () => <Skeleton label="Loading the passport tool…" /> } as never,
+);
 
-export function DynamicSignatureMaker() {
-  const Comp = dynamic(
-    async () => (await import("./SignatureMakerImpl")).SignatureMakerImpl as unknown as React.ComponentType<unknown>,
-    {
-      ssr: false,
-      loading: () => <Skeleton label="Loading the signature tool…" />,
-    } as never,
-  );
-  return <Comp />;
-}
+const DynamicSignatureMaker = dynamic(
+  async () => (await import("./SignatureMakerImpl")).SignatureMakerImpl as unknown as React.ComponentType<unknown>,
+  { ssr: false, loading: () => <Skeleton label="Loading the signature tool…" /> } as never,
+);
 
-export function DynamicPhotoResizer() {
-  const Comp = dynamic(
-    async () => (await import("./PhotoResizerImpl")).PhotoResizerImpl as unknown as React.ComponentType<unknown>,
-    {
-      ssr: false,
-      loading: () => <Skeleton label="Loading the resizer…" />,
-    } as never,
-  );
-  return <Comp />;
-}
+const DynamicPhotoResizer = dynamic(
+  async () => (await import("./PhotoResizerImpl")).PhotoResizerImpl as unknown as React.ComponentType<unknown>,
+  { ssr: false, loading: () => <Skeleton label="Loading the resizer…" /> } as never,
+);
 
-export function DynamicImageCompressor() {
-  const Comp = dynamic(
-    async () => (await import("./ImageCompressorImpl")).ImageCompressorImpl as unknown as React.ComponentType<unknown>,
-    {
-      ssr: false,
-      loading: () => <Skeleton label="Loading the compressor…" />,
-    } as never,
-  );
-  return <Comp />;
-}
+const DynamicImageCompressor = dynamic(
+  async () => (await import("./ImageCompressorImpl")).ImageCompressorImpl as unknown as React.ComponentType<unknown>,
+  { ssr: false, loading: () => <Skeleton label="Loading the compressor…" /> } as never,
+);
 
-export function DynamicStudentIdPhotoMaker() {
-  const Comp = dynamic(
-    async () => (await import("./StudentIdPhotoMakerImpl")).StudentIdPhotoMakerImpl as unknown as React.ComponentType<unknown>,
-    {
-      ssr: false,
-      loading: () => <Skeleton label="Loading the ID-photo tool…" />,
-    } as never,
-  );
-  return <Comp />;
-}
+const DynamicStudentIdPhotoMaker = dynamic(
+  async () => (await import("./StudentIdPhotoMakerImpl")).StudentIdPhotoMakerImpl as unknown as React.ComponentType<unknown>,
+  { ssr: false, loading: () => <Skeleton label="Loading the ID-photo tool…" /> } as never,
+);
 
-export function DynamicResumePhotoMaker() {
-  const Comp = dynamic(
-    async () => (await import("./ResumePhotoMakerImpl")).ResumePhotoMakerImpl as unknown as React.ComponentType<unknown>,
-    {
-      ssr: false,
-      loading: () => <Skeleton label="Loading the headshot tool…" />,
-    } as never,
-  );
-  return <Comp />;
-}
+const DynamicResumePhotoMaker = dynamic(
+  async () => (await import("./ResumePhotoMakerImpl")).ResumePhotoMakerImpl as unknown as React.ComponentType<unknown>,
+  { ssr: false, loading: () => <Skeleton label="Loading the headshot tool…" /> } as never,
+);
 
-export function DynamicVideoCompressor() {
-  const Comp = dynamic(
-    async () => (await import("./VideoCompressorImpl")).VideoCompressorImpl as unknown as React.ComponentType<unknown>,
-    {
-      ssr: false,
-      loading: () => <Skeleton label="Loading the video compressor…" />,
-    } as never,
-  );
-  return <Comp />;
-}
+const DynamicVideoCompressor = dynamic(
+  async () => (await import("./VideoCompressorImpl")).VideoCompressorImpl as unknown as React.ComponentType<unknown>,
+  { ssr: false, loading: () => <Skeleton label="Loading the video compressor…" /> } as never,
+);
+
+export { DynamicBackgroundRemover, DynamicPassportMaker, DynamicSignatureMaker, DynamicPhotoResizer, DynamicImageCompressor, DynamicStudentIdPhotoMaker, DynamicResumePhotoMaker, DynamicVideoCompressor };
 
 function Skeleton({ label }: { label: string }) {
   return (

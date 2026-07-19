@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { getHistoryCollection } from "@/lib/mongo-server";
 import { isAuthEnabled } from "@/components/motionix/auth/AuthShell";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 import type { HistoryEntry } from "@/lib/history";
 
 export const dynamic = "force-dynamic";
@@ -13,9 +14,14 @@ export const dynamic = "force-dynamic";
  *   DELETE /api/history?id=X   — remove an item by id
  *
  * When Clerk is unconfigured or Mongo isn't set, returns sensible fallbacks.
+ * Rate limit: 30 requests per minute per IP.
  */
 
 export async function GET(req: Request) {
+  const ip = getClientIp(req);
+  const { limited } = checkRateLimit(`history:${ip}`, { windowMs: 60_000, max: 30 });
+  if (limited) return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+
   const url = new URL(req.url);
   const userId = await resolveUserId(url.searchParams.get("userId"));
   if (!userId) return NextResponse.json({ items: [] });
@@ -26,6 +32,10 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+  const { limited } = checkRateLimit(`history-post:${ip}`, { windowMs: 60_000, max: 30 });
+  if (limited) return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+
   if (process.env.NODE_ENV === "production" && !isAuthEnabled()) {
     return NextResponse.json({ error: "auth_disabled" }, { status: 403 });
   }
@@ -35,7 +45,7 @@ export async function POST(req: Request) {
   } catch {
     return NextResponse.json({ error: "bad_request" }, { status: 400 });
   }
-  const userId = await resolveUserId(body.userId ?? null);
+  const userId = await resolveUserId(null);
   if (!userId) return NextResponse.json({ ok: false, reason: "no_user" });
   const entry: HistoryEntry = {
     id: crypto.randomUUID(),
@@ -58,6 +68,10 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
+  const ip = getClientIp(req);
+  const { limited } = checkRateLimit(`history-delete:${ip}`, { windowMs: 60_000, max: 30 });
+  if (limited) return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
   if (!id) return NextResponse.json({ error: "missing_id" }, { status: 400 });
@@ -69,10 +83,10 @@ export async function DELETE(req: Request) {
   return NextResponse.json({ ok: true });
 }
 
-async function resolveUserId(provided: string | null): Promise<string | null> {
+async function resolveUserId(_provided: string | null): Promise<string | null> {
   if (!isAuthEnabled()) {
-    // Guest mode — accept the client-provided userId (which is just "guest").
-    return provided ?? "guest";
+    // ponytail: ignore client-provided userId in guest mode — prevent impersonation
+    return "guest";
   }
   try {
     const { userId } = await auth();

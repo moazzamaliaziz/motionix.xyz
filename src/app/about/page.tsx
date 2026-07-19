@@ -1,7 +1,27 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { SpotlightCard } from "@/components/motionix/visuals/SpotlightCard";
+
+export const metadata: Metadata = {
+  title: "About — Motionix",
+  description:
+    "Motionix builds free, privacy-first image and video tools that run in your browser. No signup, no uploads, no watermarks.",
+  openGraph: {
+    title: "About — Motionix",
+    description:
+      "Motionix builds free, privacy-first image and video tools that run in your browser. No signup, no uploads, no watermarks.",
+    url: "https://motionix.xyz/about",
+    siteName: "Motionix",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About — Motionix",
+    description:
+      "Motionix builds free, privacy-first image and video tools that run in your browser. No signup, no uploads, no watermarks.",
+  },
+  alternates: { canonical: "https://motionix.xyz/about" },
+};
 
 export default function AboutPage() {
   return (
@@ -49,9 +69,9 @@ export default function AboutPage() {
           <p className="eyebrow-mono text-foreground/50">What we won&apos;t</p>
           <ul className="text-sm mt-3 space-y-1.5">
             <li>• No tracking of your photos.</li>
-            <li>• No "Sign in to download" walls.</li>
+            <li>• No &quot;Sign in to download&quot; walls.</li>
             <li>• No watermarks on free outputs.</li>
-            <li>• No fake "AI" tools that just call a server.</li>
+            <li>• No fake &quot;AI&quot; tools that just call a server.</li>
           </ul>
         </SpotlightCard>
       </div>

@@ -1,13 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { LuDownload, LuLoader, LuTrash2, LuShieldAlert, LuX } from "react-icons/lu";
+import { LuDownload, LuLoader, LuTrash2, LuShieldAlert, LuX, LuPenTool } from "react-icons/lu";
 import { ToolDropzone } from "../ToolDropzone";
 import { ToolResult } from "../ToolResult";
 import { SaveToHistory } from "../SaveToHistory";
 import { CloudflareUpload } from "../CloudflareUpload";
 import Link from "next/link";
 import { removeBackgroundOnce } from "../lib/useBackgroundRemoval";
+import { RefineCanvas } from "./RefineCanvas";
 
 export function BackgroundRemoverImpl() {
   const [status, setStatus] = useState<"idle" | "loading" | "ready" | "running" | "done" | "error">("idle");
@@ -21,6 +22,8 @@ export function BackgroundRemoverImpl() {
   const [shadowOpacity, setShadowOpacity] = useState<number>(0.25);
   const [shadowSize, setShadowSize] = useState<number>(1);
   const [showComplianceNudge, setShowComplianceNudge] = useState<boolean>(true);
+  const [refineMode, setRefineMode] = useState<boolean>(false);
+  const [imgDimensions, setImgDimensions] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
   const [error, setError] = useState<string | null>(null);
 
   useEffect(
@@ -39,6 +42,11 @@ export function BackgroundRemoverImpl() {
     if (srcUrl) URL.revokeObjectURL(srcUrl);
     setSrcBlob(file);
     setSrcUrl(URL.createObjectURL(file));
+
+    // Get image dimensions for refine canvas
+    const img = new Image();
+    img.onload = () => setImgDimensions({ w: img.naturalWidth, h: img.naturalHeight });
+    img.src = URL.createObjectURL(file);
 
     try {
       setStatus("loading");
@@ -194,7 +202,20 @@ export function BackgroundRemoverImpl() {
 
   return (
     <div className="space-y-5">
-      {outUrl ? (
+      {outUrl && refineMode && imgDimensions.w > 0 ? (
+        <RefineCanvas
+          originalUrl={srcUrl || ""}
+          processedUrl={outUrl}
+          width={imgDimensions.w}
+          height={imgDimensions.h}
+          onExport={(blob) => {
+            if (outUrl) URL.revokeObjectURL(outUrl);
+            setOutBlob(blob);
+            setOutUrl(URL.createObjectURL(blob));
+            setRefineMode(false);
+          }}
+        />
+      ) : outUrl ? (
         <BeforeAfterSlider original={srcUrl || ""} processed={outUrl} />
       ) : (
         <ResultPanel label="Original" src={srcUrl || ""} />
@@ -324,6 +345,23 @@ export function BackgroundRemoverImpl() {
               </div>
             ) : null}
             <div className="flex flex-wrap gap-3">
+              {!refineMode && imgDimensions.w > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => setRefineMode(true)}
+                  className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-white px-5 py-2.5 text-sm font-medium hover:bg-foreground/5 transition"
+                >
+                  <LuPenTool className="size-4" /> Refine edges
+                </button>
+              ) : refineMode ? (
+                <button
+                  type="button"
+                  onClick={() => setRefineMode(false)}
+                  className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-white px-5 py-2.5 text-sm font-medium hover:bg-foreground/5 transition"
+                >
+                  Back to preview
+                </button>
+              ) : null}
               <a
                 href={outUrl}
                 download={`motionix-${Date.now()}.png`}

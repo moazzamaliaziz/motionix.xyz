@@ -67,7 +67,7 @@ export default async function ToolPage({
       <AnnouncementBar />
       <SiteHeader />
 
-      <main className="flex-1 pt-32 md:pt-40 px-6 pb-24">
+      <main id="main-content" className="flex-1 pt-32 md:pt-40 px-6 pb-24">
         <div className="max-w-6xl mx-auto">
           <header className="mb-10 md:mb-14">
             <p className="eyebrow-mono text-foreground/50 mb-3">

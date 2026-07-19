@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { issueUpload, isR2Enabled, probeR2Host } from "@/lib/r2-server";
 import { isAuthEnabledServer } from "@/lib/auth-server";
 import { auth } from "@clerk/nextjs/server";
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -31,6 +32,11 @@ const ALLOWED_TYPES = new Set([
 ]);
 
 export async function POST(req: Request) {
+  // Rate limit: 5 req/min per IP (presigned URL generation is expensive)
+  const ip = getClientIp(req);
+  const { limited } = checkRateLimit(`uploads:${ip}`, { windowMs: 60_000, max: 5 });
+  if (limited) return NextResponse.json({ error: "rate_limited" }, { status: 429 });
+
   if (!isR2Enabled()) {
     return NextResponse.json({ error: "r2_disabled" }, { status: 404 });
   }

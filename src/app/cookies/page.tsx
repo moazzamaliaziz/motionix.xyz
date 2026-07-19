@@ -1,3 +1,26 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cookies — Motionix",
+  description:
+    "Motionix cookie policy. We use almost no cookies — just a single functional flag for the announcement bar.",
+  openGraph: {
+    title: "Cookies — Motionix",
+    description:
+      "Motionix cookie policy. We use almost no cookies — just a single functional flag for the announcement bar.",
+    url: "https://motionix.xyz/cookies",
+    siteName: "Motionix",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cookies — Motionix",
+    description:
+      "Motionix cookie policy. We use almost no cookies — just a single functional flag for the announcement bar.",
+  },
+  alternates: { canonical: "https://motionix.xyz/cookies" },
+};
+
 export default function CookiesPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-32">
@@ -9,7 +32,7 @@ export default function CookiesPage() {
       <div className="prose prose-neutral max-w-none mt-10 space-y-6 text-[15px] leading-relaxed">
         <Section title="1. What this site uses cookies for">
           <p>
-            One cookie: a "seen it" flag that hides the announcement bar after the first
+            One cookie: a &quot;seen it&quot; flag that hides the announcement bar after the first
             dismissal. No third-party or advertising cookies. No persistent identifiers.
           </p>
         </Section>
