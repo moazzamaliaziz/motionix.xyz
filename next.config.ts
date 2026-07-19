@@ -1,16 +1,15 @@
 import type { NextConfig } from "next";
 import type { SentryBuildOptions } from "@sentry/nextjs";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 /**
  * Core Next.js config. Conditionally wrapped with Sentry at runtime via
  * the `withSentryConfig()` helper below so we can skip the wrapper entirely
  * when SENTRY_DSN / NEXT_PUBLIC_SENTRY_DSN are missing.
- *
- * The wrapper doesn't add significant build time when DSNs are absent;
- * however, leaving it always-on would attach Sentry's `runAfterProductionCompile`
- * hook unconditionally, which we want to avoid for now.
  */
-const nextConfig: NextConfig = {
+const baseConfig: NextConfig = {
   reactStrictMode: true,
 
   experimental: {
@@ -31,10 +30,46 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
+    const onnxCsp = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: https://cdn.img.ly https://staticimgly.com",
+      "worker-src 'self' blob:",
+      "img-src 'self' data: blob: https:",
+      "media-src 'self' blob:",
+      "font-src 'self' data: https://fonts.gstatic.com",
+      "style-src 'self' 'unsafe-inline'",
+      "connect-src 'self' blob: https://cdn.img.ly https://staticimgly.com https://*.r2.cloudflarestorage.com",
+      "frame-ancestors 'self'",
+      "base-uri 'self'",
+      "form-action 'self'",
+    ].join("; ");
+
+    const onnxHeaders = [
+      { key: "Content-Security-Policy", value: onnxCsp },
+      { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+      { key: "Cross-Origin-Embedder-Policy", value: "credentialless" },
+    ];
+
+    // ONNX tool slugs that need wasm-unsafe-eval + COOP/COEP
+    const onnxSlugs = [
+      "background-remover",
+      "passport-photo-maker",
+      "student-id-photo-maker",
+      "resume-photo-maker",
+    ];
+
+    const onnxRoutes = onnxSlugs.flatMap((slug) => [
+      // Without locale prefix (default locale)
+      { source: `/tools/${slug}/:path*`, headers: onnxHeaders },
+      // With locale prefix
+      { source: `/:locale/tools/${slug}/:path*`, headers: onnxHeaders },
+    ]);
+
     return [
+      ...onnxRoutes,
       {
-        // Default strict CSP — applies to everything except the ONNX tool routes below.
-        source: "/((?!tools/background-remover|tools/passport-photo-maker|tools/student-id-photo-maker|tools/resume-photo-maker).*)",
+        // Default CSP — applies to all routes.
+        source: "/:path*",
         headers: [
           {
             key: "Content-Security-Policy",
@@ -66,38 +101,6 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      {
-        // ONNX/WASM permissions — all Photo Compliance engine tools.
-        source: "/tools/(background-remover|passport-photo-maker|student-id-photo-maker|resume-photo-maker)(.*)",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value: [
-              "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: https://cdn.img.ly https://staticimgly.com",
-              "worker-src 'self' blob:",
-              "img-src 'self' data: blob: https:",
-              "media-src 'self' blob:",
-              "font-src 'self' data: https://fonts.gstatic.com",
-              "style-src 'self' 'unsafe-inline'",
-              "connect-src 'self' blob: https://cdn.img.ly https://staticimgly.com https://*.r2.cloudflarestorage.com",
-              "frame-ancestors 'self'",
-              "base-uri 'self'",
-              "form-action 'self'",
-            ].join("; "),
-          },
-          {
-            key: "Cross-Origin-Opener-Policy",
-            value: "same-origin",
-          },
-          {
-            key: "Cross-Origin-Embedder-Policy",
-            value: "credentialless",
-          },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Content-Type-Options", value: "nosniff" },
-        ],
-      },
     ];
   },
 };
@@ -116,7 +119,8 @@ let resolvePromise: Promise<NextConfig> | null = null;
 function getWrappedConfig(): Promise<NextConfig> {
   if (resolvePromise) return resolvePromise;
   resolvePromise = (async () => {
-    if (!sentryDsn) return nextConfig;
+    const config = withNextIntl(baseConfig);
+    if (!sentryDsn) return config;
     const { withSentryConfig } = await import("@sentry/nextjs");
     const options: SentryBuildOptions = {
       org: sentryOrg || undefined,
@@ -130,19 +134,11 @@ function getWrappedConfig(): Promise<NextConfig> {
         excludeTracing: false,
       },
     };
-    return withSentryConfig(nextConfig, options);
+    return withSentryConfig(config, options);
   })();
   return resolvePromise;
 }
 
-/**
- * Default export — Next.js calls this with `{ phase, defaultConfig }` and
- * expects a NextConfig object back. We `await` our cached wrapper so the
- * Sentry plugin is only loaded when at least one DSN env var is set.
- *
- * When Sentry is not configured (the common case during local dev), the
- * wrapper resolves immediately and we return `nextConfig` unchanged.
- */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default async function resolveNextConfig(
   _phase: string,
@@ -150,4 +146,3 @@ export default async function resolveNextConfig(
 ): Promise<NextConfig> {
   return await getWrappedConfig();
 }
-
