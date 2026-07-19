@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef, useState, type ReactNode, type PointerEvent } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { cn } from "@/lib/cn";
 
 /**
- * Fourmula-inspired Tilt3D port. On pointermove, the card tilts in 3D with a soft
- * spring; on leave, it returns to flat. Uses motion springs, no per-frame JS.
+ * CSS-only 3D tilt card. On pointermove, the card tilts via CSS transform;
+ * on leave, it springs back. No animation library — just inline style updates
+ * and CSS transitions. ~35KB gz lighter than the motion/react version.
  */
 export function TiltedCard({
   children,
@@ -20,12 +20,7 @@ export function TiltedCard({
   scaleOnHover?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const sx = useSpring(rx, { stiffness: 220, damping: 18 });
-  const sy = useSpring(ry, { stiffness: 220, damping: 18 });
-  const rotX = useTransform(sx, (v) => -v);
-  const rotY = useTransform(sy, (v) => v);
+  const [style, setStyle] = useState<React.CSSProperties>({});
 
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
     const el = ref.current;
@@ -33,30 +28,31 @@ export function TiltedCard({
     const rect = el.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    ry.set(x * intensity);
-    rx.set(y * intensity);
+    setStyle({
+      transform: `perspective(1400px) rotateX(${-y * intensity}deg) rotateY(${x * intensity}deg) scale(${scaleOnHover})`,
+    });
   };
+
   const onLeave = () => {
-    rx.set(0);
-    ry.set(0);
+    setStyle({
+      transform: "perspective(1400px) rotateX(0deg) rotateY(0deg) scale(1)",
+    });
   };
 
   return (
-    <motion.div
+    <div
       ref={ref}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
       style={{
         transformStyle: "preserve-3d",
-        transformPerspective: 1400,
-        rotateX: rotX,
-        rotateY: rotY,
+        transition: "transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+        willChange: "transform",
+        ...style,
       }}
-      whileHover={{ scale: scaleOnHover }}
-      transition={{ type: "spring", stiffness: 200, damping: 20 }}
-      className={cn("relative will-change-transform", className)}
+      className={cn("relative", className)}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }

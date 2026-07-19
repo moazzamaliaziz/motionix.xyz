@@ -21,7 +21,6 @@
     "lucide-react": "^1.24.0",
     "mediabunny": "^1.50.8",
     "mongodb": "^7.5.0",
-    "motion": "^12.42.2",
     "next": "16.2.10",
     "next-mdx-remote": "^6.0.0",
     "onnxruntime-web": "^1.21.0",

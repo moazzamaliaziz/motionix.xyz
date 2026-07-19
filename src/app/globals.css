@@ -256,3 +256,31 @@ body {
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 0 black;
 }
+
+/* ============ Sparkle dots (SparklesText) ============ */
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  50%      { opacity: 1; transform: scale(1); }
+}
+.sparkle-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  box-shadow: 0 0 6px var(--color-primary);
+  opacity: 0;
+  animation: sparkle 3.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sparkle-dot { display: none; }
+}
+
+/* ============ Floating orb pulse ============ */
+@keyframes orb-float {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+.animate-orb-float {
+  animation: orb-float 6s ease-in-out infinite;
+}

@@ -17,7 +17,6 @@ const nextConfig: NextConfig = {
     optimizePackageImports: [
       "lucide-react",
       "react-icons",
-      "motion",
     ] as never,
   },
 
