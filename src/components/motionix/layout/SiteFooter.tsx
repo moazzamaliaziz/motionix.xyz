@@ -70,7 +70,7 @@ export function SiteFooter() {
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-foreground/50">
           <p>© {new Date().getFullYear()} Motionix. No accounts required.</p>
           <p className="font-mono uppercase tracking-widest">
-            Hosted on the edge · <a className="hover:underline" href={`${TOOLS_SITE_URL}/sitemap.xml`} rel="nofollow">sitemap</a>
+            Hosted on the edge · <a className="hover:underline" href={`${TOOLS_SITE_URL}/sitemap`} rel="nofollow">sitemap</a>
           </p>
         </div>
       </div>

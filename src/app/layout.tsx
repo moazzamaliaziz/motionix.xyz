@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   title: "Motionix — Free AI tools for images and video",
   description:
     "Free background remover, passport photo maker, image compressor, and other AI tools. No signup, no upload.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
