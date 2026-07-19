@@ -1,42 +1,25 @@
+import { getTranslations } from "next-intl/server";
 import { Marquee } from "@/components/motionix/visuals/Marquee";
 import { RevealOnScroll } from "@/components/motionix/visuals/RevealOnScroll";
 
-const testimonials = [
-  {
-    q: "I made my kid's passport photo in 4 minutes on my couch. Used it at the consulate next morning. Stamp.",
-    a: "Parent of two",
-    r: "London, UK",
-  },
-  {
-    q: "Background remover for product shots used to mean another SaaS login. This is in my browser.",
-    a: "Maya R.",
-    r: "Etsy seller",
-  },
-  {
-    q: "Got a 12 MB photo down to 380 KB. Email form had a 4 MB cap and we were racing a deadline.",
-    a: "Devon",
-    r: "Designer",
-  },
-  {
-    q: "The fact that it just runs in the browser is the feature. I don't want to upload every photo to someone's server.",
-    a: "Sara K.",
-    r: "Photographer",
-  },
-  {
-    q: "Used the resume photo tool. Got a clean white background without paying $20/mo.",
-    a: "Aiden P.",
-    r: "Job seeker",
-  },
-];
+export async function TestimonialsMarquee() {
+  const t = await getTranslations("Testimonials");
 
-export function TestimonialsMarquee() {
+  const testimonials = [
+    { q: t("t1Quote"), a: t("t1Author"), r: t("t1Role") },
+    { q: t("t2Quote"), a: t("t2Author"), r: t("t2Role") },
+    { q: t("t3Quote"), a: t("t3Author"), r: t("t3Role") },
+    { q: t("t4Quote"), a: t("t4Author"), r: t("t4Role") },
+    { q: t("t5Quote"), a: t("t5Author"), r: t("t5Role") },
+  ];
+
   return (
     <section className="py-24 md:py-32 bg-paper/40 border-y border-foreground/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-12 text-center">
         <RevealOnScroll>
-          <p className="eyebrow-mono text-primary mb-3">From the field</p>
+          <p className="eyebrow-mono text-primary mb-3">{t("eyebrow")}</p>
           <h2 className="font-serif text-4xl md:text-5xl italic leading-tight">
-            Notes from real humans.
+            {t("title")}
           </h2>
         </RevealOnScroll>
       </div>

@@ -1,53 +1,6 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { RevealOnScroll } from "@/components/motionix/visuals/RevealOnScroll";
-
-const tiers = [
-  {
-    name: "Free",
-    price: "$0",
-    period: "forever",
-    perks: [
-      "Every tool in the catalog",
-      "No watermarks",
-      "No account required",
-      "Files stay in your browser",
-    ],
-    cta: "Use a tool now",
-    href: "/tools",
-    featured: false,
-    tone: "bg-paper",
-  },
-  {
-    name: "Freee to use with friend",
-    price: "$0",
-    period: "— tell one friend",
-    perks: [
-      "Everything in Free",
-      "Bring a friend who has a passport photo to make",
-      "First to know when site-wide apps launch",
-      "Optional signup keeps history",
-    ],
-    cta: "Share motionix",
-    href: "/about",
-    featured: true,
-    tone: "bg-foreground text-background",
-  },
-  {
-    name: "For studios",
-    price: "Open",
-    period: "for teams",
-    perks: [
-      "Bulk processing",
-      "Same engine, less waiting around",
-      "White-glove privacy review",
-      "Per-team billing on request",
-    ],
-    cta: "Email us",
-    href: "/contact",
-    featured: false,
-    tone: "bg-mint",
-  },
-];
 
 function cardClass(featured: boolean, tone: string) {
   const base = "relative h-full p-8 rounded-3xl border transition-all hover:-translate-y-1";
@@ -69,43 +22,78 @@ function liClass(featured: boolean) {
   return featured ? "text-background/80" : "text-foreground/70";
 }
 
-export function PricingCards() {
+export async function PricingCards() {
+  const t = await getTranslations("Pricing");
+
+  const tiers = [
+    {
+      name: t("tier1Name"),
+      price: t("tier1Price"),
+      period: t("tier1Period"),
+      perks: [t("tier1Perk1"), t("tier1Perk2"), t("tier1Perk3"), t("tier1Perk4")],
+      cta: t("tier1Cta"),
+      href: "/tools",
+      featured: false,
+      tone: "bg-paper",
+    },
+    {
+      name: t("tier2Name"),
+      price: t("tier2Price"),
+      period: t("tier2Period"),
+      perks: [t("tier2Perk1"), t("tier2Perk2"), t("tier2Perk3"), t("tier2Perk4")],
+      cta: t("tier2Cta"),
+      href: "/about",
+      featured: true,
+      tone: "bg-foreground text-background",
+    },
+    {
+      name: t("tier3Name"),
+      price: t("tier3Price"),
+      period: t("tier3Period"),
+      perks: [t("tier3Perk1"), t("tier3Perk2"), t("tier3Perk3"), t("tier3Perk4")],
+      cta: t("tier3Cta"),
+      href: "/contact",
+      featured: false,
+      tone: "bg-mint",
+    },
+  ];
+
   return (
     <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto">
       <div className="text-center max-w-2xl mx-auto mb-12">
         <RevealOnScroll>
-          <p className="eyebrow-mono text-primary mb-3">Pricing</p>
+          <p className="eyebrow-mono text-primary mb-3">{t("eyebrow")}</p>
           <h2 className="font-serif text-4xl md:text-5xl italic leading-tight">
-            Free, simple. <span className="not-italic">Forever.</span>
+            {t("title")}
           </h2>
         </RevealOnScroll>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {tiers.map((t, i) => (
-          <RevealOnScroll key={t.name} delay={i * 80}>
-            <div className={cardClass(t.featured, t.tone)}>
-              {t.featured ? (
+        {tiers.map((tier, i) => (
+          <RevealOnScroll key={tier.name} delay={i * 80}>
+            <div className={cardClass(tier.featured, tier.tone)}>
+              {tier.featured ? (
                 <span className="inline-block bg-primary text-primary-foreground text-[10px] font-mono uppercase tracking-widest px-2 py-1 rounded-full mb-4">
-                  Most-chosen
+                  {t("mostChosen")}
                 </span>
               ) : null}
-              <h3 className="font-serif text-2xl italic">{t.name}</h3>
+              <h3 className="font-serif text-2xl italic">{tier.name}</h3>
               <div className="mt-6 flex items-baseline gap-2">
-                <span className="font-serif text-5xl">{t.price}</span>
-                <span className={`text-xs ${periodClass(t.featured)}`}>{t.period}</span>
+                <span className="font-serif text-5xl">{tier.price}</span>
+                <span className={`text-xs ${periodClass(tier.featured)}`}>{tier.period}</span>
               </div>
               <ul className="mt-6 space-y-3 text-sm">
-                {t.perks.map((perk) => (
+                {tier.perks.map((perk) => (
                   <li key={perk} className="flex items-start gap-2">
                     <span className="mt-0.5 text-primary">✓</span>
-                    <span className={liClass(t.featured)}>{perk}</span>
+                    <span className={liClass(tier.featured)}>{perk}</span>
                   </li>
                 ))}
               </ul>
               <div className="mt-8">
-                <Link href={t.href!} className={ctaClass(t.featured)}>
-                  {t.cta}
+                <Link href={tier.href!} className={ctaClass(tier.featured)}>
+                  {tier.cta}
                 </Link>
               </div>
             </div>

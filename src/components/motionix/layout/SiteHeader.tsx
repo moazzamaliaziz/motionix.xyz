@@ -3,21 +3,24 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { LuCommand } from "react-icons/lu";
 import { AnimatedShinyText } from "@/components/motionix/visuals/AnimatedShinyText";
 import { AuthUserButton, AuthSignInButton } from "@/components/motionix/auth/AuthShell";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/tools", label: "Tools" },
-  { href: "/#how", label: "How it works" },
-  { href: "/#faq", label: "FAQ" },
-  { href: "/blog", label: "Blog" },
-];
+import { LanguageSwitcher } from "@/components/motionix/layout/LanguageSwitcher";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const t = useTranslations("Nav");
+
+  const navLinks = [
+    { href: "/", label: t("home") },
+    { href: "/tools", label: t("tools") },
+    { href: "/#how", label: t("howItWorks") },
+    { href: "/#faq", label: t("faq") },
+    { href: "/blog", label: t("blog") },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -57,18 +60,19 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <Link
             href="/tools"
             className="hidden lg:flex items-center gap-1.5 text-[12px] text-foreground/50 px-2 py-1 rounded-full hover:bg-foreground/5 transition"
-            aria-label="Search tools"
+            aria-label={t("quickFind")}
           >
-            <LuCommand className="size-3.5" /> Quick find
+            <LuCommand className="size-3.5" /> {t("quickFind")}
           </Link>
           <Link
             href="/tools/background-remover"
             className="bg-foreground text-background text-[12px] font-medium px-4 py-2 rounded-full hover:bg-primary hover:text-primary-foreground transition-colors shrink-0 inline-flex items-center gap-1"
           >
-            <AnimatedShinyText>Try a tool</AnimatedShinyText>
+            <AnimatedShinyText>{t("tryATool")}</AnimatedShinyText>
             <span aria-hidden>→</span>
           </Link>
         </div>

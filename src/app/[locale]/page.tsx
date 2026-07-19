@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
@@ -14,28 +15,34 @@ import { StickyCta } from "@/components/motionix/marketing/StickyCta";
 import { organizationJsonLd } from "@/lib/schema";
 import { TOOLS_SITE_URL } from "@/lib/cn";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(TOOLS_SITE_URL),
-  title: "Motionix — image and video tools that finish the job in your browser",
-  description:
-    "Free background remover, passport photo maker, image compressor, and more. No signup, no upload, no watermark. Your files stay in your browser.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    title: "Motionix — image and video tools that finish the job in your browser",
-    description:
-      "Free background remover, passport photo maker, image compressor, and more. No signup, no upload, no watermark.",
-    url: "/",
-    siteName: "Motionix",
-    images: [{ url: "/og/og-default.png", width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Motionix — image and video tools that finish the job in your browser",
-    description: "Free background remover + passport photo maker + more. No signup.",
-    images: ["/og/og-default.png"],
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Hero" });
+  return {
+    metadataBase: new URL(TOOLS_SITE_URL),
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: { canonical: "/" },
+    openGraph: {
+      type: "website",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      url: "/",
+      siteName: "Motionix",
+      images: [{ url: "/og/og-default.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("metaTitle"),
+      description: t("metaDescription"),
+      images: ["/og/og-default.png"],
+    },
+  };
+}
 
 export default function HomePage() {
   const ld = organizationJsonLd(TOOLS_SITE_URL);

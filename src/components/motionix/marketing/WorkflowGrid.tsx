@@ -1,36 +1,23 @@
+import { getTranslations } from "next-intl/server";
 import { RevealOnScroll } from "@/components/motionix/visuals/RevealOnScroll";
 
-const workflow = [
-  {
-    n: "01",
-    t: "Drop your file",
-    d: "Drop it in. We support JPG, PNG, WebP, HEIC, AVIF — whatever your phone gave you.",
-  },
-  {
-    n: "02",
-    t: "Pick what to do",
-    d: "Resize, compress, swap a background, prep a passport photo. One click.",
-  },
-  {
-    n: "03",
-    t: "We do it in your browser",
-    d: "For things that don't need a server, your file stays on your device. The download link is instant.",
-  },
-  {
-    n: "04",
-    t: "Ship it",
-    d: "Drop into the form, save in the right size, attach to the email. No watermark. No login wall.",
-  },
-];
+export async function WorkflowGrid({ id = "how" }: { id?: string }) {
+  const t = await getTranslations("Workflow");
 
-export function WorkflowGrid({ id = "how" }: { id?: string }) {
+  const workflow = [
+    { n: "01", t: t("step1Title"), d: t("step1Desc") },
+    { n: "02", t: t("step2Title"), d: t("step2Desc") },
+    { n: "03", t: t("step3Title"), d: t("step3Desc") },
+    { n: "04", t: t("step4Title"), d: t("step4Desc") },
+  ];
+
   return (
     <section id={id} className="py-24 md:py-32 px-6 bg-background">
       <div className="max-w-7xl mx-auto">
         <RevealOnScroll>
-          <p className="eyebrow-mono text-primary mb-3">The Process</p>
+          <p className="eyebrow-mono text-primary mb-3">{t("eyebrow")}</p>
           <h2 className="font-serif text-4xl md:text-5xl italic leading-tight max-w-2xl">
-            Four steps. <span className="not-italic">No mystery.</span>
+            {t("title")}
           </h2>
         </RevealOnScroll>
 

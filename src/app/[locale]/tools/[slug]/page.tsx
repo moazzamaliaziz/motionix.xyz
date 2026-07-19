@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { tools, bySlug } from "@/lib/tools";
 import { toolJsonLd } from "@/lib/schema";
 import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
@@ -14,10 +15,6 @@ import { ToolChain } from "@/components/motionix/tool/ToolChain";
 import { ToolFeedback } from "@/components/motionix/tool/ToolFeedback";
 import { ToolBody } from "@/components/motionix/tool/ToolBody";
 
-/**
- * Shared ToolPage shell. Composed differently per tool because the body of the
- * tool (dropzone + interactive result) is tool-specific and lives in `<ToolBody>`.
- */
 export async function generateStaticParams() {
   return tools.map((t) => ({ slug: t.slug }));
 }
@@ -25,17 +22,18 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const tool = bySlug(slug);
   if (!tool) return {};
+  const t = await getTranslations({ locale, namespace: `Tools.${slug}` });
   return {
-    title: tool.metaTitle,
-    description: tool.metaDescription,
+    title: t("metaTitle"),
+    description: t("metaDescription"),
     openGraph: {
-      title: tool.metaTitle,
-      description: tool.metaDescription,
+      title: t("metaTitle"),
+      description: t("metaDescription"),
       url: `/tools/${tool.slug}`,
       siteName: "Motionix",
       type: "website",
@@ -43,8 +41,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: tool.metaTitle,
-      description: tool.metaDescription,
+      title: t("metaTitle"),
+      description: t("metaDescription"),
       images: [`/og/tools/${tool.ogImage}`],
     },
     alternates: { canonical: `/tools/${tool.slug}` },
@@ -54,11 +52,14 @@ export async function generateMetadata({
 export default async function ToolPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const tool = bySlug(slug);
   if (!tool) notFound();
+
+  const t = await getTranslations({ locale, namespace: "ToolPage" });
+  const toolT = await getTranslations({ locale, namespace: `Tools.${slug}` });
 
   const ld = toolJsonLd(tool);
 
@@ -71,43 +72,40 @@ export default async function ToolPage({
         <div className="max-w-6xl mx-auto">
           <header className="mb-10 md:mb-14">
             <p className="eyebrow-mono text-foreground/50 mb-3">
-              Motionix · tools · {tool.phase === "functional" ? "functional" : "coming up"}
+              Motionix · {t("breadcrumbTools")} · {tool.phase === "functional" ? t("statusFunctional") : t("statusComingUp")}
             </p>
             <h1 className="font-display text-5xl md:text-7xl leading-[0.92] tracking-tight">
-              {tool.name}
+              {toolT("name")}
             </h1>
             <p className="mt-4 max-w-2xl text-base md:text-lg text-foreground/60 leading-relaxed">
-              {tool.description}
+              {toolT("description")}
             </p>
           </header>
 
-          {/* Functional tool body — dropzone + result, all client-side */}
           <Suspense fallback={null}>
             <ToolBody tool={tool} />
           </Suspense>
 
-          {/* History host — provides the drawer to descendants */}
           <HistoryHost />
 
           {tool.stubHint ? (
             <p className="mt-6 text-sm text-foreground/60 max-w-2xl">
-              Coming up in Phase 2: {tool.stubHint}
+              {t("comingUpPhase2")} {tool.stubHint}
             </p>
           ) : null}
 
-          <ToolSteps tool={tool} />
-          <ToolUseCasesBento tool={tool} />
-          <ToolFormats tool={tool} />
-          <ToolFaq items={tool.faqs} />
+          <ToolSteps tool={tool} locale={locale} />
+          <ToolUseCasesBento tool={tool} locale={locale} />
+          <ToolFormats tool={tool} locale={locale} />
+          <ToolFaq items={tool.faqs} locale={locale} />
 
           <ToolFeedback toolSlug={tool.slug} />
-          <ToolChain fromSlug={tool.slug} />
+          <ToolChain fromSlug={tool.slug} locale={locale} />
         </div>
       </main>
 
       <SiteFooter />
 
-      {/* JSON-LD */}
       {ld.map((obj, i) => (
         <script
           key={i}

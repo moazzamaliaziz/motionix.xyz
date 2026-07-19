@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { listBlogPosts, getBlogPost } from "@/lib/blog";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
@@ -15,7 +16,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
@@ -38,12 +39,25 @@ export async function generateMetadata({
   };
 }
 
+function formatDate(s: string): string {
+  try {
+    return new Date(s).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  } catch {
+    return s;
+  }
+}
+
 export default async function BlogPostPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  const t = await getTranslations({ locale, namespace: "Blog" });
   const post = getBlogPost(slug);
   if (!post) notFound();
   const fm = post.frontmatter;
@@ -77,7 +91,7 @@ export default async function BlogPostPage({
         <article className="max-w-2xl mx-auto">
           <p className="eyebrow-mono text-foreground/55 mb-3">
             <Link href="/blog" className="hover:text-primary transition">
-              ← All posts
+              {t("allPosts")}
             </Link>
           </p>
           <h1 className="font-display text-4xl md:text-6xl leading-[0.95] tracking-tight">
@@ -87,7 +101,7 @@ export default async function BlogPostPage({
             {fm.description}
           </p>
           <p className="eyebrow-mono text-foreground/45 mt-6">
-            {formatDate(fm.date)} · by {fm.author} · {post.readingMinutes} min read
+            {formatDate(fm.date)} · by {fm.author} · {post.readingMinutes} {t("minRead")}
           </p>
 
           <hr className="my-10 border-foreground/10" />
@@ -99,14 +113,13 @@ export default async function BlogPostPage({
           <hr className="mt-16 border-foreground/10" />
           <p className="text-sm text-foreground/60 mt-6">
             <Link href="/blog" className="text-primary hover:underline">
-              ← Back to all posts
+              {t("backToPosts")}
             </Link>
           </p>
         </article>
       </main>
       <SiteFooter />
 
-      {/* BlogPosting schema */}
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
@@ -114,16 +127,4 @@ export default async function BlogPostPage({
       />
     </div>
   );
-}
-
-function formatDate(s: string): string {
-  try {
-    return new Date(s).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  } catch {
-    return s;
-  }
 }

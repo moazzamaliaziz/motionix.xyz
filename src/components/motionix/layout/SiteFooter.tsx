@@ -1,26 +1,29 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { TOOLS_SITE_URL } from "@/lib/cn";
 
-const productLinks = [
-  { href: "/tools/background-remover", label: "Background remover" },
-  { href: "/tools/passport-photo-maker", label: "Passport photo maker" },
-  { href: "/tools/student-id-photo-maker", label: "Student ID photo" },
-  { href: "/tools/resume-photo-maker", label: "Resume photo" },
-  { href: "/tools/signature-maker", label: "Signature maker" },
-  { href: "/tools/photo-resizer", label: "Photo resizer" },
-  { href: "/tools/image-compressor", label: "Image compressor" },
-];
+export async function SiteFooter() {
+  const t = await getTranslations("Footer");
 
-const trustLinks = [
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
-  { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
-  { href: "/cookies", label: "Cookies" },
-  { href: "/contact", label: "Contact" },
-];
+  const productLinks = [
+    { href: "/tools/background-remover", label: t("toolBackgroundRemover") },
+    { href: "/tools/passport-photo-maker", label: t("toolPassportPhotoMaker") },
+    { href: "/tools/student-id-photo-maker", label: t("toolStudentIdPhotoMaker") },
+    { href: "/tools/resume-photo-maker", label: t("toolResumePhotoMaker") },
+    { href: "/tools/signature-maker", label: t("toolSignatureMaker") },
+    { href: "/tools/photo-resizer", label: t("toolPhotoResizer") },
+    { href: "/tools/image-compressor", label: t("toolImageCompressor") },
+  ];
 
-export function SiteFooter() {
+  const trustLinks = [
+    { href: "/about", label: t("linkAbout") },
+    { href: "/blog", label: t("linkBlog") },
+    { href: "/privacy", label: t("linkPrivacy") },
+    { href: "/terms", label: t("linkTerms") },
+    { href: "/cookies", label: t("linkCookies") },
+    { href: "/contact", label: t("linkContact") },
+  ];
+
   return (
     <footer className="mt-32 border-t border-foreground/5 bg-cream/40">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-12 gap-10">
@@ -32,15 +35,15 @@ export function SiteFooter() {
             </span>
           </div>
           <p className="text-sm text-foreground/60 max-w-sm leading-relaxed">
-            Free image and video tools that respect your privacy. We don&apos;t upload anything unless a tool explicitly says we have to.
+            {t("description")}
           </p>
           <p className="mt-6 text-xs text-foreground/40 font-mono uppercase tracking-widest">
-            Made with a small slice of pineapple pizza.
+            {t("tagline")}
           </p>
         </div>
 
         <div className="md:col-span-4">
-          <p className="eyebrow-mono text-foreground/40 mb-3">Tools</p>
+          <p className="eyebrow-mono text-foreground/40 mb-3">{t("toolsHeading")}</p>
           <ul className="space-y-2 text-sm">
             {productLinks.map((l) => (
               <li key={l.href}>
@@ -53,7 +56,7 @@ export function SiteFooter() {
         </div>
 
         <div className="md:col-span-3">
-          <p className="eyebrow-mono text-foreground/40 mb-3">Company</p>
+          <p className="eyebrow-mono text-foreground/40 mb-3">{t("companyHeading")}</p>
           <ul className="space-y-2 text-sm">
             {trustLinks.map((l) => (
               <li key={l.href}>
@@ -68,9 +71,9 @@ export function SiteFooter() {
 
       <div className="border-t border-foreground/5">
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-foreground/50">
-          <p>© {new Date().getFullYear()} Motionix. No accounts required.</p>
+          <p>© {new Date().getFullYear()} Motionix. {t("copyright")}</p>
           <p className="font-mono uppercase tracking-widest">
-            Hosted on the edge · <a className="hover:underline" href={`${TOOLS_SITE_URL}/sitemap`} rel="nofollow">sitemap</a>
+            {t("hostedOn")} · <a className="hover:underline" href={`${TOOLS_SITE_URL}/sitemap`} rel="nofollow">{t("sitemap")}</a>
           </p>
         </div>
       </div>

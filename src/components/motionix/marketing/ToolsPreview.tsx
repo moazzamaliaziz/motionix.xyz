@@ -1,32 +1,22 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { MagicBento } from "@/components/motionix/visuals/MagicBento";
 import { RevealOnScroll } from "@/components/motionix/visuals/RevealOnScroll";
-import { tools, bySlug } from "@/lib/tools";
-import {
-  LuImage as LuImageOrig,
-  LuSparkles,
-} from "react-icons/lu";
+import { tools } from "@/lib/tools";
 
-const toneStyles = {
-  sky: "bg-sky",
-  peach: "bg-peach",
-  mint: "bg-mint",
-  blush: "bg-blush",
-  ember: "bg-ember",
-  paper: "bg-paper",
-} as const;
+export async function ToolsPreview() {
+  const t = await getTranslations("ToolsPreview");
 
-export function ToolsPreview() {
   return (
     <section className="py-24 md:py-32 px-6 max-w-7xl mx-auto" id="tools">
       <div className="text-center max-w-2xl mx-auto mb-14">
         <RevealOnScroll>
-          <p className="eyebrow-mono text-primary mb-3">The catalog</p>
+          <p className="eyebrow-mono text-primary mb-3">{t("eyebrow")}</p>
           <h2 className="font-serif text-4xl md:text-5xl italic leading-tight">
-            The ones we keep using.
+            {t("title")}
           </h2>
           <p className="mt-4 text-foreground/60">
-            Eight tools, all running in your browser. No upload, no account, no tracking.
+            {t("subtitle")}
           </p>
         </RevealOnScroll>
       </div>
@@ -45,7 +35,7 @@ export function ToolsPreview() {
 
       <div className="mt-10 text-center">
         <Link href="/tools" className="text-sm text-primary hover:underline">
-          See the full list →
+          {t("seeFullList")}
         </Link>
       </div>
     </section>

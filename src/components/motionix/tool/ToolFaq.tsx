@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
-export function ToolFaq({ items }: { items: { q: string; a: string }[] }) {
+export function ToolFaq({ items, locale }: { items: { q: string; a: string }[]; locale: string }) {
   const [open, setOpen] = useState<number | null>(0);
+  const t = useTranslations("ToolPage");
+
   return (
     <section className="py-14">
-      <p className="eyebrow-mono text-primary mb-3">FAQ</p>
+      <p className="eyebrow-mono text-primary mb-3">{t("faq")}</p>
       <h2 className="font-serif text-3xl md:text-4xl italic mb-8 leading-tight">
-        Frequently asked.
+        {t("frequentlyAsked")}
       </h2>
       <ul className="divide-y divide-foreground/5 border-t border-b border-foreground/5">
         {items.map((it, i) => {

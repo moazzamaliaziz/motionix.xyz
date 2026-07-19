@@ -1,18 +1,21 @@
+import { getTranslations } from "next-intl/server";
 import { NumberTicker } from "@/components/motionix/visuals/NumberTicker";
 import { Marquee } from "@/components/motionix/visuals/Marquee";
-
-const stats = [
-  { value: 7, label: "free tools" },
-  { value: 0, label: "accounts needed" },
-  { value: 1500, label: "ms median completion" },
-  { value: 5, label: "minutes to long-form task" },
-];
 
 const formatsMarquee = [
   "PNG", "JPEG", "WebP", "HEIC", "AVIF", "TIFF", "BMP", "GIF",
 ];
 
-export function StatsMarquee() {
+export async function StatsMarquee() {
+  const t = await getTranslations("Stats");
+
+  const stats = [
+    { value: 7, label: t("freeTools") },
+    { value: 0, label: t("accountsNeeded") },
+    { value: 1500, label: t("msMedian") },
+    { value: 5, label: t("minutesLongForm") },
+  ];
+
   return (
     <section className="border-y border-black/5 bg-paper/40">
       <div className="max-w-7xl mx-auto px-6 py-14 grid grid-cols-2 md:grid-cols-4 gap-y-8">
@@ -36,7 +39,7 @@ export function StatsMarquee() {
         <Marquee className="py-6 text-foreground/60" speed="normal">
           {formatsMarquee.map((f) => (
             <div key={f} className="flex items-center gap-6">
-              <span className="eyebrow-mono text-foreground/40">supports</span>
+              <span className="eyebrow-mono text-foreground/40">{t("supports")}</span>
               <span className="font-display text-2xl text-foreground/70">{f}</span>
             </div>
           ))}

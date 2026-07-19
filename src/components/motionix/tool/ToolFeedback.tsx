@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { LuThumbsDown, LuThumbsUp } from "react-icons/lu";
 import { track } from "@/lib/analytics";
 
-/**
- * Tiny feedback widget — no third-party deps. Fires `feedback_thumb_{up|down}`
- * across whichever analytics providers are configured (GA4, Plausible, Clarity).
- */
 export function ToolFeedback({ toolSlug }: { toolSlug: string }) {
   const [vote, setVote] = useState<"up" | "down" | null>(null);
+  const t = useTranslations("ToolPage");
 
   const fire = (which: "up" | "down") => {
     setVote(which);
@@ -20,7 +18,7 @@ export function ToolFeedback({ toolSlug }: { toolSlug: string }) {
 
   return (
     <div className="flex items-center gap-3 text-sm text-foreground/60">
-      <span>Did it work?</span>
+      <span>{t("didItWork")}</span>
       <button
         type="button"
         aria-label="Yes, it worked"
@@ -41,8 +39,8 @@ export function ToolFeedback({ toolSlug }: { toolSlug: string }) {
       >
         <LuThumbsDown className="size-4" />
       </button>
-      {vote === "up" ? <span>Nice. Thanks for the signal.</span> : null}
-      {vote === "down" ? <span>Sorry — what went wrong? Email us via the contact page.</span> : null}
+      {vote === "up" ? <span>{t("feedbackNice")}</span> : null}
+      {vote === "down" ? <span>{t("feedbackSorry")}</span> : null}
     </div>
   );
 }

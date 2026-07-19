@@ -9,6 +9,8 @@
     "tryATool": "Try a tool"
   },
   "Hero": {
+    "metaTitle": "Motionix — image and video tools that finish the job in your browser",
+    "metaDescription": "Free background remover, passport photo maker, image compressor, and more. No signup, no upload, no watermark. Your files stay in your browser.",
     "badge": "v1.0 — privacy-first image tools, no account needed",
     "headlineLine1": "Tools that",
     "headlineLine2": "actually finish",

@@ -22,6 +22,7 @@
     "mediabunny": "^1.50.8",
     "mongodb": "^7.5.0",
     "next": "16.2.10",
+    "next-intl": "^4.13.2",
     "next-mdx-remote": "^6.0.0",
     "onnxruntime-web": "^1.21.0",
     "react": "19.2.4",
