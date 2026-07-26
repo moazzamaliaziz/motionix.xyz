@@ -60,3 +60,20 @@ export function organizationJsonLd(siteUrl: string) {
     }],
   };
 }
+
+/**
+ * BreadcrumbList JSON-LD for a page. Pass ordered crumbs (name + absolute or
+ * root-relative url). Google renders these as breadcrumb rich results.
+ */
+export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}

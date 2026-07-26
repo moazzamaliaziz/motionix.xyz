@@ -1,9 +1,11 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { tools, bySlug } from "@/lib/tools";
-import { toolJsonLd } from "@/lib/schema";
+import { toolJsonLd, breadcrumbJsonLd } from "@/lib/schema";
+import { localizedUrl } from "@/lib/hreflang";
 import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
@@ -14,6 +16,7 @@ import { ToolFormats, ToolUseCasesBento } from "@/components/motionix/tool/ToolU
 import { ToolChain } from "@/components/motionix/tool/ToolChain";
 import { ToolFeedback } from "@/components/motionix/tool/ToolFeedback";
 import { ToolBody } from "@/components/motionix/tool/ToolBody";
+import { alternatesFor } from "@/lib/hreflang";
 
 export async function generateStaticParams() {
   return tools.map((t) => ({ slug: t.slug }));
@@ -45,7 +48,7 @@ export async function generateMetadata({
       description: t("metaDescription"),
       images: [`/og/tools/${tool.ogImage}`],
     },
-    alternates: { canonical: `/tools/${tool.slug}` },
+    alternates: alternatesFor(`/tools/${tool.slug}`, locale),
   };
 }
 
@@ -61,7 +64,14 @@ export default async function ToolPage({
   const t = await getTranslations({ locale, namespace: "ToolPage" });
   const toolT = await getTranslations({ locale, namespace: `Tools.${slug}` });
 
-  const ld = toolJsonLd(tool);
+  const ld = [
+    ...toolJsonLd(tool),
+    breadcrumbJsonLd([
+      { name: "Motionix", url: localizedUrl(locale, "/") },
+      { name: t("breadcrumbTools"), url: localizedUrl(locale, "/tools") },
+      { name: toolT("name"), url: localizedUrl(locale, `/tools/${tool.slug}`) },
+    ]),
+  ];
 
   return (
     <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
@@ -72,7 +82,11 @@ export default async function ToolPage({
         <div className="max-w-6xl mx-auto">
           <header className="mb-10 md:mb-14">
             <p className="eyebrow-mono text-foreground/50 mb-3">
-              Motionix · {t("breadcrumbTools")} · {tool.phase === "functional" ? t("statusFunctional") : t("statusComingUp")}
+              Motionix ·{" "}
+              <Link href="/tools" className="hover:text-foreground transition-colors">
+                {t("breadcrumbTools")}
+              </Link>{" "}
+              · {tool.phase === "functional" ? t("statusFunctional") : t("statusComingUp")}
             </p>
             <h1 className="font-display text-5xl md:text-7xl leading-[0.92] tracking-tight">
               {toolT("name")}
