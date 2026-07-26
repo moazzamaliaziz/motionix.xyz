@@ -1,0 +1,69 @@
+---
+title: "Privacy-first image tools: why we still process in your browser"
+description: "Server-side image manipulation used to be the default. Browser-native tooling now means we never see your file."
+date: "2026-07-04"
+author: "Motionix"
+tags: ["privacy", "engineering", "browser"]
+readingMinutes: 5
+---
+
+The single biggest decision we made when building Motionix was that no tool
+on the site should ever upload your file to our server. There are three
+reasons we held the line, and they're worth understanding before you trust
+an image tool with anything private.
+
+## What runs client-side
+
+Picture tools used to mean "send your file to a worker, wait, send it back."
+That pattern has costs:
+
+- **Round-trip latency.** Even on a fast fiber link, a 200 MB video between
+  you and a worker in another region burns 4-8 seconds.
+- **Discretion.** Your data passes through someone else's infra. Most tools
+  are honest about deleting it; the worst are not.
+- **Cost.** Servers are not free. Free-tier tools subsidise free users by
+  throwing ads on the result page or selling behavioural data.
+
+For Motionix, every tool runs against the browser's native APIs:
+
+- **Canvas** for crop / resize / format conversion.
+- **WebCodecs** for video decode / encode.
+- **ONNX Runtime Web** for background removal and other computer-vision
+  models.
+
+The trade-off is that you give up some accuracy for a 10× speedup on
+common tasks. We think that trade is worth it for the everyday flow.
+
+## Why "client-side" doesn't mean "less powerful"
+
+The pace has been relentless. ONNX Runtime Web matured enough in 2025 to
+make real-time background removal practical inside a single tab. WebCodecs
+moved from "experimental" to default-enabled across Safari, Chrome, and
+Edge. WASM SIMD makes image math genuinely fast.
+
+The result: in 2026, a tool that uploads your file to a server can no
+longer convincingly argue it has to.
+
+## When we'd break the rule
+
+There are three cases where server-side processing is the right answer:
+
+1. **Files too large to fit in browser memory.** Currently we cap everything
+   at 200 MB on the client.
+2. **Models that won't ship to the browser.** Diffusion-style image
+   generation is far off. We don't ship it today.
+3. **Anything that genuinely needs GPU cluster time.** Background-removal is
+   fine. Image generation isn't, yet.
+
+When we add a tool that needs server time, we'll mark it loudly. The default
+is that nothing leaves your device.
+
+## Why this matters for businesses
+
+The privacy-first stance is also a cost-first stance. We don't pay S3
+egress, we don't pay for a worker fleet, we don't get rate-limited by
+anyone. The tools stay free for everyone for a long time because the cost
+floors stay low.
+
+Stay tuned for the next post — we're going to walk through how WebCodecs
+beats ffmpeg.wasm for our video compressor.

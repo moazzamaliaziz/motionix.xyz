@@ -1,0 +1,78 @@
+---
+title: "How Motionix stays free: a cost-first build story"
+description: "Most AI tools burn investor cash on server GPUs. We're profitable from day one because nearly everything runs in the browser. Here's the line-item cost."
+date: "2026-06-08"
+author: "Motionix"
+tags: ["business", "engineering", "fundamentals"]
+readingMinutes: 5
+---
+
+A question we get a lot: how can you offer these tools for free? The short
+answer is that most of the work happens on your device, not on ours. The
+long answer is more interesting — and useful for any solo founder figuring
+out where to spend their hosting budget.
+
+## The cost floor we're working with
+
+Our entire production environment breaks down into one line item: a server
+that costs roughly $20/month. That's it. We don't pay S3 egress, we don't
+pay a worker fleet, we don't pay for GPUs. We do pay for a domain, and a
+modest amount for analytics that we'd skip if push came to shove.
+
+The reason this works: nearly everything happens on the visitor's device.
+
+## What does happen on our server
+
+Three things, and only three:
+
+1. **Statics.** The Next.js bundle, OG images, the sitemap, robots.txt.
+   Vercel's free tier covers this for any volume we'd see in year one.
+2. **A tiny history endpoint.** When you're signed in, your saved work is
+   persisted to MongoDB Atlas. Free tier gives us 512 MB of storage.
+3. **Cloudflare R2 for opt-in cloud upload.** Storage is $0.015/GB/month
+   and egress is zero — which means we make money on cost savings over S3.
+
+In practice, that means our cost-per-user per-month is in the fractions of
+a cent. Even at six-figure MAU we'd be paying for a slightly bigger
+server.
+
+## What the server does NOT do
+
+This is the list that earns us the cost profile:
+
+- **No image processing on a worker.** We use Canvas, ONNX, UPNG, and
+  WebCodecs.
+- **No model inference.** The largest model (background removal) is shipped
+  through the browser's HTTP cache, downloaded once per device.
+- **No video transcoding.** WebCodecs handles it.
+- **No file storage by default.** Cloud upload is opt-in. Saved work lives
+  on the user's device unless they ask for a cloud link.
+
+If a feature needs a server round-trip, we look first for a way to do it
+on the user's device. Failing that, we look for a way to do it on Vercel's
+free tier.
+
+## When we'll start paying real money
+
+We're not purists about it. If a feature requires server work, we'll do
+server work. The list of features that will require server hours:
+
+- **Server-side video transcoding** for files over 200 MB or in obscure
+  codecs.
+- **Print-on-demand** for passport photos that need real-photographic-grade
+  output.
+- **Team / shared history** for users who want collaborative storage.
+
+When those features ship, the cost tells us when to introduce a paid tier
+or expand paid bundles. The unit economics of tools 1-8 are basically
+free, so it doesn't matter if everyone in the world uses them.
+
+## Why this matters for your project
+
+If you're a solo founder building something that runs on someone else's
+data, designing for browser-first isn't just a privacy decision — it's
+a runway decision. We ran our first six months without anyone paying us
+a cent and never came close to running out of hosting budget.
+
+That's the bedrock. Everything else — design, content, distribution — is
+uphill from there.

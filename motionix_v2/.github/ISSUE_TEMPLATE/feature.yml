@@ -1,0 +1,34 @@
+---
+name: Tool or feature request
+about: Tell us what's missing
+title: ''
+labels: enhancement
+assignees: ''
+---
+
+## What do you need?
+
+A sentence or two on the gap.
+
+## What tool does this belong with?
+
+- New tool (rough idea)
+- Existing tool
+- The site itself
+- I have no idea — you decide
+
+## Why isn't this covered by something already here?
+
+(We ask because the most common request is for a feature we already ship
+under a different name — be honest if you've checked.)
+
+## Proposed shape
+
+A sentence on what the user flow would look like. *"Drop a video, choose
+trim handles, hit trim, download."*
+
+## Could a stretch / pay tier carry this?
+
+Some features need server compute (storage, paid APIs). If the request is
+too costly to run client-side, it's likely a paid-bundle feature. Flag
+that here and we'll plan around it.
