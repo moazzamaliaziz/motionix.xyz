@@ -1,0 +1,55 @@
+# Motionix — Free AI Tools for Images & Video
+
+> Free, privacy-first browser-based tools for image and video editing. No signup, no uploads — everything runs on your device.
+
+## About
+
+Motionix is a collection of 8 free AI-powered tools that run entirely in the user's browser. Images and videos never leave the device. Tools are powered by ONNX Runtime, HTML Canvas, and WebCodecs — no server-side processing required.
+
+## Tools
+
+- **Background Remover** (`/tools/background-remover`) — Remove backgrounds from photos using an on-device ISNet AI model. Supports JPG, PNG, WebP, HEIC, AVIF.
+- **Passport Photo Maker** (`/tools/passport-photo-maker`) — Create compliant passport and ID photos with country-specific sizing for 50+ countries. Includes head-position compliance checking.
+- **Student ID Photo Maker** (`/tools/student-id-photo-maker`) — Generate school and university ID photos in standard dimensions with background adjustment.
+- **Resume Photo Maker** (`/tools/resume-photo-maker`) — Create professional headshot photos for CVs, resumes, and LinkedIn profiles.
+- **Signature Maker** (`/tools/signature-maker`) — Draw or type a digital signature and export it as a transparent PNG for documents and forms.
+- **Photo Resizer** (`/tools/photo-resizer`) — Resize images to exact pixel or percentage dimensions. Supports aspect-ratio lock and common presets.
+- **Image Compressor** (`/tools/image-compressor`) — Shrink JPG, PNG, and WebP file sizes with quality-targeted compression. Visual preview and side-by-side comparison.
+- **Video Compressor** (`/tools/video-compressor`) — Compress MP4, MOV, MKV, and WebM videos to target file sizes using browser-native WebCodecs transcoding.
+
+## Key Pages
+
+- Homepage: `/`
+- Tools catalog: `/tools`
+- Blog: `/blog`
+- About: `/about`
+- Contact: `/contact`
+- Privacy Policy: `/privacy`
+- Terms of Service: `/terms`
+- Cookie Policy: `/cookies`
+
+## API Endpoints
+
+- `POST /api/tool-submissions` — Submit a new AI tool for review and inclusion in the directory.
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router) with TypeScript
+- **Styling**: Tailwind CSS
+- **AI Runtime**: ONNX Runtime Web (client-side inference)
+- **Video Processing**: WebCodecs API via Mediabunny
+- **Image Processing**: HTML Canvas API
+- **Authentication**: Clerk (optional)
+- **Analytics**: Vercel Analytics + Speed Insights
+- **Deployment**: Vercel
+- **CMS**: MDX blog posts with gray-matter frontmatter
+- **i18n**: next-intl (English, French, German, Hindi, Japanese, Chinese Simplified)
+
+## Multilingual Support
+
+Available in: English (en), Français (fr), Deutsch (de), हिंदी (hi), 日本語 (ja), 简体中文 (zh-cn)
+
+## Contact
+
+- Email: hello@motionix.xyz
+- Website: https://motionix.xyz

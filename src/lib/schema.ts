@@ -11,11 +11,14 @@ export function toolJsonLd(tool: Tool) {
     name: tool.name,
     description: tool.metaDescription,
     applicationCategory: "MultimediaApplication",
-    applicationSubCategory: tool.engine === "image-onnx"
-      ? "PhotoEditing"
-      : tool.engine === "photo-compliance"
-      ? "Photography"
-      : "ImageUtility",
+    applicationSubCategory:
+      tool.engine === "image-onnx"
+        ? "PhotoEditing"
+        : tool.engine === "photo-compliance"
+          ? "Photography"
+          : tool.engine === "video-wasm"
+            ? "VideoEditing"
+            : "ImageUtility",
     operatingSystem: "Web",
     offers: {
       "@type": "Offer",
@@ -26,7 +29,6 @@ export function toolJsonLd(tool: Tool) {
     image: `/og/tools/${tool.ogImage}`,
     featureList: tool.formats.join(", "),
     softwareVersion: "1.0",
-    aggregateRating: undefined as unknown,
   };
 
   const faqLd = {
@@ -49,15 +51,43 @@ export function organizationJsonLd(siteUrl: string) {
     name: "Motionix",
     url: siteUrl,
     logo: `${siteUrl}/og/og-default.png`,
-    sameAs: [
-      "https://twitter.com/motionix",
+    sameAs: ["https://twitter.com/motionix"],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        email: "hello@motionix.xyz",
+        availableLanguage: ["English", "French", "German", "Hindi", "Japanese", "Chinese"],
+      },
     ],
-    contactPoint: [{
-      "@type": "ContactPoint",
-      contactType: "customer support",
-      email: "hello@motionix.xyz",
-      availableLanguage: ["English"],
-    }],
+  };
+}
+
+/**
+ * WebSite JSON-LD with SearchAction for Google sitelinks search box.
+ * Place on the homepage alongside Organization.
+ */
+export function websiteJsonLd(siteUrl: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Motionix",
+    url: siteUrl,
+    description:
+      "Free, privacy-first AI tools for images and video. Background remover, passport photos, image compressor, and more — all in your browser.",
+    publisher: {
+      "@type": "Organization",
+      name: "Motionix",
+      logo: `${siteUrl}/og/og-default.png`,
+    },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${siteUrl}/tools?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 

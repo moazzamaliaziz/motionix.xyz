@@ -1,11 +1,19 @@
-import { getTranslations } from "next-intl/server";
+﻿import { getTranslations } from "next-intl/server";
 import { type Tool } from "@/lib/tools";
+
+/** Static map from step count to Tailwind grid-cols class (avoids JIT purge). */
+const gridColsMap: Record<number, string> = {
+  1: "md:grid-cols-1",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-4",
+};
 
 export async function ToolSteps({ tool, locale }: { tool: Tool; locale: string }) {
   if (!tool.steps || tool.steps.length === 0) return null;
   const t = await getTranslations({ locale, namespace: "ToolPage" });
   const toolT = await getTranslations({ locale, namespace: `Tools.${tool.slug}` });
-  const cols = tool.steps.length >= 4 ? "md:grid-cols-4" : `md:grid-cols-${tool.steps.length}`;
+  const cols = gridColsMap[tool.steps.length] ?? "md:grid-cols-4";
   return (
     <section className="py-14">
       <p className="eyebrow-mono text-primary mb-3">{t("howItWorks")}</p>

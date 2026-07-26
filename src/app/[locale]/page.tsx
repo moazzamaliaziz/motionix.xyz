@@ -12,7 +12,7 @@ import { TestimonialsMarquee } from "@/components/motionix/marketing/Testimonial
 import { PricingCards } from "@/components/motionix/marketing/PricingCards";
 import { FaqAccordion } from "@/components/motionix/marketing/FaqAccordion";
 import { StickyCta } from "@/components/motionix/marketing/StickyCta";
-import { organizationJsonLd } from "@/lib/schema";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/schema";
 import { TOOLS_SITE_URL } from "@/lib/cn";
 
 export async function generateMetadata({
@@ -45,11 +45,15 @@ export async function generateMetadata({
 }
 
 export default function HomePage() {
-  const ld = organizationJsonLd(TOOLS_SITE_URL);
+  const orgLd = organizationJsonLd(TOOLS_SITE_URL);
+  const siteLd = websiteJsonLd(TOOLS_SITE_URL);
+
   return (
     <>
       <AnnouncementBar />
-      <Suspense fallback={null}><SiteHeader /></Suspense>
+      <Suspense fallback={null}>
+        <SiteHeader />
+      </Suspense>
       <main id="main-content" className="flex-1">
         <Hero />
         <StatsMarquee />
@@ -65,7 +69,12 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLd) }}
       />
     </>
   );

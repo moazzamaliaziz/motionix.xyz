@@ -7,7 +7,11 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: ["/"],
-        disallow: ["/api/"],
+        disallow: ["/api/", "/admin/", "/_next/"],
+      },
+      {
+        userAgent: "GPTBot",
+        allow: ["/", "/llms.txt"],
       },
     ],
     sitemap: `${TOOLS_SITE_URL}/sitemap.xml`,
