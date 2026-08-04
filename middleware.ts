@@ -1,7 +1,13 @@
 import createMiddleware from "next-intl/middleware";
-import { routing } from "./src/i18n/routing";
 
-export default createMiddleware(routing);
+const locales = ["en", "fr", "de", "hi", "ja", "zh-cn"] as const;
+const defaultLocale = "en";
+
+export default createMiddleware({
+  locales,
+  defaultLocale,
+  localePrefix: "as-needed",
+});
 
 export const config = {
   matcher: [
