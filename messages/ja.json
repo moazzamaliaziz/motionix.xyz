@@ -1,4 +1,4 @@
-{
+﻿{
   "Nav": {
     "home": "ホーム",
     "tools": "ツール",
@@ -32,7 +32,7 @@
   },
   "Workflow": {
     "eyebrow": "プロセス",
-    "title": "4つのステップ。<highlight>曖昧なことはなし。</highlight>",
+    "title": "4つのステップ。曖昧なことはなし。",
     "step1Title": "ファイルをドロップ",
     "step1Desc": "ドラッグ&ドロップ。JPG、PNG、WebP、HEIC、AVIFなど、スマホで撮ったものなら何でもOK。",
     "step2Title": "やることを選ぶ",
@@ -44,7 +44,7 @@
   },
   "Pricing": {
     "eyebrow": "料金",
-    "title": "無料、シンプル。<highlight>永久に。</highlight>",
+    "title": "無料、シンプル。永久に。",
     "mostChosen": "一番人気",
     "tier1Name": "無料",
     "tier1Price": "$0",
@@ -121,7 +121,7 @@
     "cta": "背景除去を開く"
   },
   "AnnouncementBar": {
-    "defaultMessage": "Motionixはブラウザ内で無料です。アカウント不要、アップロード不要。✕",
+    "defaultMessage": "Motionixはブラウザ内で無料です。アカウント不要、アップロード不要。×",
     "closeLabel": "お知らせを閉じる"
   },
   "Footer": {
@@ -588,3 +588,5 @@
     "errorNetwork": "ネットワークの問題。少し待ってから再試行してください。"
   }
 }
+
+

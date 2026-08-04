@@ -32,7 +32,7 @@ export function SiteHeader() {
   return (
     <header className="fixed top-10 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-1.5rem)] max-w-2xl px-2 animate-fade-up">
       <div
-        className={`inline-flex w-full items-center justify-between rounded-full border border-black/5 bg-white/75 backdrop-blur-xl pl-5 pr-2 py-2 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)] transition-all ${
+        className={`flex w-full items-center justify-between rounded-full border border-black/5 bg-white/75 backdrop-blur-xl pl-5 pr-2 py-2 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)] transition-all ${
           scrolled ? "scale-[0.98]" : ""
         }`}
       >

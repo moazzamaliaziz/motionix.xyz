@@ -18,7 +18,7 @@ export function AnnouncementBar({ message }: { message?: string }) {
         onClick={() => setShow(false)}
         className="ml-3 opacity-70 hover:opacity-100 transition-opacity"
       >
-        ✕
+        <span aria-hidden="true">&#10005;</span>
       </button>
     </div>
   );

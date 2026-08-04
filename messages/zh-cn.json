@@ -1,4 +1,4 @@
-{
+﻿{
   "Nav": {
     "home": "首页",
     "tools": "工具",
@@ -32,7 +32,7 @@
   },
   "Workflow": {
     "eyebrow": "流程",
-    "title": "四步完成。<highlight>没有玄学。</highlight>",
+    "title": "四步完成。没有玄学。",
     "step1Title": "拖入文件",
     "step1Desc": "直接拖进来。支持 JPG、PNG、WebP、HEIC、AVIF——手机拍的都行。",
     "step2Title": "选择操作",
@@ -44,7 +44,7 @@
   },
   "Pricing": {
     "eyebrow": "定价",
-    "title": "免费，简单。<highlight>永久。</highlight>",
+    "title": "免费，简单。永久。",
     "mostChosen": "最受欢迎",
     "tier1Name": "免费",
     "tier1Price": "$0",
@@ -121,7 +121,7 @@
     "cta": "打开背景移除工具"
   },
   "AnnouncementBar": {
-    "defaultMessage": "Motionix 在浏览器中免费使用。无需账户。无需上传。✕",
+    "defaultMessage": "Motionix 在浏览器中免费使用。无需账户。无需上传。×",
     "closeLabel": "关闭公告"
   },
   "Footer": {
@@ -588,3 +588,5 @@
     "errorNetwork": "网络波动。稍后再试？"
   }
 }
+
+

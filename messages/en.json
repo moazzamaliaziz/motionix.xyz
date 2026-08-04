@@ -1,4 +1,4 @@
-{
+﻿{
     "Nav":  {
                 "home":  "Home",
                 "tools":  "Tools",
@@ -32,7 +32,7 @@
               },
     "Workflow":  {
                      "eyebrow":  "The Process",
-                     "title":  "Four steps. \u003chighlight\u003eNo mystery.\u003c/highlight\u003e",
+                     "title":  "Four steps. No mystery.",
                      "step1Title":  "Drop your file",
                      "step1Desc":  "Drop it in. We support JPG, PNG, WebP, HEIC, AVIF â€” whatever your phone gave you.",
                      "step2Title":  "Pick what to do",
@@ -44,7 +44,7 @@
                  },
     "Pricing":  {
                     "eyebrow":  "Pricing",
-                    "title":  "Free, simple. \u003chighlight\u003eForever.\u003c/highlight\u003e",
+                    "title":  "Free, simple. Forever.",
                     "mostChosen":  "Most-chosen",
                     "tier1Name":  "Free",
                     "tier1Price":  "$0",

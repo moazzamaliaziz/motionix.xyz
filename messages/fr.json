@@ -1,4 +1,4 @@
-{
+﻿{
   "Nav": {
     "home": "Accueil",
     "tools": "Outils",
@@ -32,7 +32,7 @@
   },
   "Workflow": {
     "eyebrow": "Le processus",
-    "title": "Quatre étapes. <highlight>Pas de mystère.</highlight>",
+    "title": "Quatre étapes. Pas de mystère.",
     "step1Title": "Déposez votre fichier",
     "step1Desc": "Déposez-le ici. Nous supportons JPG, PNG, WebP, HEIC, AVIF — peu importe ce que votre téléphone vous a donné.",
     "step2Title": "Choisissez l'action",
@@ -44,7 +44,7 @@
   },
   "Pricing": {
     "eyebrow": "Tarification",
-    "title": "Gratuit, simple. <highlight>Pour toujours.</highlight>",
+    "title": "Gratuit, simple. Pour toujours.",
     "mostChosen": "Le plus choisi",
     "tier1Name": "Gratuit",
     "tier1Price": "$0",
@@ -121,7 +121,7 @@
     "cta": "Ouvrir le supprimeur d'arrière-plan"
   },
   "AnnouncementBar": {
-    "defaultMessage": "Motionix est gratuit dans votre navigateur. Aucun compte. Aucun téléchargement. ✕",
+    "defaultMessage": "Motionix est gratuit dans votre navigateur. Aucun compte. Aucun téléchargement. ×",
     "closeLabel": "Fermer l'annonce"
   },
   "Footer": {
@@ -588,3 +588,4 @@
     "errorNetwork": "Problème réseau. Réessayez dans un instant ?"
   }
 }
+
