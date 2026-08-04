@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { TOOLS_SITE_URL } from "@/lib/cn";
+import { alternatesFor } from "@/lib/hreflang";
 
 export const dynamic = "force-dynamic";
 
@@ -23,12 +24,12 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const post = getBlogPost(slug);
   if (!post) return {};
   const fm = post.frontmatter;
   return {
-    title: `${fm.title} � Motionix`,
+    title: `${fm.title} — Motionix`,
     description: fm.description,
     openGraph: {
       title: fm.title,
@@ -40,7 +41,7 @@ export async function generateMetadata({
       url: `${TOOLS_SITE_URL}/blog/${post.slug}`,
     },
     twitter: { card: "summary_large_image", title: fm.title, description: fm.description },
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: alternatesFor(`/blog/${post.slug}`, locale),
   };
 }
 

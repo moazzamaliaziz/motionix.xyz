@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { SpotlightCard } from "@/components/motionix/visuals/SpotlightCard";
 import { ContactForm } from "@/components/motionix/marketing/ContactForm";
+import { alternatesFor } from "@/lib/hreflang";
 
 export async function generateMetadata({
   params,
@@ -25,7 +26,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("subtitle"),
     },
-    alternates: { canonical: "https://motionix.xyz/contact" },
+    alternates: alternatesFor("/contact", locale),
   };
 }
 

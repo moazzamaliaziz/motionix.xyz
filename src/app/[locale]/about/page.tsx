@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { SpotlightCard } from "@/components/motionix/visuals/SpotlightCard";
+import { alternatesFor } from "@/lib/hreflang";
 
 export async function generateMetadata({
   params,
@@ -25,7 +26,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("p1"),
     },
-    alternates: { canonical: "https://motionix.xyz/about" },
+    alternates: alternatesFor("/about", locale),
   };
 }
 

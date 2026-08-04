@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SpotlightCard } from "@/components/motionix/visuals/SpotlightCard";
+import { alternatesFor } from "@/lib/hreflang";
 
 export async function generateMetadata({
   params,
@@ -22,7 +23,7 @@ export async function generateMetadata({
       description: t("subtitle"),
       type: "website",
     },
-    alternates: { canonical: "/blog" },
+    alternates: alternatesFor("/blog", locale),
   };
 }
 

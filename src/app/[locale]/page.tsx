@@ -14,6 +14,7 @@ import { FaqAccordion } from "@/components/motionix/marketing/FaqAccordion";
 import { StickyCta } from "@/components/motionix/marketing/StickyCta";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/schema";
 import { TOOLS_SITE_URL } from "@/lib/cn";
+import { alternatesFor } from "@/lib/hreflang";
 
 export async function generateMetadata({
   params,
@@ -26,7 +27,7 @@ export async function generateMetadata({
     metadataBase: new URL(TOOLS_SITE_URL),
     title: t("metaTitle"),
     description: t("metaDescription"),
-    alternates: { canonical: "/" },
+    alternates: alternatesFor("/", locale),
     openGraph: {
       type: "website",
       title: t("metaTitle"),

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { alternatesFor } from "@/lib/hreflang";
 
 export async function generateMetadata({
   params,
@@ -23,7 +24,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("subtitle"),
     },
-    alternates: { canonical: "https://motionix.xyz/privacy" },
+    alternates: alternatesFor("/privacy", locale),
   };
 }
 
