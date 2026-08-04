@@ -1,4 +1,4 @@
-﻿{
+{
   "Nav": {
     "home": "Accueil",
     "tools": "Outils",
@@ -121,7 +121,7 @@
     "cta": "Ouvrir le supprimeur d'arrière-plan"
   },
   "AnnouncementBar": {
-    "defaultMessage": "Motionix est gratuit dans votre navigateur. Aucun compte. Aucun téléchargement. ×",
+    "defaultMessage": "Motionix est gratuit dans votre navigateur. Aucun compte. Aucun téléchargement. ✕",
     "closeLabel": "Fermer l'annonce"
   },
   "Footer": {
@@ -588,4 +588,3 @@
     "errorNetwork": "Problème réseau. Réessayez dans un instant ?"
   }
 }
-

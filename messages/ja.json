@@ -1,4 +1,4 @@
-﻿{
+{
   "Nav": {
     "home": "ホーム",
     "tools": "ツール",
@@ -121,7 +121,7 @@
     "cta": "背景除去を開く"
   },
   "AnnouncementBar": {
-    "defaultMessage": "Motionixはブラウザ内で無料です。アカウント不要、アップロード不要。×",
+    "defaultMessage": "Motionixはブラウザ内で無料です。アカウント不要、アップロード不要。✕",
     "closeLabel": "お知らせを閉じる"
   },
   "Footer": {
@@ -588,5 +588,3 @@
     "errorNetwork": "ネットワークの問題。少し待ってから再試行してください。"
   }
 }
-
-

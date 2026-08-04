@@ -1,4 +1,4 @@
-﻿{
+{
   "Nav": {
     "home": "首页",
     "tools": "工具",
@@ -121,7 +121,7 @@
     "cta": "打开背景移除工具"
   },
   "AnnouncementBar": {
-    "defaultMessage": "Motionix 在浏览器中免费使用。无需账户。无需上传。×",
+    "defaultMessage": "Motionix 在浏览器中免费使用。无需账户。无需上传。✕",
     "closeLabel": "关闭公告"
   },
   "Footer": {
@@ -588,5 +588,3 @@
     "errorNetwork": "网络波动。稍后再试？"
   }
 }
-
-
