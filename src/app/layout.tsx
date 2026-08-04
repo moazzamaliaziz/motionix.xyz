@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import "./globals.css";
 import { OptionalClerkProvider } from "@/components/motionix/auth/OptionalClerkProvider";
 import { AnalyticsProvider } from "@/components/motionix/analytics/AnalyticsProvider";
@@ -65,14 +66,15 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`h-full antialiased ${inter.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
     >
       <head>
