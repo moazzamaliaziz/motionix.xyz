@@ -45,7 +45,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex gap-6 text-[13px] font-medium text-foreground/60">
+        <nav className="hidden md:flex flex-1 justify-center gap-6 text-[13px] font-medium text-foreground/60">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -59,7 +59,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <LanguageSwitcher />
           <Link
             href="/tools"
