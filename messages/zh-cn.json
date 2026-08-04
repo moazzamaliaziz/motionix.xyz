@@ -121,7 +121,7 @@
     "cta": "打开背景移除工具"
   },
   "AnnouncementBar": {
-    "defaultMessage": "Motionix 在浏览器中免费使用。无需账户。无需上传。✕",
+    "defaultMessage": "Motionix 在浏览器中免费使用。无需账户。无需上传。",
     "closeLabel": "关闭公告"
   },
   "Footer": {

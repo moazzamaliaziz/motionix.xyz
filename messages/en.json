@@ -121,7 +121,7 @@
                       "cta":  "Open background remover"
                   },
     "AnnouncementBar":  {
-                            "defaultMessage":  "Motionix is free in your browser. No account. No upload. âœ•",
+                            "defaultMessage":  "Motionix is free in your browser. No account. No upload.",
                             "closeLabel":  "Close announcement"
                         },
     "Footer":  {
