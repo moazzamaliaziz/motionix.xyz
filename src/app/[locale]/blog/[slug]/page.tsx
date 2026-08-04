@@ -4,13 +4,16 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { listBlogPosts, getBlogPost } from "@/lib/blog";
+import { locales } from "@/i18n/config";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { TOOLS_SITE_URL } from "@/lib/cn";
 
 export async function generateStaticParams() {
-  return listBlogPosts({ includeDrafts: false }).map((p) => ({ slug: p.slug }));
+  return locales.flatMap((locale) =>
+    listBlogPosts({ includeDrafts: false }).map((p) => ({ locale, slug: p.slug }))
+  );
 }
 
 export async function generateMetadata({
@@ -23,7 +26,7 @@ export async function generateMetadata({
   if (!post) return {};
   const fm = post.frontmatter;
   return {
-    title: `${fm.title} â€” Motionix`,
+    title: `${fm.title} — Motionix`,
     description: fm.description,
     openGraph: {
       title: fm.title,
@@ -101,7 +104,7 @@ export default async function BlogPostPage({
             {fm.description}
           </p>
           <p className="eyebrow-mono text-foreground/45 mt-6">
-            {formatDate(fm.date)} Â· by {fm.author} Â· {post.readingMinutes} {t("minRead")}
+            {formatDate(fm.date)} · by {fm.author} · {post.readingMinutes} {t("minRead")}
           </p>
 
           <hr className="my-10 border-foreground/10" />
@@ -122,7 +125,6 @@ export default async function BlogPostPage({
 
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
     </div>

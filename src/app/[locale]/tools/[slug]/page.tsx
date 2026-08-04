@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { tools, bySlug } from "@/lib/tools";
 import { toolJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import { localizedUrl } from "@/lib/hreflang";
+import { locales } from "@/i18n/config";
 import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
@@ -19,7 +20,9 @@ import { ToolBody } from "@/components/motionix/tool/ToolBody";
 import { alternatesFor } from "@/lib/hreflang";
 
 export async function generateStaticParams() {
-  return tools.map((t) => ({ slug: t.slug }));
+  return locales.flatMap((locale) =>
+    tools.map((t) => ({ locale, slug: t.slug }))
+  );
 }
 
 export async function generateMetadata({
@@ -82,11 +85,11 @@ export default async function ToolPage({
         <div className="max-w-6xl mx-auto">
           <header className="mb-10 md:mb-14">
             <p className="eyebrow-mono text-foreground/50 mb-3">
-              Motionix Â·{" "}
+              Motionix ·{" "}
               <Link href="/tools" className="hover:text-foreground transition-colors">
                 {t("breadcrumbTools")}
               </Link>{" "}
-              Â· {tool.phase === "functional" ? t("statusFunctional") : t("statusComingUp")}
+              · {tool.phase === "functional" ? t("statusFunctional") : t("statusComingUp")}
             </p>
             <h1 className="font-display text-5xl md:text-7xl leading-[0.92] tracking-tight">
               {toolT("name")}
@@ -124,7 +127,6 @@ export default async function ToolPage({
         <script
           key={i}
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(obj) }}
         />
       ))}
