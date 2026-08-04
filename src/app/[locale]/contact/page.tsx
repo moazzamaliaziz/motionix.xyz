@@ -3,6 +3,9 @@ import { getTranslations } from "next-intl/server";
 import { SpotlightCard } from "@/components/motionix/visuals/SpotlightCard";
 import { ContactForm } from "@/components/motionix/marketing/ContactForm";
 import { alternatesFor } from "@/lib/hreflang";
+import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
+import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
+import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 
 export async function generateMetadata({
   params,
@@ -39,14 +42,18 @@ export default async function ContactPage({
   const t = await getTranslations({ locale, namespace: "Contact" });
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-32">
-      <p className="eyebrow-mono text-primary mb-3">{t("eyebrow")}</p>
-      <h1 className="font-display text-5xl md:text-7xl leading-[0.92] tracking-tight">
-        {t("title")}
-      </h1>
-      <p className="mt-6 text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed">
-        {t("subtitle")}
-      </p>
+    <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
+      <AnnouncementBar />
+      <SiteHeader />
+      <main className="flex-1 pt-32 md:pt-40 px-6 pb-24">
+        <div className="max-w-3xl mx-auto">
+          <p className="eyebrow-mono text-primary mb-3">{t("eyebrow")}</p>
+          <h1 className="font-display text-5xl md:text-7xl leading-[0.92] tracking-tight">
+            {t("title")}
+          </h1>
+          <p className="mt-6 text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed">
+            {t("subtitle")}
+          </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-12">
         <SpotlightCard tone="paper">
@@ -84,6 +91,9 @@ export default async function ContactPage({
       </div>
 
       <ContactForm />
+      </div>
+      </main>
+      <SiteFooter />
     </div>
   );
 }

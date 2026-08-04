@@ -3,6 +3,9 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { SpotlightCard } from "@/components/motionix/visuals/SpotlightCard";
 import { alternatesFor } from "@/lib/hreflang";
+import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
+import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
+import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 
 export async function generateMetadata({
   params,
@@ -39,11 +42,15 @@ export default async function AboutPage({
   const t = await getTranslations({ locale, namespace: "About" });
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-32">
-      <p className="eyebrow-mono text-primary mb-3">{t("eyebrow")}</p>
-      <h1 className="font-display text-5xl md:text-7xl leading-[0.92] tracking-tight">
-        {t("title")}
-      </h1>
+    <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
+      <AnnouncementBar />
+      <SiteHeader />
+      <main className="flex-1 pt-32 md:pt-40 px-6 pb-24">
+        <div className="max-w-3xl mx-auto">
+          <p className="eyebrow-mono text-primary mb-3">{t("eyebrow")}</p>
+          <h1 className="font-display text-5xl md:text-7xl leading-[0.92] tracking-tight">
+            {t("title")}
+          </h1>
 
       <div className="prose prose-neutral max-w-none mt-10 space-y-6 text-[15px] leading-relaxed">
         <p>{t("p1")}</p>
@@ -78,6 +85,9 @@ export default async function AboutPage({
         <Link href="/privacy" className="text-foreground/70 underline-offset-4 hover:underline">{t("ctaPrivacy")}</Link>
         <Link href="/contact" className="text-foreground/70 underline-offset-4 hover:underline">{t("ctaContact")}</Link>
       </div>
+      </div>
+      </main>
+      <SiteFooter />
     </div>
   );
 }
