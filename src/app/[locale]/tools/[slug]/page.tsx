@@ -19,6 +19,8 @@ import { ToolFeedback } from "@/components/motionix/tool/ToolFeedback";
 import { ToolBody } from "@/components/motionix/tool/ToolBody";
 import { alternatesFor } from "@/lib/hreflang";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   return locales.flatMap((locale) =>
     tools.map((t) => ({ locale, slug: t.slug }))
@@ -85,11 +87,11 @@ export default async function ToolPage({
         <div className="max-w-6xl mx-auto">
           <header className="mb-10 md:mb-14">
             <p className="eyebrow-mono text-foreground/50 mb-3">
-              Motionix ·{" "}
+              Motionix ï¿½{" "}
               <Link href="/tools" className="hover:text-foreground transition-colors">
                 {t("breadcrumbTools")}
               </Link>{" "}
-              · {tool.phase === "functional" ? t("statusFunctional") : t("statusComingUp")}
+              ï¿½ {tool.phase === "functional" ? t("statusFunctional") : t("statusComingUp")}
             </p>
             <h1 className="font-display text-5xl md:text-7xl leading-[0.92] tracking-tight">
               {toolT("name")}

@@ -10,6 +10,8 @@ import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { TOOLS_SITE_URL } from "@/lib/cn";
 
+export const dynamic = "force-dynamic";
+
 export async function generateStaticParams() {
   return locales.flatMap((locale) =>
     listBlogPosts({ includeDrafts: false }).map((p) => ({ locale, slug: p.slug }))
@@ -26,7 +28,7 @@ export async function generateMetadata({
   if (!post) return {};
   const fm = post.frontmatter;
   return {
-    title: `${fm.title} — Motionix`,
+    title: `${fm.title} ï¿½ Motionix`,
     description: fm.description,
     openGraph: {
       title: fm.title,
@@ -104,7 +106,7 @@ export default async function BlogPostPage({
             {fm.description}
           </p>
           <p className="eyebrow-mono text-foreground/45 mt-6">
-            {formatDate(fm.date)} · by {fm.author} · {post.readingMinutes} {t("minRead")}
+            {formatDate(fm.date)} ï¿½ by {fm.author} ï¿½ {post.readingMinutes} {t("minRead")}
           </p>
 
           <hr className="my-10 border-foreground/10" />
