@@ -48,3 +48,6 @@ next-env.d.ts
 .env.*.local
 
 .playwright-mcp/
+
+# v2 sub-project (separate repo, causes build conflicts)
+motionix_v2/
