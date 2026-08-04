@@ -109,8 +109,7 @@ export function HistoryDrawer({
               </p>
               {!auth.isSignedIn ? (
                 <p className="text-foreground/40">
-                  Sign in <a className="underline" href="/sign-in">here</a> when auth is
-                  live to keep history across sessions.
+                  Sign in to keep history across sessions (auth coming soon).
                 </p>
               ) : null}
             </div>
