@@ -68,6 +68,21 @@ const baseConfig: NextConfig = {
     return [
       ...onnxRoutes,
       {
+        // Sitemap — allow Googlebot and other crawlers to read it cleanly.
+        source: "/sitemap.xml",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" },
+          { key: "X-Robots-Tag", value: "noindex" },
+        ],
+      },
+      {
+        // Robots.txt — ensure crawlers can read it.
+        source: "/robots.txt",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" },
+        ],
+      },
+      {
         // Default CSP — applies to all routes.
         source: "/:path*",
         headers: [

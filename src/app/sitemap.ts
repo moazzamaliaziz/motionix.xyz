@@ -3,10 +3,6 @@ import { tools } from "@/lib/tools";
 import { TOOLS_SITE_URL } from "@/lib/cn";
 import { listBlogPosts } from "@/lib/blog";
 
-export const dynamic = "force-static";
-
-const now = new Date().toISOString();
-
 const staticPages = [
   { path: "", priority: 1, changefreq: "weekly" as const },
   { path: "/tools", priority: 0.9, changefreq: "weekly" as const },
@@ -19,6 +15,7 @@ const staticPages = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date().toISOString();
   const entries: MetadataRoute.Sitemap = [];
 
   for (const page of staticPages) {
