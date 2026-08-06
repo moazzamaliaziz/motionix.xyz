@@ -7,7 +7,6 @@ import { listBlogPosts, getBlogPost } from "@/lib/blog";
 import { locales } from "@/i18n/config";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
-import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { TOOLS_SITE_URL } from "@/lib/cn";
 import { alternatesFor } from "@/lib/hreflang";
 
@@ -91,7 +90,6 @@ export default async function BlogPostPage({
 
   return (
     <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
-      <AnnouncementBar />
       <SiteHeader />
       <main className="flex-1 pt-32 md:pt-40 px-6 pb-24">
         <article className="max-w-2xl mx-auto">

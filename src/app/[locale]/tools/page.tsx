@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { tools } from "@/lib/tools";
 import { alternatesFor } from "@/lib/hreflang";
-import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { ToolsCatalog } from "@/components/motionix/tool/ToolsCatalog";
@@ -54,7 +53,6 @@ export default async function ToolsIndexPage({
 
   return (
     <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
-      <AnnouncementBar />
       <SiteHeader />
 
       <main id="main-content" className="flex-1 pt-32 md:pt-40 px-6 pb-24">

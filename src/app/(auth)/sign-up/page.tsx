@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { isAuthEnabledServer } from "@/lib/auth-server";
@@ -8,7 +7,6 @@ import { AuthSignUpButtonCta } from "./AuthSignUpButtonCta";
 export default function SignUpPage() {
   return (
     <>
-      <AnnouncementBar />
       <SiteHeader />
       <main className="flex-1 max-w-2xl mx-auto px-6 py-40">
         <p className="eyebrow-mono text-primary mb-2">Sign up</p>

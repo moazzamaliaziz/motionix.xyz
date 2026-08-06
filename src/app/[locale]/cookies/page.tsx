@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import { alternatesFor } from "@/lib/hreflang";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
-import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 
 export async function generateMetadata({
   params,
@@ -50,7 +49,6 @@ export default async function CookiesPage({
 
   return (
     <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
-      <AnnouncementBar />
       <SiteHeader />
       <main className="flex-1 pt-32 md:pt-40 px-6 pb-24">
         <div className="max-w-3xl mx-auto">

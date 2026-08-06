@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Suspense } from "react";
-import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { AuthSignInButton } from "@/components/motionix/auth/AuthShell";
@@ -38,7 +37,6 @@ export default async function SignInPage({
 
   return (
     <>
-      <AnnouncementBar />
       <SiteHeader />
       <main className="flex-1 max-w-2xl mx-auto px-6 py-40">
         <p className="eyebrow-mono text-primary mb-2">Sign in</p>

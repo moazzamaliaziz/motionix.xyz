@@ -7,7 +7,6 @@ import { tools, bySlug } from "@/lib/tools";
 import { toolJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import { localizedUrl } from "@/lib/hreflang";
 import { locales } from "@/i18n/config";
-import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { HistoryHost } from "@/components/motionix/tool/HistoryHost";
@@ -80,7 +79,6 @@ export default async function ToolPage({
 
   return (
     <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
-      <AnnouncementBar />
       <SiteHeader />
 
       <main id="main-content" className="flex-1 pt-32 md:pt-40 px-6 pb-24">

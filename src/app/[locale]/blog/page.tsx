@@ -4,7 +4,6 @@ import { getTranslations } from "next-intl/server";
 import { listBlogPosts } from "@/lib/blog";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
-import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SpotlightCard } from "@/components/motionix/visuals/SpotlightCard";
 import { alternatesFor } from "@/lib/hreflang";
 
@@ -50,7 +49,6 @@ export default async function BlogIndexPage({
 
   return (
     <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
-      <AnnouncementBar />
       <SiteHeader />
       <main className="flex-1 pt-32 md:pt-40 px-6 pb-24">
         <div className="max-w-4xl mx-auto">
