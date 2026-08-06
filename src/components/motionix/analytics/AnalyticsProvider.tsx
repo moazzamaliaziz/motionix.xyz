@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { pageview, gaEnabled, plausibleEnabled, clarityEnabled } from "@/lib/analytics";
+import { pageview, gaEnabled, plausibleEnabled, clarityEnabled, ahrefsEnabled } from "@/lib/analytics";
 
 /**
  * AnalyticsProvider — drops the appropriate script tags when the matching
@@ -53,6 +53,14 @@ export function AnalyticsProvider() {
             y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
           })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID}");`}
         </Script>
+      ) : null}
+
+      {ahrefsEnabled() ? (
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key={process.env.NEXT_PUBLIC_AHREFS_KEY}
+          strategy="afterInteractive"
+        />
       ) : null}
     </>
   );
