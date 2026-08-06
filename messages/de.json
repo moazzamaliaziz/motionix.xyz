@@ -19,5 +19,21 @@
   "Cookies": { "eyebrow": "Cookies", "title": "Kaum etwas.", "section1Title": "1. Wofür diese Seite Cookies nutzt", "section1P1": "Ein Cookie: Ein 'gesehen'-Flag, das die Ankündigungsleiste nach der ersten Schließung ausblendet. Keine Drittanbieter- oder Werbe-Cookies. Keine dauerhaften Identifikatoren.", "section2Title": "2. Analytics", "section2P1": "Wir nutzen datenschutzfreundliche Analytics (Plausible oder Microsoft Clarity), die keine Cookies für Cross-Site-Tracking setzen. Aggregiert und anonymisiert auf dem Server.", "section3Title": "3. Eingebettete Modelle", "section3P1": "Das AI-Modell im Hintergrund-Entferner wird von staticimg.ly geladen und vom normalen HTTP-Cache deines Browsers zwischengespeichert. Wir kontrollieren deren Caching nicht — aber sie setzen keine Cookies für unsere Seite.", "section4Title": "4. Deine Kontrollmöglichkeiten", "section4P1": "Deaktiviere Cookies in deinem Browser, ohne den Zugriff auf ein Tool der Seite zu verlieren. Der einzelne funktionale Cookie (announcement-bar-dismissed) wird bei jeder deaktivierten Sitzung neu generiert.", "lastUpdated": "Zuletzt aktualisiert: 2026-07-13" },
   "Sitemap": { "eyebrow": "Sitemap", "title": "Jede Seite auf Motionix.", "subtitle": "Eine einfache Liste aller Tool-Seiten, Blog-Beiträge und Seiten.", "toolsHeading": "Tools", "blogHeading": "Blog", "pagesHeading": "Seiten", "home": "Startseite", "about": "Über uns", "contact": "Kontakt", "privacy": "Datenschutz", "terms": "Nutzungsbedingungen", "cookies": "Cookies" },
   "Blog": { "eyebrow": "Blog", "title": "Notizen vom Team.", "subtitle": "Technische Write-ups, Anleitungen und die gelegentliche Meinung. Wir veröffentlichen, wenn wir etwas Nützliches zu teilen haben — nicht nach einem Plan.", "noPosts": "Noch keine Beiträge. Schau bald wieder vorbei.", "allPosts": "← Alle Beiträge", "backToPosts": "← Zurück zu allen Beiträgen", "minRead": "Min. Lesezeit" },
-  "ContactForm": { "title": "Oder schreib uns hier", "nameLabel": "Name", "namePlaceholder": "Dein Name", "emailLabel": "E-Mail", "emailPlaceholder": "du@beispiel.de", "subjectLabel": "Betreff", "subjectPlaceholder": "Kurze Zusammenfassung", "toolLabel": "Tool (optional)", "toolNone": "Nicht tool-bezogen", "messageLabel": "Nachricht", "messagePlaceholder": "Was hast du versucht, was ist passiert, was hast du erwartet?", "sendButton": "Nachricht senden", "sendingButton": "Senden…", "successTitle": "Danke — Nachricht gesendet.", "successReply": "Wir antworten innerhalb weniger Tage an {email}.", "errorEmail": "Wir brauchen deine E-Mail zum Antworten.", "errorShort": "Das wirkt etwas kurz. Noch ein paar Details?", "errorGeneric": "Das konnte nicht gesendet werden. Versuch uns direkt anzuschreiben?", "errorNetwork": "Netzwerk-Problem. Einen Moment nochmal versuchen?" }
+  "ContactForm": { "title": "Oder schreib uns hier", "nameLabel": "Name", "namePlaceholder": "Dein Name", "emailLabel": "E-Mail", "emailPlaceholder": "du@beispiel.de", "subjectLabel": "Betreff", "subjectPlaceholder": "Kurze Zusammenfassung", "toolLabel": "Tool (optional)", "toolNone": "Nicht tool-bezogen", "messageLabel": "Nachricht", "messagePlaceholder": "Was hast du versucht, was ist passiert, was hast du erwartet?", "sendButton": "Nachricht senden", "sendingButton": "Senden…", "successTitle": "Danke — Nachricht gesendet.", "successReply": "Wir antworten innerhalb weniger Tage an {email}.", "errorEmail": "Wir brauchen deine E-Mail zum Antworten.", "errorShort": "Das wirkt etwas kurz. Noch ein paar Details?", "errorGeneric": "Das konnte nicht gesendet werden. Versuch uns direkt anzuschreiben?", "errorNetwork": "Netzwerk-Problem. Einen Moment nochmal versuchen?" },
+  "ToolsCatalog": {
+    "metaTitle": "Kostenlose Online-Bild- und Videotools — Motionix",
+    "metaDescription": "Entdecken Sie kostenlose Browser-Tools zum Bearbeiten, Komprimieren, Skalieren und KI-Hintergrundentfernen von Bildern — ohne Upload.",
+    "breadcrumb": "Tools",
+    "title": "Alle Tools.",
+    "subtitle": "Skaliere, komprimiere, entferne einen Hintergrund oder bereite ein Passfoto vor — waehle ein Tool, lege eine Datei ab, erhalte das Ergebnis. Nichts verlaesst deinen Browser, es sei denn, es ist notwendig.",
+    "filterAll": "Alle",
+    "filterImage": "Bild",
+    "filterPhotoId": "Foto-ID",
+    "filterVideo": "Video",
+    "searchPlaceholder": "Tools suchen…",
+    "clearSearch": "Suche loeschen",
+    "filterLabel": "Nach Kategorie filtern",
+    "noResults": "Keine Tools entsprechen deiner Suche.",
+    "openTool": "Tool oeffnen"
+  }
 }

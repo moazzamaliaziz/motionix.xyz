@@ -292,7 +292,7 @@
       "description": "Déposez une photo de profil, obtenez un arrière-plan blanc ou gris clair qui ne rentre pas en conflit avec la mise en page du CV.",
       "longDescription": "Les recruteurs parcourent plus de 250 CV par heure. Un mur orange vif derrière votre sourire confiant ne les aide pas. Nous recadrons en format photo de profil (1400×1400 par défaut — confortable pour le recadrage avatar de LinkedIn). Le remplacement d'arrière-plan est autorisé ici — la plupart des conventions de CV souhaitent un fond neutre. Nous misons sur un redimensionnement basé sur canvas avec remplacement d'arrière-plan IA local en option. (Oui, vous pouvez utiliser le même code sur une photo de passeport en mode détendu — ils partagent le même moteur.)",
       "metaTitle": "Outil photo CV et LinkedIn gratuit — recadrages propres, sécurité recruteur",
-      "metaDescription": "Recadrez et recadrez une photo de profil pour LinkedIn, votre CV ou un curriculum. Gratuit, dans votre navigateur, sans inscription.",
+      "metaDescription": "Cr\u00e9ez gratuitement une photo professionnelle pour CV dans votre navigateur. Sans t\u00e9l\u00e9versement, sans inscription et avec une confidentialit\u00e9 maximale.",
       "useCase1Title": "Photo de profil LinkedIn",
       "useCase1Desc": "Recadrez au cercle de sécurité de LinkedIn et supprimez le mur derrière vous.",
       "useCase2Title": "Pièce jointe de CV",
@@ -473,7 +473,7 @@
   "Contact": {
     "eyebrow": "Contact",
     "title": "Dites bonjour, posez une question, signalez un bug.",
-    "subtitle": "Nous lisons chaque message. Nous sommes une petite équipe, donc la réponse est généralement en quelques jours.",
+    "subtitle": "Contactez l'équipe Motionix pour vos questions, suggestions ou demandes d'assistance concernant nos outils gratuits dans le navigateur.",
     "emailHeading": "E-mail",
     "emailAddress": "hello@motionix.xyz",
     "emailDesc": "Questions générales, suggestions, bonjour.",
@@ -491,7 +491,7 @@
   "Privacy": {
     "eyebrow": "Confidentialité",
     "title": "La version courte",
-    "subtitle": "Nous ne stockons pas les photos. Nous ne vendons pas les données. Nous enregistrons quelques événements d'outils pour savoir quels outils ont besoin de travail. Lisez la version complète ci-dessous — il n'y a pas de mur payant.",
+    "subtitle": "Découvrez comment Motionix protège vos données grâce au traitement local dans le navigateur. Vos fichiers ne quittent jamais votre appareil.",
     "section1Title": "1. Ce qui fonctionne dans votre navigateur",
     "section1P1": "Pour notre supprimeur d'arrière-plan, redimensionneur de photo, compresseur d'images et outils similaires, votre fichier est traité localement dans votre navigateur. Le flux d'octets de votre image ne quitte jamais votre appareil.",
     "section1P2": "Le modèle IA (un petit fichier, environ 88 Mo pour le modèle ISNet fp16 d'arrière-plan) est téléchargé une seule fois depuis notre CDN à staticimg.ly et mis en cache par votre navigateur. Après la première exécution, le modèle se charge presque instantanément depuis le cache.",
@@ -517,7 +517,7 @@
     "eyebrow": "Conditions",
     "title": "Soyez gentil, soyez utile.",
     "section1Title": "1. Le marché",
-    "section1P1": "Motionix (motionix.xyz) fournit des outils gratuits qui fonctionnent dans votre navigateur lorsque c'est possible. En utilisant le site, vous acceptez d'utiliser les outils dans le cadre légal et de les utiliser pour ce pour quoi ils ont été conçus.",
+    "section1P1": "Consultez les Conditions d'utilisation de Motionix pour connaître les règles et responsabilités liées à nos outils gratuits dans le navigateur.",
     "section2Title": "2. N'utilisez pas le supprimeur d'arrière-plan pour tromper",
     "section2P1": "Le supprimeur d'arrière-plan est excellent pour les photos produit, les photos de profil et le travail créatif. Ce n'est pas un outil pour contourner les règles des plateformes, falsifier des photos ou tromper les employeurs. Nous ne sommes pas en mesure de contrôler cela — nous vous demandons de ne pas le faire.",
     "section3Title": "3. L'outil passeport",
@@ -534,7 +534,7 @@
     "eyebrow": "Cookies",
     "title": "Presque rien.",
     "section1Title": "1. À quoi ce site utilise-t-il des cookies",
-    "section1P1": "Un seul cookie : un drapeau « déjà vu » qui masque la barre d'annonce après la première fermeture. Pas de cookies tiers ou publicitaires. Pas d'identifiants persistants.",
+    "section1P1": "Découvrez comment Motionix utilise les cookies pour améliorer le site tout en préservant une expérience respectueuse de votre vie privée.",
     "section2Title": "2. Analyses",
     "section2P1": "Nous utilisons des analyses respectueuses de la vie privée (Plausible ou Microsoft Clarity) qui ne définissent pas de cookies pour le suivi inter-sites. Agrégées et anonymisées au niveau du serveur.",
     "section3Title": "3. Modèles intégrés",
@@ -586,5 +586,21 @@
     "errorShort": "Cela semble un peu court. Ajoutez quelques détails ?",
     "errorGeneric": "Nous n'avons pas pu envoyer. Essayez de nous envoyer un e-mail directement ?",
     "errorNetwork": "Problème réseau. Réessayez dans un instant ?"
+  },
+  "ToolsCatalog": {
+    "metaTitle": "Outils gratuits d'image et de vidéo en ligne — Motionix",
+    "metaDescription": "Découvrez des outils gratuits pour retoucher, redimensionner, compresser et supprimer l'arrière-plan des images, directement dans votre navigateur.",
+    "breadcrumb": "Outils",
+    "title": "Tous les outils.",
+    "subtitle": "Redimensionnez, compressez, supprimez un arrière-plan ou préparez une photo de passeport — choisissez un outil, déposez un fichier, obtenez le résultat. Rien ne quitte votre navigateur sauf nécessité.",
+    "filterAll": "Tous",
+    "filterImage": "Image",
+    "filterPhotoId": "Photo ID",
+    "filterVideo": "Vidéo",
+    "searchPlaceholder": "Rechercher des outils…",
+    "clearSearch": "Effacer la recherche",
+    "filterLabel": "Filtrer par catégorie",
+    "noResults": "Aucun outil ne correspond à votre recherche.",
+    "openTool": "Ouvrir l'outil"
   }
 }

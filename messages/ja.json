@@ -586,5 +586,21 @@
     "errorShort": "やや短いようです。もう少し詳細を追加しませんか？",
     "errorGeneric": "送信できませんでした。直接メールをお送りいただけますか？",
     "errorNetwork": "ネットワークの問題。少し待ってから再試行してください。"
+  },
+  "ToolsCatalog": {
+    "metaTitle": "無料のオンライン画像・動画ツール — Motionix",
+    "metaDescription": "背景透過、写真作成、画像サイズ変更、圧縮など無料のブラウザツールをまとめて利用。アップロード不要で安全かつ高速に編集できます。",
+    "breadcrumb": "ツール",
+    "title": "すべてのツール。",
+    "subtitle": "リサイズ、圧縮、背景の除去、パスポート写真の準備 — ツールを選んでファイルをドロップするだけ。必要な場合を除き、ファイルがブラウザから外に出ることはありません。",
+    "filterAll": "すべて",
+    "filterImage": "画像",
+    "filterPhotoId": "写真ID",
+    "filterVideo": "動画",
+    "searchPlaceholder": "ツールを検索…",
+    "clearSearch": "検索をクリア",
+    "filterLabel": "カテゴリでフィルター",
+    "noResults": "条件に合うツールが見つかりません。",
+    "openTool": "ツールを開く"
   }
 }

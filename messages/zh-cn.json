@@ -586,5 +586,21 @@
     "errorShort": "看起来有点短。能多写几句吗？",
     "errorGeneric": "发送失败。试试直接给我们发邮件？",
     "errorNetwork": "网络波动。稍后再试？"
+  },
+  "ToolsCatalog": {
+    "metaTitle": "免费在线图片和视频工具 — Motionix",
+    "metaDescription": "探索免费的浏览器图片与视频工具，包括AI抠图、照片制作、压缩、调整尺寸等。无需上传，安全、快速、保护隐私。",
+    "breadcrumb": "工具",
+    "title": "所有工具。",
+    "subtitle": "调整尺寸、压缩、去除背景或准备护照照片——选择工具，拖入文件，获取结果。除非必要，文件不会离开浏览器。",
+    "filterAll": "全部",
+    "filterImage": "图片",
+    "filterPhotoId": "证件照",
+    "filterVideo": "视频",
+    "searchPlaceholder": "搜索工具…",
+    "clearSearch": "清除搜索",
+    "filterLabel": "按分类筛选",
+    "noResults": "没有匹配的工具。",
+    "openTool": "打开工具"
   }
 }
