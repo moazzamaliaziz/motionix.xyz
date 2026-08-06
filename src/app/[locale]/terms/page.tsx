@@ -59,35 +59,36 @@ export default async function TermsPage({
             {t("title")}
           </h1>
 
-      <div className="prose prose-neutral max-w-none mt-10 space-y-6 text-[15px] leading-relaxed">
-        <Section title={t("section1Title")}>
-          <p>{t("section1P1")}</p>
-        </Section>
+          <div className="prose prose-neutral max-w-none mt-10 space-y-6 text-[15px] leading-relaxed">
+            <Section title={t("section1Title")}>
+              <p>{t("section1P1")}</p>
+            </Section>
 
-        <Section title={t("section2Title")}>
-          <p>{t("section2P1")}</p>
-        </Section>
+            <Section title={t("section2Title")}>
+              <p>{t("section2P1")}</p>
+            </Section>
 
-        <Section title={t("section3Title")}>
-          <p>{t("section3P1")}</p>
-        </Section>
+            <Section title={t("section3Title")}>
+              <p>{t("section3P1")}</p>
+            </Section>
 
-        <Section title={t("section4Title")}>
-          <p>{t("section4P1")}</p>
-        </Section>
+            <Section title={t("section4Title")}>
+              <p>{t("section4P1")}</p>
+            </Section>
 
-        <Section title={t("section5Title")}>
-          <p>{t("section5P1")}</p>
-        </Section>
+            <Section title={t("section5Title")}>
+              <p>{t("section5P1")}</p>
+            </Section>
 
-        <Section title={t("section6Title")}>
-          <p>{t("section6P1")}</p>
-        </Section>
+            <Section title={t("section6Title")}>
+              <p>{t("section6P1")}</p>
+            </Section>
 
-        <p className="text-xs text-foreground/40 font-mono uppercase tracking-widest mt-12">
-          {t("lastUpdated")}
-        </p>
-      </div>
+            <p className="text-xs text-foreground/40 font-mono uppercase tracking-widest mt-12">
+              {t("lastUpdated")}
+            </p>
+          </div>
+        </div>
       </main>
       <SiteFooter />
     </div>

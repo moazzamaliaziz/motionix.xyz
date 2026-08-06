@@ -52,40 +52,40 @@ export default async function AboutPage({
             {t("title")}
           </h1>
 
-      <div className="prose prose-neutral max-w-none mt-10 space-y-6 text-[15px] leading-relaxed">
-        <p>{t("p1")}</p>
-        <p>{t("p2")}</p>
-        <p>{t("p3")}</p>
-        <p>{t("p4")}</p>
-      </div>
+          <div className="prose prose-neutral max-w-none mt-10 space-y-6 text-[15px] leading-relaxed">
+            <p>{t("p1")}</p>
+            <p>{t("p2")}</p>
+            <p>{t("p3")}</p>
+            <p>{t("p4")}</p>
+          </div>
 
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <SpotlightCard tone="paper">
-          <p className="eyebrow-mono text-foreground/50">{t("willHeading")}</p>
-          <ul className="text-sm mt-3 space-y-1.5">
-            <li>• {t("will1")}</li>
-            <li>• {t("will2")}</li>
-            <li>• {t("will3")}</li>
-            <li>• {t("will4")}</li>
-          </ul>
-        </SpotlightCard>
-        <SpotlightCard tone="mint">
-          <p className="eyebrow-mono text-foreground/50">{t("wontHeading")}</p>
-          <ul className="text-sm mt-3 space-y-1.5">
-            <li>• {t("wont1")}</li>
-            <li>• {t("wont2")}</li>
-            <li>• {t("wont3")}</li>
-            <li>• {t("wont4")}</li>
-          </ul>
-        </SpotlightCard>
-      </div>
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <SpotlightCard tone="paper">
+              <p className="eyebrow-mono text-foreground/50">{t("willHeading")}</p>
+              <ul className="text-sm mt-3 space-y-1.5">
+                <li>&bull; {t("will1")}</li>
+                <li>&bull; {t("will2")}</li>
+                <li>&bull; {t("will3")}</li>
+                <li>&bull; {t("will4")}</li>
+              </ul>
+            </SpotlightCard>
+            <SpotlightCard tone="mint">
+              <p className="eyebrow-mono text-foreground/50">{t("wontHeading")}</p>
+              <ul className="text-sm mt-3 space-y-1.5">
+                <li>&bull; {t("wont1")}</li>
+                <li>&bull; {t("wont2")}</li>
+                <li>&bull; {t("wont3")}</li>
+                <li>&bull; {t("wont4")}</li>
+              </ul>
+            </SpotlightCard>
+          </div>
 
-      <div className="mt-12 flex flex-wrap gap-3 text-sm">
-        <Link href="/tools" className="text-primary underline-offset-4 hover:underline">{t("ctaTool")}</Link>
-        <Link href="/privacy" className="text-foreground/70 underline-offset-4 hover:underline">{t("ctaPrivacy")}</Link>
-        <Link href="/contact" className="text-foreground/70 underline-offset-4 hover:underline">{t("ctaContact")}</Link>
-      </div>
-      </div>
+          <div className="mt-12 flex flex-wrap gap-3 text-sm">
+            <Link href="/tools" className="text-primary underline-offset-4 hover:underline">{t("ctaTool")}</Link>
+            <Link href="/privacy" className="text-foreground/70 underline-offset-4 hover:underline">{t("ctaPrivacy")}</Link>
+            <Link href="/contact" className="text-foreground/70 underline-offset-4 hover:underline">{t("ctaContact")}</Link>
+          </div>
+        </div>
       </main>
       <SiteFooter />
     </div>

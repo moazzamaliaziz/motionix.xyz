@@ -55,43 +55,43 @@ export default async function ContactPage({
             {t("subtitle")}
           </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-12">
-        <SpotlightCard tone="paper">
-          <p className="eyebrow-mono text-foreground/50">{t("emailHeading")}</p>
-          <p className="font-display text-2xl mt-2 underline-offset-4 hover:underline">
-            <a href={`mailto:${t("emailAddress")}`}>{t("emailAddress")}</a>
-          </p>
-          <p className="text-sm text-foreground/60 mt-2">{t("emailDesc")}</p>
-        </SpotlightCard>
-        <SpotlightCard tone="peach">
-          <p className="eyebrow-mono text-foreground/50">{t("bugsHeading")}</p>
-          <p className="font-display text-2xl mt-2 underline-offset-4 hover:underline">
-            <a href={`mailto:${t("bugsAddress")}`}>{t("bugsAddress")}</a>
-          </p>
-          <p className="text-sm text-foreground/60 mt-2">{t("bugsDesc")}</p>
-        </SpotlightCard>
-        <SpotlightCard tone="mint">
-          <p className="eyebrow-mono text-foreground/50">{t("pressHeading")}</p>
-          <p className="font-display text-2xl mt-2 underline-offset-4 hover:underline">
-            <a href={`mailto:${t("pressAddress")}`}>{t("pressAddress")}</a>
-          </p>
-          <p className="text-sm text-foreground/60 mt-2">{t("pressDesc")}</p>
-        </SpotlightCard>
-        <SpotlightCard tone="blush">
-          <p className="eyebrow-mono text-foreground/50">{t("dataHeading")}</p>
-          <p className="font-display text-2xl mt-2 underline-offset-4 hover:underline">
-            <a href={`mailto:${t("dataAddress")}`}>{t("dataAddress")}</a>
-          </p>
-          <p className="text-sm text-foreground/60 mt-2">{t("dataDesc")}</p>
-        </SpotlightCard>
-      </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-12">
+            <SpotlightCard tone="paper">
+              <p className="eyebrow-mono text-foreground/50">{t("emailHeading")}</p>
+              <p className="font-display text-2xl mt-2 underline-offset-4 hover:underline">
+                <a href={`mailto:${t("emailAddress")}`}>{t("emailAddress")}</a>
+              </p>
+              <p className="text-sm text-foreground/60 mt-2">{t("emailDesc")}</p>
+            </SpotlightCard>
+            <SpotlightCard tone="peach">
+              <p className="eyebrow-mono text-foreground/50">{t("bugsHeading")}</p>
+              <p className="font-display text-2xl mt-2 underline-offset-4 hover:underline">
+                <a href={`mailto:${t("bugsAddress")}`}>{t("bugsAddress")}</a>
+              </p>
+              <p className="text-sm text-foreground/60 mt-2">{t("bugsDesc")}</p>
+            </SpotlightCard>
+            <SpotlightCard tone="mint">
+              <p className="eyebrow-mono text-foreground/50">{t("pressHeading")}</p>
+              <p className="font-display text-2xl mt-2 underline-offset-4 hover:underline">
+                <a href={`mailto:${t("pressAddress")}`}>{t("pressAddress")}</a>
+              </p>
+              <p className="text-sm text-foreground/60 mt-2">{t("pressDesc")}</p>
+            </SpotlightCard>
+            <SpotlightCard tone="blush">
+              <p className="eyebrow-mono text-foreground/50">{t("dataHeading")}</p>
+              <p className="font-display text-2xl mt-2 underline-offset-4 hover:underline">
+                <a href={`mailto:${t("dataAddress")}`}>{t("dataAddress")}</a>
+              </p>
+              <p className="text-sm text-foreground/60 mt-2">{t("dataDesc")}</p>
+            </SpotlightCard>
+          </div>
 
-      <div className="mt-12 prose prose-neutral text-[15px] text-foreground/70 leading-relaxed">
-        <p>{t("disclaimer")}</p>
-      </div>
+          <div className="mt-12 prose prose-neutral text-[15px] text-foreground/70 leading-relaxed">
+            <p>{t("disclaimer")}</p>
+          </div>
 
-      <ContactForm />
-      </div>
+          <ContactForm />
+        </div>
       </main>
       <SiteFooter />
     </div>
