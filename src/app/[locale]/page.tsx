@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
-import { AnnouncementBar } from "@/components/motionix/layout/AnnouncementBar";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { Hero } from "@/components/motionix/marketing/Hero";
@@ -51,7 +50,6 @@ export default function HomePage() {
 
   return (
     <>
-      <AnnouncementBar />
       <Suspense fallback={null}>
         <SiteHeader />
       </Suspense>
