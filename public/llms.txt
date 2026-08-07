@@ -8,41 +8,36 @@ Motionix is a collection of 8 free AI-powered tools that run entirely in the use
 
 ## Tools
 
-- **Background Remover** (`/tools/background-remover`) — Remove backgrounds from photos using an on-device ISNet AI model. Supports JPG, PNG, WebP, HEIC, AVIF.
-- **Passport Photo Maker** (`/tools/passport-photo-maker`) — Create compliant passport and ID photos with country-specific sizing for 50+ countries. Includes head-position compliance checking.
-- **Student ID Photo Maker** (`/tools/student-id-photo-maker`) — Generate school and university ID photos in standard dimensions with background adjustment.
-- **Resume Photo Maker** (`/tools/resume-photo-maker`) — Create professional headshot photos for CVs, resumes, and LinkedIn profiles.
-- **Signature Maker** (`/tools/signature-maker`) — Draw or type a digital signature and export it as a transparent PNG for documents and forms.
-- **Photo Resizer** (`/tools/photo-resizer`) — Resize images to exact pixel or percentage dimensions. Supports aspect-ratio lock and common presets.
-- **Image Compressor** (`/tools/image-compressor`) — Shrink JPG, PNG, and WebP file sizes with quality-targeted compression. Visual preview and side-by-side comparison.
-- **Video Compressor** (`/tools/video-compressor`) — Compress MP4, MOV, MKV, and WebM videos to target file sizes using browser-native WebCodecs transcoding.
+- [Background Remover](https://motionix.xyz/tools/background-remover) — Remove backgrounds from photos using an on-device ISNet AI model. Supports JPG, PNG, WebP, HEIC, AVIF.
+- [Passport Photo Maker](https://motionix.xyz/tools/passport-photo-maker) — Create compliant passport and ID photos with country-specific sizing for US, UK, India, and Schengen.
+- [Student ID Photo Maker](https://motionix.xyz/tools/student-id-photo-maker) — Generate school and university ID photos in standard dimensions.
+- [Resume Photo Maker](https://motionix.xyz/tools/resume-photo-maker) — Create professional headshot photos for CVs, resumes, and LinkedIn profiles.
+- [Signature Maker](https://motionix.xyz/tools/signature-maker) — Draw or type a digital signature and export as transparent PNG.
+- [Photo Resizer](https://motionix.xyz/tools/photo-resizer) — Resize images to exact pixel or file-size targets.
+- [Image Compressor](https://motionix.xyz/tools/image-compressor) — Compress JPG, PNG, and WebP file sizes with quality-targeted compression.
+- [Video Compressor](https://motionix.xyz/tools/video-compressor) — Compress MP4, MOV, MKV, and WebM videos using browser-native WebCodecs.
 
 ## Key Pages
 
-- Homepage: `/`
-- Tools catalog: `/tools`
-- Blog: `/blog`
-- About: `/about`
-- Contact: `/contact`
-- Privacy Policy: `/privacy`
-- Terms of Service: `/terms`
-- Cookie Policy: `/cookies`
-
-## API Endpoints
-
-- `POST /api/tool-submissions` — Submit a new AI tool for review and inclusion in the directory.
+- [Homepage](https://motionix.xyz/)
+- [Tools catalog](https://motionix.xyz/tools)
+- [Blog](https://motionix.xyz/blog)
+- [About](https://motionix.xyz/about)
+- [Contact](https://motionix.xyz/contact)
+- [Privacy Policy](https://motionix.xyz/privacy)
+- [Terms of Service](https://motionix.xyz/terms)
+- [Cookie Policy](https://motionix.xyz/cookies)
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router) with TypeScript
-- **Styling**: Tailwind CSS
+- **Framework**: Next.js 16 (App Router) with TypeScript
+- **Styling**: Tailwind CSS v4
 - **AI Runtime**: ONNX Runtime Web (client-side inference)
 - **Video Processing**: WebCodecs API via Mediabunny
 - **Image Processing**: HTML Canvas API
-- **Authentication**: Clerk (optional)
-- **Analytics**: Vercel Analytics + Speed Insights
+- **Authentication**: Clerk (optional, env-gated)
+- **Analytics**: GA4, Plausible, Microsoft Clarity (env-gated)
 - **Deployment**: Vercel
-- **CMS**: MDX blog posts with gray-matter frontmatter
 - **i18n**: next-intl (English, French, German, Hindi, Japanese, Chinese Simplified)
 
 ## Multilingual Support
