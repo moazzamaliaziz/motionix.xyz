@@ -623,31 +623,37 @@
         },
         "tools": {
             "title": "All Tools — Motionix",
-            "description": "Browse all free image and video tools. Background remover, passport photo maker, image compressor, and more."
+            "description": "Browse all free image and video tools. Background remover, passport photo maker, image compressor, and more.",
+            "background-remover": {
+              "title": "Free Background Remover — Remove Image Backgrounds Online",
+              "description": "Remove backgrounds from photos instantly in your browser. AI-powered, no upload, no signup, no watermark."
+            },
+            "passport-photo-maker": {
+              "title": "Passport Photo Maker — Country-Correct Photos Online",
+              "description": "Create compliant passport and visa photos online. Supports US, UK, India, and Schengen specs."
+            },
+            "student-id-photo-maker": {
+              "title": "Student ID Photo Maker — Exact Size Photos",
+              "description": "Make ID photos sized for college portals, scholarship forms, and exam applications."
+            },
+            "resume-photo-maker": {
+              "title": "Resume & LinkedIn Photo — Clean Crops, Recruiter-Safe",
+              "description": "Crop and reframe headshots for LinkedIn, your resume, or a CV. Free, in your browser."
+            },
+            "signature-maker": {
+              "title": "Free Signature Maker — Transparent PNG for Contracts",
+              "description": "Create a clean digital signature by drawing, typing, or uploading. Free, in your browser."
+            },
+            "photo-resizer": {
+              "title": "Free Photo Resizer — Exact Pixel or KB Targets",
+              "description": "Resize photos to exact pixel dimensions or file-size targets. No signup, no upload."
+            },
+            "image-compressor": {
+              "title": "Free Image Compressor — Shrink JPG, PNG, WebP",
+              "description": "Compress JPG, PNG, and WebP images to a fraction of their size. Visually identical."
+            },
+            "video-compressor": {
+              "title": "Free Video Compressor — No Upload, Runs in Browser",
+              "description": "Shrink MP4, MOV, or WebM videos to email-able size. No upload, no server."
+            }
         },
-        "about": {
-            "title": "About Motionix",
-            "description": "Learn about Motionix — free, privacy-first browser-based image and video tools."
-        },
-        "contact": {
-            "title": "Contact Us — Motionix",
-            "description": "Get in touch with the Motionix team for questions, feedback, or support."
-        },
-        "privacy": {
-            "title": "Privacy Policy — Motionix",
-            "description": "Learn how Motionix protects your privacy. No uploads, no tracking, no data collection."
-        },
-        "terms": {
-            "title": "Terms of Service — Motionix",
-            "description": "Read the Motionix Terms of Service for using our free browser-based tools."
-        },
-        "cookies": {
-            "title": "Cookie Policy — Motionix",
-            "description": "Learn how Motionix uses cookies to improve your experience."
-        },
-        "blog": {
-            "title": "Blog — Motionix",
-            "description": "Engineering write-ups, how-tos, and tips for browser-based image editing and privacy."
-        }
-    }
-}

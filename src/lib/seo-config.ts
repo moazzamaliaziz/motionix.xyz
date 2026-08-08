@@ -1,6 +1,7 @@
 import { getPageIndexability } from "./page-indexability";
 import { localizedUrl } from "./hreflang";
 import { getTranslations } from "next-intl/server";
+import { tools, bySlug } from "./tools";
 import type { Tool } from "./tools";
 
 export interface PageSEO {
@@ -20,8 +21,23 @@ export async function getPageSEO(
 
   const pathKey = path === "/" ? "home" : path.replace(/^\//, "").replace(/\//g, ".");
 
-  const title = safeTranslate(t, `${pathKey}.title`) || safeTranslate(t, "default.title");
-  const description = safeTranslate(t, `${pathKey}.description`) || safeTranslate(t, "default.description");
+  let title = safeTranslate(t, `${pathKey}.title`);
+  let description = safeTranslate(t, `${pathKey}.description`);
+
+  // Fallback for tool pages: use tool's existing metaTitle/metaDescription
+  if ((!title || !description) && path.startsWith("/tools/")) {
+    const slug = path.split("/")[2];
+    const tool = bySlug(slug);
+    if (tool) {
+      const toolT = await getTranslations({ locale, namespace: `Tools.${slug}` });
+      title = title || safeTranslate(toolT, "metaTitle") || tool.metaTitle;
+      description = description || safeTranslate(toolT, "metaDescription") || tool.metaDescription;
+    }
+  }
+
+  // Final fallback to SEO defaults
+  title = title || safeTranslate(t, "default.title");
+  description = description || safeTranslate(t, "default.description");
 
   return {
     title,
