@@ -17,7 +17,7 @@ const STATIC_PAGES = [
 ];
 
 export async function getSitemapEntries(): Promise<MetadataRoute.Sitemap> {
-  const entries: MetadataRoute.Sitemap[] = [];
+  const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of locales) {
     for (const page of STATIC_PAGES) {
@@ -25,8 +25,7 @@ export async function getSitemapEntries(): Promise<MetadataRoute.Sitemap> {
       if (!indexable) continue;
 
       const url = `${TOOLS_SITE_URL}/${locale}${page || "/"}`;
-      const entry: MetadataRoute.Sitemap = { url };
-      entries.push(entry);
+      entries.push({ url });
     }
 
     for (const tool of tools) {
@@ -35,8 +34,7 @@ export async function getSitemapEntries(): Promise<MetadataRoute.Sitemap> {
       if (!indexable) continue;
 
       const url = `${TOOLS_SITE_URL}/${locale}${path}`;
-      const entry: MetadataRoute.Sitemap = { url };
-      entries.push(entry);
+      entries.push({ url });
     }
 
     for (const post of listBlogPosts()) {
@@ -45,11 +43,10 @@ export async function getSitemapEntries(): Promise<MetadataRoute.Sitemap> {
       if (!indexable) continue;
 
       const url = `${TOOLS_SITE_URL}/${locale}${path}`;
-      const entry: MetadataRoute.Sitemap = {
+      entries.push({
         url,
         lastModified: new Date(post.frontmatter.date),
-      };
-      entries.push(entry);
+      });
     }
   }
 
