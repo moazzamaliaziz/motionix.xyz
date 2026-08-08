@@ -127,11 +127,11 @@ export default async function ToolPage({
           <ToolSteps tool={tool} locale={locale} />
           <ToolUseCasesBento tool={tool} locale={locale} />
           <ToolFormats tool={tool} locale={locale} />
-          <ToolExamples examples={tool.content.examples} locale={locale} />
-          <ToolPrivacy privacy={tool.content.privacy} />
-          <ToolLimitations limitations={tool.content.limitations} locale={locale} />
+          {tool.content?.examples && <ToolExamples examples={tool.content.examples} locale={locale} />}
+          {tool.content?.privacy && <ToolPrivacy privacy={tool.content.privacy} />}
+          {tool.content?.limitations && <ToolLimitations limitations={tool.content.limitations} locale={locale} />}
           <ToolFaq items={tool.faqs} locale={locale} />
-          <RelatedGuides guides={tool.content.relatedGuides} locale={locale} />
+          {tool.content?.relatedGuides && <RelatedGuides guides={tool.content.relatedGuides} locale={locale} />}
 
           <ToolFeedback toolSlug={tool.slug} />
           <ToolChain fromSlug={tool.slug} locale={locale} />

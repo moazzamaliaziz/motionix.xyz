@@ -85,7 +85,7 @@ export type Tool = {
   ogImage: string;
   
   /** SEO data - verified through keyword research */
-  seo: {
+  seo?: {
     primaryKeyword: string;
     secondaryKeywords: string[];
     searchIntent: string;
@@ -93,7 +93,7 @@ export type Tool = {
   };
   
   /** Enhanced content for SEO-optimized tool pages */
-  content: {
+  content?: {
     /** Search-intent focused introduction */
     introduction: string;
     /** Key features of this tool */
