@@ -83,6 +83,37 @@ export type Tool = {
   next: string[]; // slugs
   /** og image filename relative to /public/og/tools/ */
   ogImage: string;
+  
+  /** SEO data - verified through keyword research */
+  seo: {
+    primaryKeyword: string;
+    secondaryKeywords: string[];
+    searchIntent: string;
+    relatedEntities: string[];
+  };
+  
+  /** Enhanced content for SEO-optimized tool pages */
+  content: {
+    /** Search-intent focused introduction */
+    introduction: string;
+    /** Key features of this tool */
+    features: string[];
+    /** Honest limitations */
+    limitations: string[];
+    /** Privacy info based on ACTUAL processing architecture */
+    privacy: {
+      processing: "browser" | "server" | "hybrid";
+      uploadRequired: boolean;
+      retention: string;
+      description: string;
+    };
+    /** Real examples - only use genuine data */
+    examples: { before: string; after: string }[];
+    /** Blog post slugs for related guides */
+    relatedGuides: string[];
+    /** Real content update date (ISO) */
+    contentUpdatedAt: string;
+  };
 };
 
 // ============================================================
@@ -130,6 +161,54 @@ export const tools: Tool[] = [
     ],
     next: ["passport-photo-maker", "resume-photo-maker", "photo-resizer"],
     ogImage: "background-remover-og.png",
+    seo: {
+      primaryKeyword: "background remover",
+      secondaryKeywords: [
+        "remove image background",
+        "AI background remover",
+        "remove background from photo",
+        "transparent background maker",
+        "background eraser",
+      ],
+      searchIntent: "Free online image background removal without uploading",
+      relatedEntities: ["transparent PNG", "product photo", "headshot", "image editing"],
+    },
+    content: {
+      introduction:
+        "Remove backgrounds from photos instantly — right in your browser. No uploads, no signup, no watermarks. Our AI-powered background remover processes everything locally on your device, so your images stay private.",
+      features: [
+        "100% browser-based processing — files never leave your device",
+        "AI-powered ISNet model for accurate background detection",
+        "Supports JPG, PNG, WebP, HEIC, and AVIF formats",
+        "Download as transparent PNG or with custom background color",
+        "No watermarks, no quality loss, no upload limits beyond 10MB",
+      ],
+      limitations: [
+        "Maximum file size: 10MB",
+        "Maximum dimensions: 4096px on the long side",
+        "Very fine details like flyaway hair may have slightly fuzzy edges",
+        "Not suitable for video or animated GIFs",
+      ],
+      privacy: {
+        processing: "browser",
+        uploadRequired: false,
+        retention: "No retention — files are processed locally and never uploaded",
+        description:
+          "Your images are processed entirely in your browser using on-device AI. No files are uploaded to any server. Nothing leaves your device.",
+      },
+      examples: [
+        {
+          before: "Product photo with cluttered background",
+          after: "Clean transparent PNG ready for e-commerce listings",
+        },
+        {
+          before: "Portrait with busy outdoor background",
+          after: "Professional headshot with transparent background",
+        },
+      ],
+      relatedGuides: ["privacy-first-image-tools"],
+      contentUpdatedAt: "2026-08-08",
+    },
     faqs: [
       { q: "Is it actually free?", a: "Yes. There is no paid tier for the background remover and we do not show ads on top of your work." },
       { q: "Where does the photo go?", a: "Nowhere. The AI model downloads from our CDN once, then runs entirely on your CPU or GPU. The image bytes never touch a server." },

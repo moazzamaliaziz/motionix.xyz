@@ -18,6 +18,10 @@ import { ToolFeedback } from "@/components/motionix/tool/ToolFeedback";
 import { ToolBody } from "@/components/motionix/tool/ToolBody";
 import { getPageSEO } from "@/lib/seo-config";
 import { alternatesFor } from "@/lib/hreflang";
+import { ToolExamples } from "@/components/motionix/tool/ToolExamples";
+import { ToolPrivacy } from "@/components/motionix/tool/ToolPrivacy";
+import { ToolLimitations } from "@/components/motionix/tool/ToolLimitations";
+import { RelatedGuides } from "@/components/motionix/tool/RelatedGuides";
 
 export const dynamic = "force-dynamic";
 
@@ -123,7 +127,11 @@ export default async function ToolPage({
           <ToolSteps tool={tool} locale={locale} />
           <ToolUseCasesBento tool={tool} locale={locale} />
           <ToolFormats tool={tool} locale={locale} />
+          <ToolExamples examples={tool.content.examples} locale={locale} />
+          <ToolPrivacy privacy={tool.content.privacy} />
+          <ToolLimitations limitations={tool.content.limitations} locale={locale} />
           <ToolFaq items={tool.faqs} locale={locale} />
+          <RelatedGuides guides={tool.content.relatedGuides} locale={locale} />
 
           <ToolFeedback toolSlug={tool.slug} />
           <ToolChain fromSlug={tool.slug} locale={locale} />

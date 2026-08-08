@@ -175,12 +175,21 @@
                      "downloadResult":  "Download result",
                      "downloadPng":  "Download PNG",
                      "reset":  "Reset",
-                     "uploadImage":  "Upload an image",
-                     "dragDrop":  "Drag \u0026 drop or click to browse",
-                     "maxFileSize":  "Max {size} MB",
-                     "processingYourImage":  "Processing your imageâ€¦",
-                     "thisMayTakeAWhile":  "This may take a few seconds"
-                 },
+                      "uploadImage":  "Upload an image",
+                      "dragDrop":  "Drag \u0026 drop or click to browse",
+                      "maxFileSize":  "Max {size} MB",
+                      "processingYourImage":  "Processing your imageâ€¦",
+                      "thisMayTakeAWhile":  "This may take a few seconds",
+                      "examples":  "Examples",
+                      "seeItInAction":  "See it in action",
+                      "before":  "Before",
+                      "after":  "After",
+                      "limitations":  "Limitations",
+                      "beforeYouStart":  "Before you start",
+                      "relatedGuides":  "Related guides",
+                      "learnMore":  "Learn more",
+                      "lastUpdated":  "Last updated"
+                  },
     "Tools":  {
                   "background-remover":  {
                                              "name":  "Background remover",
