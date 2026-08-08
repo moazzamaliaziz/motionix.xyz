@@ -24,7 +24,7 @@ export async function ToolChain({ fromSlug, locale }: { fromSlug: string; locale
           return (
             <Link
               key={s}
-              href={`/tools/${s}`}
+              href={`/${locale}/tools/${s}`}
               className={cn(
                 "group p-5 rounded-2xl border border-foreground/10 bg-white/60 hover:bg-white transition-all hover:-translate-y-0.5 hover:shadow-md",
               )}

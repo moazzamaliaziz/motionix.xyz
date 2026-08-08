@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { TOOLS_SITE_URL } from "@/lib/cn";
 import { alternatesFor } from "@/lib/hreflang";
+import { SchemaProvider } from "@/components/seo/SchemaProvider";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +29,7 @@ export async function generateMetadata({
   if (!post) return {};
   const fm = post.frontmatter;
   return {
-    title: `${fm.title} — Motionix`,
+    title: fm.title,
     description: fm.description,
     openGraph: {
       title: fm.title,
@@ -37,7 +38,7 @@ export async function generateMetadata({
       publishedTime: fm.date,
       authors: [fm.author],
       tags: fm.tags,
-      url: `${TOOLS_SITE_URL}/blog/${post.slug}`,
+      url: `${TOOLS_SITE_URL}/${locale}/blog/${post.slug}`,
     },
     twitter: { card: "summary_large_image", title: fm.title, description: fm.description },
     alternates: await alternatesFor(`/blog/${post.slug}`, locale),
@@ -74,27 +75,29 @@ export default async function BlogPostPage({
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": "Article",
     headline: fm.title,
     description: fm.description,
     datePublished: fm.date,
-    author: { "@type": "Organization", name: fm.author },
+    dateModified: fm.date,
+    author: { "@type": "Person", name: fm.author },
     keywords: (fm.tags ?? []).join(", "),
     publisher: {
       "@type": "Organization",
       name: "Motionix",
       url: TOOLS_SITE_URL,
     },
-    mainEntityOfPage: `${TOOLS_SITE_URL}/blog/${post.slug}`,
+    mainEntityOfPage: `${TOOLS_SITE_URL}/${locale}/blog/${post.slug}`,
   };
 
   return (
     <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
+      <SchemaProvider schema={jsonLd} />
       <SiteHeader />
       <main className="flex-1 pt-32 md:pt-40 px-6 pb-24">
         <article className="max-w-2xl mx-auto">
           <p className="eyebrow-mono text-foreground/55 mb-3">
-            <Link href="/blog" className="hover:text-primary transition">
+            <Link href={`/${locale}/blog`} className="hover:text-primary transition">
               {t("allPosts")}
             </Link>
           </p>
@@ -116,18 +119,13 @@ export default async function BlogPostPage({
 
           <hr className="mt-16 border-foreground/10" />
           <p className="text-sm text-foreground/60 mt-6">
-            <Link href="/blog" className="text-primary hover:underline">
+            <Link href={`/${locale}/blog`} className="text-primary hover:underline">
               {t("backToPosts")}
             </Link>
           </p>
         </article>
       </main>
       <SiteFooter />
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
     </div>
   );
 }

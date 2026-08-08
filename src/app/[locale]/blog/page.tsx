@@ -66,7 +66,7 @@ export default async function BlogIndexPage({
             ) : (
               posts.map((p) => (
                 <SpotlightCard key={p.slug} tone="paper">
-                  <Link href={`/blog/${p.slug}`} className="block group">
+                   <Link href={`/${locale}/blog/${p.slug}`} className="block group">
                     <p className="eyebrow-mono text-foreground/50">
                       {formatDate(p.frontmatter.date)} · {p.readingMinutes} {t("minRead")}
                     </p>

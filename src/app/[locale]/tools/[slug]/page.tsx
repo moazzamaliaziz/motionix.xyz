@@ -16,9 +16,8 @@ import { ToolFormats, ToolUseCasesBento } from "@/components/motionix/tool/ToolU
 import { ToolChain } from "@/components/motionix/tool/ToolChain";
 import { ToolFeedback } from "@/components/motionix/tool/ToolFeedback";
 import { ToolBody } from "@/components/motionix/tool/ToolBody";
-import { getPageSEO, getPageSchema } from "@/lib/seo-config";
+import { getPageSEO } from "@/lib/seo-config";
 import { alternatesFor } from "@/lib/hreflang";
-import { SchemaProvider } from "@/components/seo/SchemaProvider";
 
 export const dynamic = "force-dynamic";
 
@@ -87,22 +86,19 @@ export default async function ToolPage({
     ]),
   ];
 
-  const schema = await getPageSchema(locale, `/tools/${slug}`, tool);
-
   return (
     <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
-      {schema && <SchemaProvider schema={schema} />}
       <SiteHeader />
 
       <main id="main-content" className="flex-1 pt-32 md:pt-40 px-6 pb-24">
         <div className="max-w-6xl mx-auto">
           <header className="mb-10 md:mb-14">
             <p className="eyebrow-mono text-foreground/50 mb-3">
-              Motionix �{" "}
-              <Link href="/tools" className="hover:text-foreground transition-colors">
+              Motionix ·{" "}
+              <Link href={`/${locale}/tools`} className="hover:text-foreground transition-colors">
                 {t("breadcrumbTools")}
               </Link>{" "}
-              � {tool.phase === "functional" ? t("statusFunctional") : t("statusComingUp")}
+              · {tool.phase === "functional" ? t("statusFunctional") : t("statusComingUp")}
             </p>
             <h1 className="font-display text-5xl md:text-7xl leading-[0.92] tracking-tight">
               {toolT("name")}
