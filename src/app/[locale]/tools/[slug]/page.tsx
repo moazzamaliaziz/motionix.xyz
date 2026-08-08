@@ -16,7 +16,9 @@ import { ToolFormats, ToolUseCasesBento } from "@/components/motionix/tool/ToolU
 import { ToolChain } from "@/components/motionix/tool/ToolChain";
 import { ToolFeedback } from "@/components/motionix/tool/ToolFeedback";
 import { ToolBody } from "@/components/motionix/tool/ToolBody";
+import { getPageSEO, getPageSchema } from "@/lib/seo-config";
 import { alternatesFor } from "@/lib/hreflang";
+import { SchemaProvider } from "@/components/seo/SchemaProvider";
 
 export const dynamic = "force-dynamic";
 
@@ -34,25 +36,33 @@ export async function generateMetadata({
   const { slug, locale } = await params;
   const tool = bySlug(slug);
   if (!tool) return {};
-  const t = await getTranslations({ locale, namespace: `Tools.${slug}` });
+
+  const path = `/tools/${slug}`;
+  const seo = await getPageSEO(locale, path);
+  const alternates = await alternatesFor(path, locale);
+
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title: seo.title,
+    description: seo.description,
+    alternates,
     openGraph: {
-      title: t("metaTitle"),
-      description: t("metaDescription"),
-      url: `/tools/${tool.slug}`,
+      title: seo.title,
+      description: seo.description,
+      url: path,
       siteName: "Motionix",
       type: "website",
       images: [{ url: `/og/tools/${tool.ogImage}`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: t("metaTitle"),
-      description: t("metaDescription"),
+      title: seo.title,
+      description: seo.description,
       images: [`/og/tools/${tool.ogImage}`],
     },
-    alternates: alternatesFor(`/tools/${tool.slug}`, locale),
+    robots: {
+      index: !seo.noindex,
+      follow: !seo.nofollow,
+    },
   };
 }
 
@@ -77,8 +87,11 @@ export default async function ToolPage({
     ]),
   ];
 
+  const schema = await getPageSchema(locale, `/tools/${slug}`, tool);
+
   return (
     <div data-mode="tool" className="min-h-screen flex flex-col bg-cream text-ink">
+      {schema && <SchemaProvider schema={schema} />}
       <SiteHeader />
 
       <main id="main-content" className="flex-1 pt-32 md:pt-40 px-6 pb-24">

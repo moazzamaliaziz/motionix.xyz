@@ -117,6 +117,21 @@ const baseConfig: NextConfig = {
       },
     ];
   },
+
+  async redirects() {
+    return [
+      { source: "/", destination: "/en/", permanent: true },
+      { source: "/tools", destination: "/en/tools", permanent: true },
+      { source: "/about", destination: "/en/about", permanent: true },
+      { source: "/contact", destination: "/en/contact", permanent: true },
+      { source: "/privacy", destination: "/en/privacy", permanent: true },
+      { source: "/terms", destination: "/en/terms", permanent: true },
+      { source: "/cookies", destination: "/en/cookies", permanent: true },
+      { source: "/blog", destination: "/en/blog", permanent: true },
+      { source: "/tools/:slug", destination: "/en/tools/:slug", permanent: true },
+      { source: "/blog/:slug", destination: "/en/blog/:slug", permanent: true },
+    ];
+  },
 };
 
 /* ------------------------------------------------------------------ */

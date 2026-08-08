@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getTranslations } from "next-intl/server";
 import { SiteHeader } from "@/components/motionix/layout/SiteHeader";
 import { SiteFooter } from "@/components/motionix/layout/SiteFooter";
 import { Hero } from "@/components/motionix/marketing/Hero";
@@ -13,6 +12,7 @@ import { FaqAccordion } from "@/components/motionix/marketing/FaqAccordion";
 import { StickyCta } from "@/components/motionix/marketing/StickyCta";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/schema";
 import { TOOLS_SITE_URL } from "@/lib/cn";
+import { getPageSEO } from "@/lib/seo-config";
 import { alternatesFor } from "@/lib/hreflang";
 
 export async function generateMetadata({
@@ -21,25 +21,31 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "Hero" });
+  const seo = await getPageSEO(locale, "/");
+  const alternates = await alternatesFor("/", locale);
+
   return {
     metadataBase: new URL(TOOLS_SITE_URL),
-    title: t("metaTitle"),
-    description: t("metaDescription"),
-    alternates: alternatesFor("/", locale),
+    title: seo.title,
+    description: seo.description,
+    alternates,
     openGraph: {
       type: "website",
-      title: t("metaTitle"),
-      description: t("metaDescription"),
+      title: seo.title,
+      description: seo.description,
       url: "/",
       siteName: "Motionix",
       images: [{ url: "/og/og-default.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
-      title: t("metaTitle"),
-      description: t("metaDescription"),
+      title: seo.title,
+      description: seo.description,
       images: ["/og/og-default.png"],
+    },
+    robots: {
+      index: !seo.noindex,
+      follow: !seo.nofollow,
     },
   };
 }

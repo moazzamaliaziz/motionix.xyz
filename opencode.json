@@ -1,5 +1,25 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": ["@dietrichgebert/ponytail"],
-  "instructions": ["AGENTS.md"]
+  "instructions": ["AGENTS.md"],
+  "mcp": {
+    "ahrefs": {
+      "type": "remote",
+      "url": "https://api.ahrefs.com/mcp/mcp",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer wR_J1buHN5xdjJJ86c71EW6DE0QNY079qB_WjqiQ"
+      }
+    },
+    "ctx7": {
+      "type": "local",
+      "command": ["npx", "-y", "ctx7", "mcp", "--api-key", "ctx7sk-f230a0c8-caac-4266-81b0-e91707de82ca"],
+      "enabled": true
+    },
+    "tavily": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-remote", "https://mcp.tavily.com/mcp/?tavilyApiKey=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"],
+      "enabled": true
+    }
+  }
 }
