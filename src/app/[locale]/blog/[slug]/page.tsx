@@ -40,7 +40,7 @@ export async function generateMetadata({
       url: `${TOOLS_SITE_URL}/blog/${post.slug}`,
     },
     twitter: { card: "summary_large_image", title: fm.title, description: fm.description },
-    alternates: alternatesFor(`/blog/${post.slug}`, locale),
+    alternates: await alternatesFor(`/blog/${post.slug}`, locale),
   };
 }
 

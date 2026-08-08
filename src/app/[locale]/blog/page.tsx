@@ -22,7 +22,7 @@ export async function generateMetadata({
       description: t("subtitle"),
       type: "website",
     },
-    alternates: alternatesFor("/blog", locale),
+    alternates: await alternatesFor("/blog", locale),
   };
 }
 

@@ -26,7 +26,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("subtitle"),
     },
-    alternates: alternatesFor("/privacy", locale),
+    alternates: await alternatesFor("/privacy", locale),
   };
 }
 

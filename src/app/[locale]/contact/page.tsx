@@ -28,7 +28,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("subtitle"),
     },
-    alternates: alternatesFor("/contact", locale),
+    alternates: await alternatesFor("/contact", locale),
   };
 }
 
