@@ -657,3 +657,29 @@
               "description": "Shrink MP4, MOV, or WebM videos to email-able size. No upload, no server."
             }
         },
+        "about": {
+            "title": "About Motionix",
+            "description": "Learn about Motionix — free, privacy-first browser-based image and video tools."
+        },
+        "contact": {
+            "title": "Contact Us — Motionix",
+            "description": "Get in touch with the Motionix team for questions, feedback, or support."
+        },
+        "privacy": {
+            "title": "Privacy Policy — Motionix",
+            "description": "Learn how Motionix protects your privacy. No uploads, no tracking, no data collection."
+        },
+        "terms": {
+            "title": "Terms of Service — Motionix",
+            "description": "Read the Motionix Terms of Service for using our free browser-based tools."
+        },
+        "cookies": {
+            "title": "Cookie Policy — Motionix",
+            "description": "Learn how Motionix uses cookies to improve your experience."
+        },
+        "blog": {
+            "title": "Blog — Motionix",
+            "description": "Engineering write-ups, how-tos, and tips for browser-based image editing and privacy."
+        }
+    }
+}
