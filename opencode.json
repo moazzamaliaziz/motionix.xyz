@@ -20,6 +20,11 @@
       "type": "local",
       "command": ["npx", "-y", "mcp-remote", "https://mcp.tavily.com/mcp/?tavilyApiKey=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"],
       "enabled": true
+    },
+    "supabase": {
+      "type": "remote",
+      "url": "https://mcp.supabase.com/mcp?project_ref=qgroslpmtvjjninvmqkv&features=docs%2Caccount%2Cdatabase%2Cdebugging%2Cdevelopment%2Cfunctions%2Cbranching",
+      "enabled": true
     }
   }
 }
