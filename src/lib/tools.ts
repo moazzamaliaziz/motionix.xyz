@@ -258,6 +258,40 @@ export const tools: Tool[] = [
     ],
     next: ["student-id-photo-maker", "resume-photo-maker", "background-remover"],
     ogImage: "passport-photo-maker-og.png",
+    seo: {
+      primaryKeyword: "passport photo maker",
+      secondaryKeywords: ["passport photo online", "visa photo maker", "ID photo maker", "passport photo requirements"],
+      searchIntent: "Create compliant passport/visa photos online without visiting a studio",
+      relatedEntities: ["passport photo", "visa photo", "ID photo", "embassy requirements", "photo dimensions"],
+    },
+    content: {
+      introduction: "Create passport and visa photos that meet official requirements — right in your browser. No uploads, no signup, no watermarks. Supports US, UK, India, and Schengen specs.",
+      features: [
+        "Country-specific presets for US, UK, India, and Schengen",
+        "Automatic head positioning and framing",
+        "Strict mode: no pixel editing of your face",
+        "Print-ready JPEG output at correct DPI",
+        "100% browser-based — files never leave your device",
+      ],
+      limitations: [
+        "Currently supports US, UK, India, and Schengen presets",
+        "Requires a face-forward photo with plain background",
+        "Glasses not recommended (US passport rule)",
+        "Maximum file size: 10MB",
+      ],
+      privacy: {
+        processing: "browser",
+        uploadRequired: false,
+        retention: "No retention — files are processed locally and never uploaded",
+        description: "Your photos are processed entirely in your browser. No files are uploaded to any server. Nothing leaves your device.",
+      },
+      examples: [
+        { before: "Casual selfie with busy background", after: "Compliant passport photo with white background, correct head positioning" },
+        { before: "Group photo cropped to face", after: "Individual passport photo meeting embassy specifications" },
+      ],
+      relatedGuides: ["passport-photo-rules-2026"],
+      contentUpdatedAt: "2026-08-08",
+    },
     metaTitle: "Free Passport & Visa Photo Maker — country-correct on first try",
     metaDescription:
       "Make a passport or visa photo that matches your country&apos;s exact spec. Pick from US, UK, India, or Schengen. We crop, frame, and resize — without touching your face. Strict mode never edits pixels.",
@@ -303,6 +337,39 @@ export const tools: Tool[] = [
     ],
     next: ["resume-photo-maker", "passport-photo-maker", "photo-resizer"],
     ogImage: "student-id-photo-maker-og.png",
+    seo: {
+      primaryKeyword: "student id photo maker",
+      secondaryKeywords: ["student ID photo", "school ID photo", "college ID photo", "exam photo maker"],
+      searchIntent: "Create student ID photos for college portals, scholarship forms, and exam applications",
+      relatedEntities: ["student ID", "school photo", "Common App", "scholarship application"],
+    },
+    content: {
+      introduction: "Make ID photos sized for college portals, scholarship forms, and exam applications — right in your browser. No uploads, no signup, no watermarks.",
+      features: [
+        "Common App, scholarship, and exam-day presets",
+        "Custom pixel dimensions supported",
+        "Browser-based processing — files never leave your device",
+        "No watermarks, no signup required",
+        "Supports JPG and PNG output",
+      ],
+      limitations: [
+        "Requires a face-forward photo with decent lighting",
+        "Maximum file size: 10MB",
+        "Maximum dimensions: 4096px on the long side",
+      ],
+      privacy: {
+        processing: "browser",
+        uploadRequired: false,
+        retention: "No retention — files are processed locally and never uploaded",
+        description: "Your photos are processed entirely in your browser. No files are uploaded to any server.",
+      },
+      examples: [
+        { before: "Casual phone selfie", after: "Clean student ID photo with neutral background" },
+        { before: "Photo too large for portal upload", after: "Correctly sized photo for Common App submission" },
+      ],
+      relatedGuides: [],
+      contentUpdatedAt: "2026-08-08",
+    },
     metaTitle: "Student ID Photo Maker — exactly the right size (Motionix)",
     metaDescription:
       "Make ID photos sized for the Common App, scholarship portals, and university admissions. Free, no signup, runs in your browser.",
@@ -347,6 +414,39 @@ export const tools: Tool[] = [
     ],
     next: ["background-remover", "photo-resizer", "image-compressor"],
     ogImage: "resume-photo-maker-og.png",
+    seo: {
+      primaryKeyword: "resume photo maker",
+      secondaryKeywords: ["LinkedIn photo maker", "resume headshot", "CV photo", "professional headshot online"],
+      searchIntent: "Create professional headshot photos for resumes, LinkedIn, and CVs",
+      relatedEntities: ["resume photo", "LinkedIn headshot", "CV photo", "professional photo"],
+    },
+    content: {
+      introduction: "Create polished resume and LinkedIn photos — right in your browser. No uploads, no signup, no watermarks. Clean backgrounds, recruiter-friendly framing.",
+      features: [
+        "1:1 LinkedIn crop, 3:4 resume header, 4:5 Instagram-ready framing",
+        "Background swap to white, light grey, or brand colors",
+        "Browser-based processing — files never leave your device",
+        "No watermarks, no signup required",
+        "Export at 1400x1400 for LinkedIn compression survival",
+      ],
+      limitations: [
+        "Requires a face-forward photo with decent lighting",
+        "Maximum file size: 10MB",
+        "Background swap limited to flat solid colors",
+      ],
+      privacy: {
+        processing: "browser",
+        uploadRequired: false,
+        retention: "No retention — files are processed locally and never uploaded",
+        description: "Your photos are processed entirely in your browser. No files are uploaded to any server.",
+      },
+      examples: [
+        { before: "Casual selfie with busy background", after: "Professional headshot with clean white background" },
+        { before: "Photo too large for LinkedIn upload", after: "Correctly sized and cropped for LinkedIn profile" },
+      ],
+      relatedGuides: [],
+      contentUpdatedAt: "2026-08-08",
+    },
     metaTitle: "Free Resume & LinkedIn Photo Tool — clean crops, recruiter-safe",
     metaDescription:
       "Crop and reframe a headshot for LinkedIn, your resume, or a CV. Free, in your browser, no signup.",
@@ -391,6 +491,39 @@ export const tools: Tool[] = [
     ],
     next: ["photo-resizer", "image-compressor", "resume-photo-maker"],
     ogImage: "signature-maker-og.png",
+    seo: {
+      primaryKeyword: "signature maker",
+      secondaryKeywords: ["digital signature maker", "electronic signature", "create signature online", "transparent PNG signature"],
+      searchIntent: "Create digital signatures for PDFs, contracts, and email signatures",
+      relatedEntities: ["digital signature", "electronic signature", "PDF signature", "email signature"],
+    },
+    content: {
+      introduction: "Draw, type, or upload a signature and get a transparent PNG instantly. Perfect for PDF contracts, email signatures, and documents. Free, no signup.",
+      features: [
+        "Draw with mouse, trackpad, or finger",
+        "Type a signature with multiple font styles",
+        "Upload a paper scan and auto-remove background",
+        "Download as transparent PNG or SVG",
+        "100% browser-based — files never leave your device",
+      ],
+      limitations: [
+        "Drawing quality depends on input device",
+        "Maximum file size for uploads: 10MB",
+        "No cryptographic/legal validity (image-based only)",
+      ],
+      privacy: {
+        processing: "browser",
+        uploadRequired: false,
+        retention: "No retention — files are processed locally and never uploaded",
+        description: "Your signatures are processed entirely in your browser. Nothing leaves your device.",
+      },
+      examples: [
+        { before: "Wet ink signature on paper", after: "Clean transparent PNG digital signature" },
+        { before: "Typed text name", after: "Stylized handwritten-looking signature" },
+      ],
+      relatedGuides: [],
+      contentUpdatedAt: "2026-08-08",
+    },
     metaTitle: "Free Signature Maker — transparent PNG, ready for contracts",
     metaDescription:
       "Make a clean, transparent-PNG signature by drawing, typing, or uploading. Free, in your browser.",
@@ -434,6 +567,39 @@ export const tools: Tool[] = [
     ],
     next: ["image-compressor", "background-remover", "signature-maker"],
     ogImage: "photo-resizer-og.png",
+    seo: {
+      primaryKeyword: "photo resizer",
+      secondaryKeywords: ["resize photo online", "image resizer", "resize image to KB", "photo size reducer"],
+      searchIntent: "Resize photos to exact pixel dimensions or file-size targets for portals, social media, or print",
+      relatedEntities: ["photo resize", "image dimensions", "KB target", "pixel resize"],
+    },
+    content: {
+      introduction: "Resize photos to exact pixel dimensions or file-size targets — right in your browser. No signup, no upload, no watermarks. Perfect for government portals, social media, and print.",
+      features: [
+        "Exact pixel dimensions or KB target",
+        "Aspect-ratio lock to prevent distortion",
+        "Bicubic (photos) and nearest-neighbor (screenshots) resampling",
+        "Supports JPG, PNG, WebP, HEIC, AVIF",
+        "100% browser-based — files never leave your device",
+      ],
+      limitations: [
+        "Maximum input: 4096px on the long side, 10MB",
+        "Upscaling introduces softness (not recommended)",
+        "KB target may be unreachable at certain dimensions",
+      ],
+      privacy: {
+        processing: "browser",
+        uploadRequired: false,
+        retention: "No retention — files are processed locally and never uploaded",
+        description: "Your photos are processed entirely in your browser. No files are uploaded to any server.",
+      },
+      examples: [
+        { before: "Photo too large for portal upload (5MB)", after: "Correctly sized photo under 50KB" },
+        { before: "Wrong aspect ratio for passport", after: "Correctly resized with locked aspect ratio" },
+      ],
+      relatedGuides: [],
+      contentUpdatedAt: "2026-08-08",
+    },
     metaTitle: "Free Photo Resizer — exact pixel or KB targets",
     metaDescription:
       "Resize photos to exact pixel dimensions or KB targets. No signup, no upload, runs in your browser.",
@@ -476,6 +642,39 @@ export const tools: Tool[] = [
     ],
     next: ["background-remover", "photo-resizer", "signature-maker"],
     ogImage: "image-compressor-og.png",
+    seo: {
+      primaryKeyword: "image compressor",
+      secondaryKeywords: ["compress image online", "compress JPG", "compress PNG", "image size reducer"],
+      searchIntent: "Compress images to reduce file size while maintaining visual quality",
+      relatedEntities: ["image compression", "file size reduction", "JPG quality", "PNG optimization"],
+    },
+    content: {
+      introduction: "Compress JPG, PNG, and WebP images to a fraction of their size — visually identical. Perfect for email, CMS uploads, and web performance. Free, no signup.",
+      features: [
+        "Quality-targeted compression (visual preview)",
+        "Side-by-side before/after comparison",
+        "Supports JPG, PNG, WebP, HEIC, AVIF",
+        "Target KB or percentage reduction",
+        "100% browser-based — files never leave your device",
+      ],
+      limitations: [
+        "Maximum file size: 10MB",
+        "Very aggressive compression may introduce artifacts",
+        "PNG compression varies by content type",
+      ],
+      privacy: {
+        processing: "browser",
+        uploadRequired: false,
+        retention: "No retention — files are processed locally and never uploaded",
+        description: "Your images are processed entirely in your browser. No files are uploaded to any server.",
+      },
+      examples: [
+        { before: "12MB photo for email attachment", after: "380KB compressed photo, visually identical" },
+        { before: "Large PNG screenshot", after: "Optimized PNG for CMS upload" },
+      ],
+      relatedGuides: [],
+      contentUpdatedAt: "2026-08-08",
+    },
     metaTitle: "Free Image Compressor — shrink JPG, PNG, WebP to a fraction of the size",
     metaDescription:
       "Compress JPG, PNG, and WebP images for email, CMS, and the web. Quality-targeted, runs in your browser.",
@@ -519,6 +718,40 @@ export const tools: Tool[] = [
     ],
     next: ["image-compressor", "photo-resizer", "background-remover"],
     ogImage: "video-compressor-og.png",
+    seo: {
+      primaryKeyword: "video compressor",
+      secondaryKeywords: ["compress video online", "compress MP4", "reduce video size", "video size reducer"],
+      searchIntent: "Compress videos to reduce file size for email, messaging, and web uploads",
+      relatedEntities: ["video compression", "MP4 compress", "file size reduction", "WebCodecs"],
+    },
+    content: {
+      introduction: "Shrink MP4, MOV, or WebM videos to email-able size — right in your browser. No upload, no server, no signup. Powered by WebCodecs for fast, private compression.",
+      features: [
+        "Target file size or quality percentage",
+        "H.264 hardware-accelerated encoding where available",
+        "Supports MP4, MOV, MKV, WebM",
+        "Up to 200MB input files",
+        "100% browser-based — files never leave your device",
+      ],
+      limitations: [
+        "Maximum file size: 200MB",
+        "Requires WebCodecs support (Chrome, Edge, Safari 16.4+)",
+        "Audio re-encoded to AAC (single track)",
+        "Subtitles are dropped",
+      ],
+      privacy: {
+        processing: "browser",
+        uploadRequired: false,
+        retention: "No retention — files are processed locally and never uploaded",
+        description: "Your videos are processed entirely in your browser. No files are uploaded to any server.",
+      },
+      examples: [
+        { before: "50MB video too large for email", after: "10MB compressed video, ready to send" },
+        { before: "Large screen recording", after: "Optimized video for Slack/Teams upload" },
+      ],
+      relatedGuides: ["webcodecs-vs-ffmpeg-wasm"],
+      contentUpdatedAt: "2026-08-08",
+    },
     metaTitle: "Free Video Compressor — runs in your browser, no upload",
     metaDescription:
       "Shrink an MP4, MOV, or WebM to email-able size in your browser. No upload, no server, powered by WebCodecs.",
