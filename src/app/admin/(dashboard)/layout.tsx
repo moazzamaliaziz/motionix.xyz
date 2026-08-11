@@ -8,7 +8,7 @@ export const metadata = {
   description: "Motionix administration panel",
 };
 
-export default async function AdminLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
