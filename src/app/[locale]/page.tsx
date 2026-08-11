@@ -13,7 +13,7 @@ import { StickyCta } from "@/components/motionix/marketing/StickyCta";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/schema";
 import { TOOLS_SITE_URL } from "@/lib/cn";
 import { getPageSEO } from "@/lib/seo-config";
-import { alternatesFor } from "@/lib/hreflang";
+import { alternatesFor, localizedUrl } from "@/lib/hreflang";
 
 export async function generateMetadata({
   params,
@@ -33,7 +33,7 @@ export async function generateMetadata({
       type: "website",
       title: seo.title,
       description: seo.description,
-      url: "/",
+      url: localizedUrl(locale, "/"),
       siteName: "Motionix",
       images: [{ url: "/og/og-default.png", width: 1200, height: 630 }],
     },

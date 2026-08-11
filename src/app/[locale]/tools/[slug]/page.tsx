@@ -51,7 +51,7 @@ export async function generateMetadata({
     openGraph: {
       title: seo.title,
       description: seo.description,
-      url: path,
+      url: localizedUrl(locale, path),
       siteName: "Motionix",
       type: "website",
       images: [{ url: `/og/tools/${tool.ogImage}`, width: 1200, height: 630 }],

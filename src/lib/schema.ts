@@ -1,4 +1,5 @@
 import type { Tool, ToolFaq } from "./tools";
+import { TOOLS_SITE_URL } from "./cn";
 
 /**
  * Build JSON-LD for a tool page: SoftwareApplication + FAQPage.
@@ -25,8 +26,8 @@ export function toolJsonLd(tool: Tool) {
       price: "0",
       priceCurrency: "USD",
     },
-    url: `/tools/${tool.slug}`,
-    image: `/og/tools/${tool.ogImage}`,
+    url: `${TOOLS_SITE_URL}/tools/${tool.slug}`,
+    image: `${TOOLS_SITE_URL}/og/tools/${tool.ogImage}`,
     featureList: tool.formats.join(", "),
     softwareVersion: "1.0",
   };

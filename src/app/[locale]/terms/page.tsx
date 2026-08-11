@@ -17,7 +17,7 @@ export async function generateMetadata({
     openGraph: {
       title: t("title"),
       description: t("section1P1"),
-      url: "https://motionix.xyz/terms",
+      url: `https://motionix.xyz/${locale}/terms`,
       siteName: "Motionix",
       type: "website",
     },

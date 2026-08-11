@@ -9,12 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: ["/"],
         disallow: ["/api/", "/admin/", "/_next/"],
       },
-      {
-        userAgent: "GPTBot",
-        allow: ["/", "/llms.txt"],
-      },
     ],
     sitemap: `${TOOLS_SITE_URL}/sitemap.xml`,
-    host: TOOLS_SITE_URL,
   };
 }
