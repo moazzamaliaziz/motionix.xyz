@@ -179,7 +179,16 @@
     "dragDrop": "ドラッグ&ドロップまたはクリックして参照",
     "maxFileSize": "最大{size}MB",
     "processingYourImage": "画像を処理中…",
-    "thisMayTakeAWhile": "数秒かかる場合があります"
+    "thisMayTakeAWhile": "数秒かかる場合があります",
+    "examples": "サンプル",
+    "seeItInAction": "実際の動作を見る",
+    "before": "処理前",
+    "after": "処理後",
+    "limitations": "制限事項",
+    "beforeYouStart": "始める前に",
+    "relatedGuides": "関連ガイド",
+    "learnMore": "詳しく見る",
+    "lastUpdated": "最終更新"
   },
   "Tools": {
     "background-remover": {
@@ -602,5 +611,75 @@
     "filterLabel": "カテゴリでフィルター",
     "noResults": "条件に合うツールが見つかりません。",
     "openTool": "ツールを開く"
+  },
+  "SEO": {
+    "default": {
+      "title": "Motionix — 無料の画像・動画ツール",
+      "description": "無料のブラウザベースの画像・動画ツール。登録不要、アップロード不要、ウォーターマークなし。ファイルはデバイス上でプライベートに保たれます。"
+    },
+    "home": {
+      "title": "無料の画像・動画ツール — Motionix",
+      "description": "背景除去、パスポート写真作成、画像圧縮などの無料ブラウザツール。アップロード不要。"
+    },
+    "tools": {
+      "title": "すべてのツール — Motionix",
+      "description": "すべての無料画像・動画ツールを閲覧。背景除去、パスポート写真メーカー、画像圧縮など。",
+      "background-remover": {
+        "title": "無料背景除去 — オンラインで背景を削除",
+        "description": "ブラウザで写真の背景を即座に除去。AI搭載、アップロード不要、登録不要、ウォーターマークなし。"
+      },
+      "passport-photo-maker": {
+        "title": "パスポート写真メーカー — 国別対応のオンライン写真",
+        "description": "準拠したパスポート・ビザ写真をオンラインで作成。米国、英国、インド、シェンゲン仕様対応。"
+      },
+      "student-id-photo-maker": {
+        "title": "学生証写真作成 — 正確なサイズの写真",
+        "description": "大学ポータル、奨学金フォーム、入学試験用のID写真を作成。"
+      },
+      "resume-photo-maker": {
+        "title": "履歴書・LinkedIn写真 — クリーンなトリミング",
+        "description": "LinkedIn、履歴書、CV用のヘッドショットをトリミング＆リフレーミング。無料、ブラウザ内で完結。"
+      },
+      "signature-maker": {
+        "title": "無料署名作成 — 契約書用の透過PNG",
+        "description": "描画、入力、またはアップロードでデジタル署名を作成。無料、ブラウザ内で完結。"
+      },
+      "photo-resizer": {
+        "title": "無料写真リサイズ — 正確なピクセルまたはKB目標",
+        "description": "写真を正確なピクセル寸法またはファイルサイズ目標にリサイズ。登録不要、アップロード不要。"
+      },
+      "image-compressor": {
+        "title": "無料画像圧縮 — JPG、PNG、WebPを圧縮",
+        "description": "JPG、PNG、WebP画像を元のサイズの一部に圧縮。視覚的に同一。"
+      },
+      "video-compressor": {
+        "title": "無料動画圧縮 — アップロード不要、ブラウザで動作",
+        "description": "MP4、MOV、WebM動画をメール送信可能なサイズに縮小。アップロード不要、サーバー不要。"
+      }
+    },
+    "about": {
+      "title": "Motionixについて",
+      "description": "Motionixについて — 無料のプライバシー重視のブラウザベースの画像・動画ツール。"
+    },
+    "contact": {
+      "title": "お問い合わせ — Motionix",
+      "description": "Motionixチームにご質問、ご意見、サポートのご相談を。"
+    },
+    "privacy": {
+      "title": "プライバシーポリシー — Motionix",
+      "description": "Motionixがプライバシーをどう保護するかをご覧ください。アップロードなし、追跡なし、データ収集なし。"
+    },
+    "terms": {
+      "title": "利用規約 — Motionix",
+      "description": "無料のブラウザベースツールをご利用いただくためのMotionix利用規約をお読みください。"
+    },
+    "cookies": {
+      "title": "Cookieポリシー — Motionix",
+      "description": "Motionixが体験を向上させるためにCookieをどのように使用するかをご覧ください。"
+    },
+    "blog": {
+      "title": "ブログ — Motionix",
+      "description": "ブラウザベースの画像編集とプライバシーに関する技術記事、ハウツー、ヒント。"
+    }
   }
 }

@@ -179,7 +179,16 @@
     "dragDrop": "Glissez-déposez ou cliquez pour parcourir",
     "maxFileSize": "Maximum {size} Mo",
     "processingYourImage": "Traitement de votre image…",
-    "thisMayTakeAWhile": "Cela peut prendre quelques secondes"
+    "thisMayTakeAWhile": "Cela peut prendre quelques secondes",
+    "examples": "Exemples",
+    "seeItInAction": "Voir en action",
+    "before": "Avant",
+    "after": "Après",
+    "limitations": "Limitations",
+    "beforeYouStart": "Avant de commencer",
+    "relatedGuides": "Guides associés",
+    "learnMore": "En savoir plus",
+    "lastUpdated": "Dernière mise à jour"
   },
   "Tools": {
     "background-remover": {
@@ -602,5 +611,75 @@
     "filterLabel": "Filtrer par catégorie",
     "noResults": "Aucun outil ne correspond à votre recherche.",
     "openTool": "Ouvrir l'outil"
+  },
+  "SEO": {
+    "default": {
+      "title": "Motionix — Outils gratuits d'image et de vidéo",
+      "description": "Outils gratuits d'image et de vidéo dans le navigateur. Sans inscription, sans téléchargement, sans filigrane. Vos fichiers restent privés sur votre appareil."
+    },
+    "home": {
+      "title": "Outils gratuits d'image et de vidéo — Motionix",
+      "description": "Outils gratuits dans le navigateur pour la suppression d'arrière-plan, les photos d'identité, la compression d'images, et plus. Aucun téléchargement requis."
+    },
+    "tools": {
+      "title": "Tous les outils — Motionix",
+      "description": "Parcourez tous les outils gratuits d'image et de vidéo. Supprimeur d'arrière-plan, créateur de photo de passeport, compresseur d'images, et plus.",
+      "background-remover": {
+        "title": "Supprimeur d'arrière-plan gratuit — Supprimez l'arrière-plan en ligne",
+        "description": "Supprimez l'arrière-plan des photos instantanément dans votre navigateur. Propulsé par l'IA, sans téléchargement, sans inscription, sans filigrane."
+      },
+      "passport-photo-maker": {
+        "title": "Créateur de photo de passeport — Photos conformes en ligne",
+        "description": "Créez des photos de passeport et de visa conformes en ligne. Prend en charge les spécifications US, UK, Inde et Schengen."
+      },
+      "student-id-photo-maker": {
+        "title": "Créateur de photo étudiante — Photos de taille exacte",
+        "description": "Créez des photos d'identité pour les portails universitaires, les formulaires de bourses et les admissions."
+      },
+      "resume-photo-maker": {
+        "title": "Photo CV et LinkedIn — Cadrages propres, sûr pour les recruteurs",
+        "description": "Recadrez et reformatez des portraits pour LinkedIn, votre CV ou un curriculum. Gratuit, dans votre navigateur."
+      },
+      "signature-maker": {
+        "title": "Créateur de signature gratuit — PNG transparent pour contrats",
+        "description": "Créez une signature numérique propre en dessinant, tapant ou téléchargeant. Gratuit, dans votre navigateur."
+      },
+      "photo-resizer": {
+        "title": "Redimensionneur de photo gratuit — Pixels ou Ko exacts",
+        "description": "Redimensionnez les photos à des dimensions en pixels ou des cibles en taille de fichier. Sans inscription, sans téléchargement."
+      },
+      "image-compressor": {
+        "title": "Compresseur d'images gratuit — Réduisez JPG, PNG, WebP",
+        "description": "Compressez les images JPG, PNG et WebP à une fraction de leur taille. Visuellement identique."
+      },
+      "video-compressor": {
+        "title": "Compresseur vidéo gratuit — Sans téléchargement, dans le navigateur",
+        "description": "Réduisez les vidéos MP4, MOV ou WebM à une taille envoyable par e-mail. Sans téléchargement, sans serveur."
+      }
+    },
+    "about": {
+      "title": "À propos de Motionix",
+      "description": "Découvrez Motionix — outils gratuits d'image et de vidéo, respectueux de la vie privée, fonctionnant dans le navigateur."
+    },
+    "contact": {
+      "title": "Contactez-nous — Motionix",
+      "description": "Contactez l'équipe Motionix pour des questions, des retours ou de l'aide."
+    },
+    "privacy": {
+      "title": "Politique de confidentialité — Motionix",
+      "description": "Découvrez comment Motionix protège votre vie privée. Aucun téléchargement, aucun suivi, aucune collecte de données."
+    },
+    "terms": {
+      "title": "Conditions d'utilisation — Motionix",
+      "description": "Lisez les conditions d'utilisation de Motionix pour l'utilisation de nos outils gratuits dans le navigateur."
+    },
+    "cookies": {
+      "title": "Politique de cookies — Motionix",
+      "description": "Découvrez comment Motionix utilise les cookies pour améliorer votre expérience."
+    },
+    "blog": {
+      "title": "Blog — Motionix",
+      "description": "Articles d'ingénierie, guides et astuces pour l'édition d'images et la confidentialité dans le navigateur."
+    }
   }
 }

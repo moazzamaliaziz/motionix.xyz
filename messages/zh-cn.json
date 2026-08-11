@@ -179,7 +179,16 @@
     "dragDrop": "拖放或点击浏览",
     "maxFileSize": "最大 {size} MB",
     "processingYourImage": "正在处理你的图片……",
-    "thisMayTakeAWhile": "这可能需要几秒钟"
+    "thisMayTakeAWhile": "这可能需要几秒钟",
+    "examples": "示例",
+    "seeItInAction": "查看实际效果",
+    "before": "处理前",
+    "after": "处理后",
+    "limitations": "使用限制",
+    "beforeYouStart": "开始之前",
+    "relatedGuides": "相关指南",
+    "learnMore": "了解更多",
+    "lastUpdated": "最后更新"
   },
   "Tools": {
     "background-remover": {
@@ -602,5 +611,75 @@
     "filterLabel": "按分类筛选",
     "noResults": "没有匹配的工具。",
     "openTool": "打开工具"
+  },
+  "SEO": {
+    "default": {
+      "title": "Motionix — 免费图片和视频工具",
+      "description": "免费的浏览器端图片和视频工具。无需注册、无需上传、无水印。您的文件在设备上保持私密。"
+    },
+    "home": {
+      "title": "免费图片和视频工具 — Motionix",
+      "description": "免费浏览器工具，用于背景去除、证件照制作、图片压缩等。无需上传。"
+    },
+    "tools": {
+      "title": "所有工具 — Motionix",
+      "description": "浏览所有免费图片和视频工具。背景去除、证件照制作、图片压缩等。",
+      "background-remover": {
+        "title": "免费背景去除 — 在线去除图片背景",
+        "description": "在浏览器中即时去除照片背景。AI驱动，无需上传、无需注册、无水印。"
+      },
+      "passport-photo-maker": {
+        "title": "证件照制作 — 各国规格在线照片",
+        "description": "在线制作符合规格的护照和签证照片。支持美国、英国、印度和申根区规格。"
+      },
+      "student-id-photo-maker": {
+        "title": "学生证照片制作 — 精确尺寸",
+        "description": "为大学门户、奖学金表格和考试申请制作ID照片。"
+      },
+      "resume-photo-maker": {
+        "title": "简历和领英照片 — 干净裁剪，招聘安全",
+        "description": "为领英、简历或CV裁剪和重新构图头像。免费，在浏览器中完成。"
+      },
+      "signature-maker": {
+        "title": "免费签名制作 — 合同用透明PNG",
+        "description": "通过绘制、打字或上传创建干净的数字签名。免费，在浏览器中完成。"
+      },
+      "photo-resizer": {
+        "title": "免费照片调整 — 精确像素或KB目标",
+        "description": "将照片调整到精确的像素尺寸或文件大小目标。无需注册、无需上传。"
+      },
+      "image-compressor": {
+        "title": "免费图片压缩 — 压缩JPG、PNG、WebP",
+        "description": "将JPG、PNG和WebP图片压缩到原始大小的一小部分。视觉上相同。"
+      },
+      "video-compressor": {
+        "title": "免费视频压缩 — 无需上传，浏览器运行",
+        "description": "将MP4、MOV或WebM视频缩小到可邮件发送的大小。无需上传、无需服务器。"
+      }
+    },
+    "about": {
+      "title": "关于Motionix",
+      "description": "了解Motionix — 免费、注重隐私的浏览器端图片和视频工具。"
+    },
+    "contact": {
+      "title": "联系我们 — Motionix",
+      "description": "联系Motionix团队，获取问题、反馈或支持。"
+    },
+    "privacy": {
+      "title": "隐私政策 — Motionix",
+      "description": "了解Motionix如何保护您的隐私。无上传、无追踪、无数据收集。"
+    },
+    "terms": {
+      "title": "服务条款 — Motionix",
+      "description": "阅读Motionix服务条款，了解使用我们免费浏览器工具的相关规定。"
+    },
+    "cookies": {
+      "title": "Cookie政策 — Motionix",
+      "description": "了解Motionix如何使用Cookie来改善您的体验。"
+    },
+    "blog": {
+      "title": "博客 — Motionix",
+      "description": "浏览器端图片编辑和隐私的工程文章、操作指南和技巧。"
+    }
   }
 }
