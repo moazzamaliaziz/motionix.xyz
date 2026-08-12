@@ -1,31 +1,22 @@
 "use client";
 
-import { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { createBrowserSupabase } from "@/lib/supabase";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [supabase] = useState(() => createBrowserSupabase());
   const router = useRouter();
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900">Admin Login</h1>
-          <p className="mt-2 text-gray-600">Supabase is not configured.</p>
-        </div>
-      </div>
-    );
-  }
-
-  const supabase = createClient(supabaseUrl, supabaseKey);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) router.push("/admin");
+    });
+  }, [supabase, router]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -44,7 +35,6 @@ export default function AdminLoginPage() {
         return;
       }
 
-      // Check if user is admin
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -68,7 +58,6 @@ export default function AdminLoginPage() {
         return;
       }
 
-      // Update last login
       await supabase
         .from("admin_users")
         .update({ last_login_at: new Date().toISOString() })

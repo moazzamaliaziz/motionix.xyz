@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
+import { cookies } from "next/headers";
+import { createServerSupabase } from "@/lib/supabase";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 
@@ -13,25 +14,9 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const cookieStore = await cookies();
+  const supabase = createServerSupabase(cookieStore);
 
-  if (!supabaseUrl || !supabaseKey) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900">Admin Panel</h1>
-          <p className="mt-2 text-gray-600">
-            Supabase is not configured. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  const supabase = createClient(supabaseUrl, supabaseKey);
-
-  // Check if user is authenticated
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -40,7 +25,6 @@ export default async function DashboardLayout({
     redirect("/admin/login");
   }
 
-  // Check if user has admin role
   const { data: adminUser } = await supabase
     .from("admin_users")
     .select("role")

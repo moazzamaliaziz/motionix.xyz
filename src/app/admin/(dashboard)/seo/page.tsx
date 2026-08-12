@@ -1,20 +1,8 @@
-import { createClient } from "@supabase/supabase-js";
+import { createAdminClient } from "@/lib/supabase";
 import Link from "next/link";
 
 export default async function SEOManagerPage() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    return (
-      <div className="space-y-6">
-        <h1 className="text-2xl font-bold text-gray-900">SEO Manager</h1>
-        <p className="text-gray-600">Supabase is not configured.</p>
-      </div>
-    );
-  }
-
-  const supabase = createClient(supabaseUrl, supabaseKey);
+  const supabase = createAdminClient();
 
   // Fetch SEO data
   const [
