@@ -313,6 +313,17 @@ CREATE TABLE IF NOT EXISTS performance_snapshots (
   measured_at TIMESTAMPTZ DEFAULT now()
 );
 
+-- 23. Analytics sync log
+CREATE TABLE IF NOT EXISTS analytics_sync_log (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  source TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'running',
+  started_at TIMESTAMPTZ DEFAULT now(),
+  completed_at TIMESTAMPTZ,
+  error_message TEXT,
+  rows_synced INTEGER DEFAULT 0
+);
+
 -- Create indexes for performance
 CREATE INDEX IF NOT EXISTS idx_tool_seo_locale ON tool_seo(locale);
 CREATE INDEX IF NOT EXISTS idx_tool_content_locale ON tool_content(locale);

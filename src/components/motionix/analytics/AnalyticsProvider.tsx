@@ -4,13 +4,9 @@ import { useEffect } from "react";
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { pageview, gaEnabled, plausibleEnabled, clarityEnabled, ahrefsEnabled } from "@/lib/analytics";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
-/**
- * AnalyticsProvider — drops the appropriate script tags when the matching
- * env vars are set, and emits a `pageview` event on every route change.
- *
- * Stays a no-op when no providers are configured.
- */
 export function AnalyticsProvider() {
   const pathname = usePathname();
 
@@ -62,6 +58,9 @@ export function AnalyticsProvider() {
           strategy="afterInteractive"
         />
       ) : null}
+
+      <Analytics />
+      <SpeedInsights />
     </>
   );
 }

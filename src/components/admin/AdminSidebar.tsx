@@ -19,13 +19,16 @@ const icons = {
   clusters: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="3"/><circle cx="3.5" cy="3.5" r="1.5"/><circle cx="14.5" cy="3.5" r="1.5"/><circle cx="3.5" cy="14.5" r="1.5"/><circle cx="14.5" cy="14.5" r="1.5"/><path d="M6.5 6.5L5 5M11.5 6.5l1.5-1.5M6.5 11.5L5 13M11.5 11.5l1.5 1.5"/></svg>,
   links: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7.5 10.5a3.5 3.5 0 005 .5l2.5-2.5a3.5 3.5 0 00-5-5L9 4.5"/><path d="M10.5 7.5a3.5 3.5 0 00-5-.5L3 9.5a3.5 3.5 0 005 5l1-1"/></svg>,
   redirects: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9h12M11 5l4 4-4 4"/></svg>,
+  opportunities: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 2l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-4z"/></svg>,
   analytics: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 16v-5l3.5-3.5 3 2.5 5.5-7 2 2"/></svg>,
   searchConsole: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="14" height="12" rx="2"/><path d="M2 7h14M5.5 3v4M12.5 3v4"/></svg>,
   performance: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="11" r="6.5"/><path d="M9 11l3.5-5.5"/><circle cx="9" cy="11" r="1"/></svg>,
+  notFound: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="7"/><path d="M9 6v4M9 12.5v.5"/></svg>,
   users: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="7" cy="5.5" r="3"/><path d="M1.5 16c0-3.5 3-5.5 5.5-5.5s5.5 2 5.5 5.5"/><circle cx="13.5" cy="6" r="2"/><path d="M12.5 10.5c2.5 0.5 4.5 2 4.5 5.5"/></svg>,
   roles: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2.5" y="3.5" width="13" height="11" rx="2.5"/><circle cx="9" cy="8" r="2.5"/><path d="M5.5 14.5v-1.5c0-1.5 2-3 3.5-3s3.5 1.5 3.5 3V14.5"/></svg>,
   activity: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="7"/><path d="M9 5v4l3.5 2"/></svg>,
   flags: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 2v14"/><path d="M3 2h10l-2.5 4 2.5 4H3"/></svg>,
+  integrations: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="3"/><path d="M9 2v3M9 13v3M2 9h3M13 9h3"/><path d="M4 4l2 2M12 12l2 2M4 14l2-2M12 6l2-2"/></svg>,
   settings: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="2.5"/><path d="M14.5 11.5v1.5a1.5 1.5 0 01-3 0v-1a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V11.5a1.5 1.5 0 00-3 0v1.5a1.5 1.5 0 01-3 0"/><path d="M15.5 6.5V5a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V5a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V6.5"/></svg>,
 };
 
@@ -44,10 +47,12 @@ const menuItems = [
     label: "SEO",
     children: [
       { label: "Overview", href: "/admin/seo", icon: icons.seo },
+      { label: "Opportunities", href: "/admin/seo/opportunities", icon: icons.opportunities },
       { label: "Keywords", href: "/admin/seo/keywords", icon: icons.keywords },
       { label: "Clusters", href: "/admin/seo/clusters", icon: icons.clusters },
       { label: "Internal Links", href: "/admin/seo/links", icon: icons.links },
       { label: "Redirects", href: "/admin/seo/redirects", icon: icons.redirects },
+      { label: "Issues", href: "/admin/seo/issues", icon: icons.notFound },
     ],
   },
   {
@@ -57,6 +62,7 @@ const menuItems = [
       { label: "Search Console", href: "/admin/analytics/search-console", icon: icons.searchConsole },
       { label: "Tool Usage", href: "/admin/analytics/tools", icon: icons.tools },
       { label: "Performance", href: "/admin/analytics/performance", icon: icons.performance },
+      { label: "404 Monitor", href: "/admin/analytics/404s", icon: icons.notFound },
     ],
   },
   {
@@ -70,6 +76,7 @@ const menuItems = [
   {
     label: "System",
     children: [
+      { label: "Integrations", href: "/admin/system/integrations", icon: icons.integrations },
       { label: "Feature Flags", href: "/admin/system/flags", icon: icons.flags },
       { label: "Settings", href: "/admin/settings", icon: icons.settings },
     ],
@@ -82,7 +89,6 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Auto-expand sections containing active page
   useEffect(() => {
     const newExpanded: Record<string, boolean> = {};
     menuItems.forEach((item) => {
@@ -94,7 +100,6 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
     setExpanded((prev) => ({ ...newExpanded, ...prev }));
   }, [pathname]);
 
-  // Keyboard shortcut: Cmd+B / Ctrl+B
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "b") {
@@ -114,7 +119,6 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
 
   const sidebarContent = (
     <>
-      {/* Logo area */}
       <div className="h-14 flex items-center px-4 border-b" style={{ borderColor: "var(--a-border)" }}>
         <Link href="/admin" className="flex items-center gap-2.5 group">
           <div className="w-7 h-7 rounded-md bg-white flex items-center justify-center transition-transform duration-150 group-hover:scale-105">
@@ -129,7 +133,6 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
         </Link>
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-3 sidebar-scroll">
         <ul className="space-y-0.5">
           {menuItems.map((item) => (
@@ -146,7 +149,6 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
                   onMouseEnter={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "var(--a-bg-hover)"; }}
                   onMouseLeave={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "transparent"; }}
                 >
-                  {/* Active bar */}
                   {pathname === item.href && (
                     <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 rounded-r-full" style={{ background: "var(--a-accent)" }} />
                   )}
@@ -208,14 +210,11 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
         </ul>
       </nav>
 
-      {/* Footer */}
       <div className="border-t px-3 py-3" style={{ borderColor: "var(--a-border)" }}>
         <div className="flex items-center gap-2.5 px-2.5">
           <div className="w-2 h-2 rounded-full shrink-0" style={{ background: "var(--a-success)" }} />
           {!collapsed && (
-            <span className="text-[11px] truncate" style={{ color: "var(--a-text-4)" }}>
-              {role}
-            </span>
+            <span className="text-[11px] truncate" style={{ color: "var(--a-text-4)" }}>{role}</span>
           )}
         </div>
       </div>
@@ -224,7 +223,6 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
 
   return (
     <>
-      {/* Mobile hamburger */}
       <button
         onClick={() => setMobileOpen(!mobileOpen)}
         className="fixed top-3 left-3 z-[60] md:hidden w-8 h-8 flex items-center justify-center rounded-md border a-btn a-focus"
@@ -235,12 +233,10 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
         </svg>
       </button>
 
-      {/* Mobile overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[49] md:hidden" onClick={() => setMobileOpen(false)} />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`fixed top-0 left-0 bottom-0 z-50 flex flex-col border-r transition-[width] duration-200 ${
           collapsed ? "w-[60px]" : "w-[256px]"
@@ -249,7 +245,6 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
       >
         {sidebarContent}
 
-        {/* Collapse toggle — desktop only */}
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="hidden lg:flex absolute -right-3 top-[72px] w-6 h-6 rounded-full border items-center justify-center z-10 a-btn a-focus"
