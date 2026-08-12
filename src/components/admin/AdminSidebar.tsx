@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 interface AdminSidebarProps {
   role: string;
@@ -11,11 +12,17 @@ const menuItems = [
   {
     label: "Dashboard",
     href: "/admin",
-    icon: "📊",
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1" y="1" width="6" height="6" rx="1" />
+        <rect x="9" y="1" width="6" height="6" rx="1" />
+        <rect x="1" y="9" width="6" height="6" rx="1" />
+        <rect x="9" y="9" width="6" height="6" rx="1" />
+      </svg>
+    ),
   },
   {
     label: "Content",
-    icon: "📝",
     children: [
       { label: "Tools", href: "/admin/tools" },
       { label: "Blog", href: "/admin/blog" },
@@ -25,7 +32,6 @@ const menuItems = [
   },
   {
     label: "SEO",
-    icon: "🔍",
     children: [
       { label: "Overview", href: "/admin/seo" },
       { label: "Keywords", href: "/admin/seo/keywords" },
@@ -36,7 +42,6 @@ const menuItems = [
   },
   {
     label: "Analytics",
-    icon: "📈",
     children: [
       { label: "Overview", href: "/admin/analytics" },
       { label: "Search Console", href: "/admin/analytics/search-console" },
@@ -46,16 +51,14 @@ const menuItems = [
   },
   {
     label: "Users",
-    icon: "👥",
     children: [
       { label: "Users", href: "/admin/users" },
-      { label: "Admins & Roles", href: "/admin/users/roles" },
+      { label: "Roles", href: "/admin/users/roles" },
       { label: "Activity Logs", href: "/admin/activity" },
     ],
   },
   {
     label: "System",
-    icon: "⚙️",
     children: [
       { label: "Feature Flags", href: "/admin/system/flags" },
       { label: "Settings", href: "/admin/settings" },
@@ -65,53 +68,84 @@ const menuItems = [
 
 export function AdminSidebar({ role }: AdminSidebarProps) {
   const pathname = usePathname();
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({
+    Content: true,
+    SEO: true,
+    Analytics: true,
+    Users: false,
+    System: false,
+  });
+
+  const toggle = (label: string) =>
+    setExpanded((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <aside className="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-200 overflow-y-auto">
-      <nav className="p-4">
-        <ul className="space-y-1">
+    <aside className="fixed left-0 top-14 bottom-0 w-60 bg-[#0a0a0a] border-r border-[#222] overflow-y-auto z-40">
+      <nav className="p-3">
+        <ul className="space-y-0.5">
           {menuItems.map((item) => (
             <li key={item.label}>
               {item.href ? (
                 <Link
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-[13px] font-medium transition-colors ${
                     pathname === item.href
-                      ? "bg-gray-100 text-gray-900"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      ? "bg-[#1a1a1a] text-white"
+                      : "text-[#888] hover:bg-[#111] hover:text-white"
                   }`}
                 >
-                  <span className="text-lg">{item.icon}</span>
+                  {item.icon}
                   <span>{item.label}</span>
                 </Link>
               ) : (
-                <div className="mt-4">
-                  <div className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                    <span className="text-lg">{item.icon}</span>
+                <div className="mt-3">
+                  <button
+                    onClick={() => toggle(item.label)}
+                    className="flex items-center justify-between w-full px-3 py-1.5 text-[11px] font-semibold text-[#555] uppercase tracking-wider hover:text-[#888] transition-colors"
+                  >
                     <span>{item.label}</span>
-                  </div>
-                  <ul className="ml-8 mt-1 space-y-1">
-                    {item.children?.map((child) => (
-                      <li key={child.href}>
-                        <Link
-                          href={child.href}
-                          className={`block px-3 py-2 rounded-lg text-sm transition-colors ${
-                            pathname === child.href
-                              ? "bg-gray-100 text-gray-900 font-medium"
-                              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                          }`}
-                        >
-                          {child.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                    <svg
+                      width="10" height="10" viewBox="0 0 10 10" fill="none"
+                      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+                      className={`transition-transform ${expanded[item.label] ? "rotate-90" : ""}`}
+                    >
+                      <path d="M3 1l4 4-4 4" />
+                    </svg>
+                  </button>
+                  {expanded[item.label] && (
+                    <ul className="mt-0.5 space-y-0.5">
+                      {item.children?.map((child) => (
+                        <li key={child.href}>
+                          <Link
+                            href={child.href}
+                            className={`block px-3 py-1.5 rounded-md text-[13px] transition-colors ml-3 ${
+                              pathname === child.href
+                                ? "bg-[#1a1a1a] text-white font-medium"
+                                : "text-[#666] hover:bg-[#111] hover:text-[#aaa]"
+                            }`}
+                          >
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               )}
             </li>
           ))}
         </ul>
       </nav>
+
+      {/* Role badge */}
+      <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-[#222]">
+        <div className="flex items-center gap-2 px-3 py-2">
+          <div className="w-2 h-2 rounded-full bg-emerald-500" />
+          <span className="text-[12px] text-[#666]">
+            Signed in as <span className="text-[#aaa] font-medium">{role}</span>
+          </span>
+        </div>
+      </div>
     </aside>
   );
 }

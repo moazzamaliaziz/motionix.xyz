@@ -36,11 +36,11 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-black text-white">
       <AdminHeader user={session.user} />
       <div className="flex">
         <AdminSidebar role={adminUser.role} />
-        <main className="flex-1 p-6 ml-64">
+        <main className="flex-1 p-6 ml-60 mt-14">
           {children}
         </main>
       </div>

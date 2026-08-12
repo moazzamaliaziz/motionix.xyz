@@ -15,11 +15,14 @@ export function AdminHeader({ user }: AdminHeaderProps) {
   const displayName = user.user_metadata?.display_name || user.email || "Admin";
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 z-50">
-      <div className="flex items-center gap-4">
-        <Link href="/admin" className="flex items-center gap-2">
-          <span className="font-bold text-lg text-gray-900">Motionix</span>
-          <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+    <header className="fixed top-0 left-0 right-0 h-14 bg-[#0a0a0a] border-b border-[#222] flex items-center justify-between px-5 z-50">
+      <div className="flex items-center gap-3">
+        <Link href="/admin" className="flex items-center gap-2.5">
+          <div className="w-6 h-6 rounded bg-white flex items-center justify-center">
+            <span className="text-black font-bold text-xs">M</span>
+          </div>
+          <span className="font-semibold text-sm text-white">Motionix</span>
+          <span className="text-[10px] font-medium text-[#555] bg-[#1a1a1a] px-1.5 py-0.5 rounded">
             Admin
           </span>
         </Link>
@@ -27,16 +30,18 @@ export function AdminHeader({ user }: AdminHeaderProps) {
       <div className="flex items-center gap-4">
         <Link
           href="/"
-          className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+          className="text-[13px] text-[#666] hover:text-white transition-colors"
           target="_blank"
         >
-          View Site →
+          View Site
+          <svg className="inline ml-1 -mt-0.5" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 1v6M9 1H3M9 7L1 1" />
+          </svg>
         </Link>
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium text-gray-600">
+          <div className="w-7 h-7 rounded-full bg-[#222] border border-[#333] flex items-center justify-center text-[11px] font-medium text-[#888]">
             {displayName.charAt(0).toUpperCase()}
           </div>
-          <span className="text-sm text-gray-700">{displayName}</span>
         </div>
       </div>
     </header>

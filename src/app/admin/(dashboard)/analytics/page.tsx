@@ -3,21 +3,18 @@ import { createAdminClient } from "@/lib/supabase";
 export default async function AnalyticsOverviewPage() {
   const supabase = createAdminClient();
 
-  // Fetch recent analytics
   const { data: snapshots } = await supabase
     .from("analytics_snapshots")
     .select("*")
     .order("date", { ascending: false })
     .limit(30);
 
-  // Fetch tool usage
   const { data: toolEvents } = await supabase
     .from("tool_usage_events")
     .select("tool_slug, event_type")
     .order("created_at", { ascending: false })
     .limit(100);
 
-  // Aggregate tool usage
   const toolUsage = new Map<string, number>();
   toolEvents?.forEach((event) => {
     if (event.event_type === "tool_start") {
@@ -29,7 +26,6 @@ export default async function AnalyticsOverviewPage() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 8);
 
-  // Aggregate analytics
   const totalImpressions = snapshots?.reduce((sum, s) => sum + (s.impressions || 0), 0) || 0;
   const totalClicks = snapshots?.reduce((sum, s) => sum + (s.clicks || 0), 0) || 0;
   const avgPosition = snapshots?.length
@@ -38,64 +34,45 @@ export default async function AnalyticsOverviewPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Analytics Overview</h1>
-        <div className="text-sm text-gray-500">
-          Last 30 days
-        </div>
+      <div>
+        <h1 className="text-xl font-semibold text-white">Analytics Overview</h1>
+        <p className="mt-1 text-sm text-[#888]">Last 30 days of site performance data.</p>
       </div>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <p className="text-sm font-medium text-gray-600">Total Impressions</p>
-          <p className="text-3xl font-bold text-gray-900 mt-1">
-            {totalImpressions.toLocaleString()}
-          </p>
-        </div>
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <p className="text-sm font-medium text-gray-600">Total Clicks</p>
-          <p className="text-3xl font-bold text-gray-900 mt-1">
-            {totalClicks.toLocaleString()}
-          </p>
-        </div>
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <p className="text-sm font-medium text-gray-600">Avg Position</p>
-          <p className="text-3xl font-bold text-gray-900 mt-1">
-            {avgPosition.toFixed(1)}
-          </p>
-        </div>
+      {/* Summary */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {[
+          { label: "Impressions", value: totalImpressions.toLocaleString() },
+          { label: "Clicks", value: totalClicks.toLocaleString() },
+          { label: "Avg Position", value: avgPosition.toFixed(1) },
+        ].map((stat) => (
+          <div key={stat.label} className="border border-[#222] rounded-lg bg-[#0a0a0a] p-5">
+            <p className="text-[11px] font-medium text-[#666] uppercase tracking-wider">{stat.label}</p>
+            <p className="mt-1.5 text-2xl font-semibold text-white">{stat.value}</p>
+          </div>
+        ))}
       </div>
 
       {/* Top Tools */}
       {topTools.length > 0 && (
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Top Tools</h2>
-          <div className="space-y-3">
+        <div className="border border-[#222] rounded-lg bg-[#0a0a0a] p-5">
+          <h2 className="text-sm font-semibold text-white mb-3">Top Tools</h2>
+          <div className="space-y-2">
             {topTools.map(([slug, count]) => (
-              <div key={slug} className="flex items-center justify-between">
-                <span className="text-sm text-gray-900">{slug}</span>
-                <span className="text-sm font-medium text-gray-600">{count} uses</span>
+              <div key={slug} className="flex items-center justify-between py-1.5">
+                <span className="text-[13px] text-[#aaa]">{slug}</span>
+                <span className="text-[13px] font-medium text-[#666]">{count} uses</span>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Recent Activity */}
-      {snapshots && snapshots.length > 0 && (
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h2>
-          <div className="space-y-2">
-            {snapshots.slice(0, 10).map((snapshot) => (
-              <div key={snapshot.id} className="flex items-center justify-between text-sm">
-                <span className="text-gray-600">{snapshot.date}</span>
-                <span className="text-gray-900">
-                  {snapshot.impressions || 0} impressions, {snapshot.clicks || 0} clicks
-                </span>
-              </div>
-            ))}
-          </div>
+      {/* Empty state */}
+      {!snapshots?.length && topTools.length === 0 && (
+        <div className="border border-[#222] rounded-lg bg-[#0a0a0a] p-12 text-center">
+          <p className="text-[#888] mb-2">No analytics data yet.</p>
+          <p className="text-[13px] text-[#555]">Data will appear here once tools are used and analytics are collected.</p>
         </div>
       )}
     </div>

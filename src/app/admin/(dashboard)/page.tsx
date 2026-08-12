@@ -1,9 +1,9 @@
 import { createAdminClient } from "@/lib/supabase";
+import Link from "next/link";
 
 export default async function AdminDashboard() {
   const supabase = createAdminClient();
 
-  // Fetch stats
   const [
     { count: toolCount },
     { count: blogCount },
@@ -17,94 +17,82 @@ export default async function AdminDashboard() {
   ]);
 
   const stats = [
-    { label: "Tools", value: toolCount || 0, icon: "🛠️" },
-    { label: "Blog Posts", value: blogCount || 0, icon: "📝" },
-    { label: "Keywords", value: keywordCount || 0, icon: "🔍" },
-    { label: "Translations", value: translationCount || 0, icon: "🌍" },
+    { label: "Tools", value: toolCount || 0, href: "/admin/tools" },
+    { label: "Blog Posts", value: blogCount || 0, href: "/admin/blog" },
+    { label: "Keywords", value: keywordCount || 0, href: "/admin/seo/keywords" },
+    { label: "Translations", value: translationCount || 0, href: "/admin/translations" },
+  ];
+
+  const quickActions = [
+    { label: "Manage Tools", href: "/admin/tools", desc: "Edit tool SEO, content, and settings" },
+    { label: "Manage Blog", href: "/admin/blog", desc: "Create and edit blog posts" },
+    { label: "SEO Manager", href: "/admin/seo", desc: "Keywords, clusters, and links" },
+    { label: "Analytics", href: "/admin/analytics", desc: "Usage and performance data" },
+    { label: "Translations", href: "/admin/translations", desc: "Locale completeness tracking" },
+    { label: "Settings", href: "/admin/settings", desc: "Global site configuration" },
   ];
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <div className="text-sm text-gray-500">
-          Last updated: {new Date().toLocaleDateString()}
-        </div>
+      <div>
+        <h1 className="text-xl font-semibold text-white">Dashboard</h1>
+        <p className="mt-1 text-sm text-[#888]">Overview of your site content and performance.</p>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         {stats.map((stat) => (
-          <div
+          <Link
             key={stat.label}
-            className="bg-white rounded-lg border border-gray-200 p-6"
+            href={stat.href}
+            className="border border-[#222] rounded-lg bg-[#0a0a0a] p-5 hover:border-[#444] transition-colors"
           >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">
-                  {stat.value}
-                </p>
-              </div>
-              <span className="text-3xl">{stat.icon}</span>
-            </div>
-          </div>
+            <p className="text-[12px] font-medium text-[#666] uppercase tracking-wider">{stat.label}</p>
+            <p className="mt-2 text-3xl font-semibold text-white">{stat.value}</p>
+          </Link>
         ))}
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <a
-            href="/admin/tools"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-          >
-            <span className="text-2xl">🛠️</span>
-            <div>
-              <p className="font-medium text-gray-900">Manage Tools</p>
-              <p className="text-sm text-gray-600">Edit tool SEO, content, and settings</p>
-            </div>
-          </a>
-          <a
-            href="/admin/blog"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-          >
-            <span className="text-2xl">📝</span>
-            <div>
-              <p className="font-medium text-gray-900">Manage Blog</p>
-              <p className="text-sm text-gray-600">Create and edit blog posts</p>
-            </div>
-          </a>
-          <a
-            href="/admin/seo"
-            className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-          >
-            <span className="text-2xl">🔍</span>
-            <div>
-              <p className="font-medium text-gray-900">SEO Manager</p>
-              <p className="text-sm text-gray-600">Keywords, clusters, and links</p>
-            </div>
-          </a>
+      <div className="border border-[#222] rounded-lg bg-[#0a0a0a] p-5">
+        <h2 className="text-sm font-semibold text-white mb-4">Quick Actions</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+          {quickActions.map((action) => (
+            <Link
+              key={action.href}
+              href={action.href}
+              className="flex items-start gap-3 p-3 rounded-md border border-transparent hover:border-[#333] hover:bg-[#111] transition-colors"
+            >
+              <div className="w-8 h-8 rounded bg-[#1a1a1a] border border-[#222] flex items-center justify-center shrink-0">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#666" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 1l4 6-4 6" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-[13px] font-medium text-white">{action.label}</p>
+                <p className="text-[12px] text-[#666] mt-0.5">{action.desc}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
 
       {/* System Status */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">System Status</h2>
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Supabase Connection</span>
-            <span className="text-sm font-medium text-green-600">Connected</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Next.js Version</span>
-            <span className="text-sm font-medium text-gray-900">16.2.10</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Environment</span>
-            <span className="text-sm font-medium text-gray-900">{process.env.NODE_ENV || "production"}</span>
-          </div>
+      <div className="border border-[#222] rounded-lg bg-[#0a0a0a] p-5">
+        <h2 className="text-sm font-semibold text-white mb-4">System</h2>
+        <div className="space-y-2">
+          {[
+            { label: "Supabase", value: "Connected", ok: true },
+            { label: "Next.js", value: "16.2.10" },
+            { label: "Environment", value: process.env.NODE_ENV || "production" },
+          ].map((item) => (
+            <div key={item.label} className="flex items-center justify-between py-1.5">
+              <span className="text-[13px] text-[#666]">{item.label}</span>
+              <span className={`text-[13px] font-medium ${item.ok ? "text-emerald-500" : "text-[#aaa]"}`}>
+                {item.value}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
