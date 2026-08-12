@@ -1,15 +1,51 @@
-import { createAdminClient } from "@/lib/supabase";
+"use client";
 
-export default async function FeatureFlagsPage() {
-  const supabase = createAdminClient();
-  const { data: flags, error } = await supabase.from("feature_flags").select("*").order("key");
+import { useState, useEffect } from "react";
+import { createBrowserSupabase } from "@/lib/supabase";
 
-  if (error) {
+interface Flag {
+  id: string;
+  key: string;
+  description: string;
+  enabled: boolean;
+  updated_at: string;
+}
+
+export default function FeatureFlagsPage() {
+  const [flags, setFlags] = useState<Flag[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    loadFlags();
+  }, []);
+
+  async function loadFlags() {
+    const supabase = createBrowserSupabase();
+    const { data, error } = await supabase.from("feature_flags").select("*").order("key");
+    if (error) setError(error.message);
+    else setFlags(data || []);
+    setLoading(false);
+  }
+
+  async function toggleFlag(id: string, enabled: boolean) {
+    const supabase = createBrowserSupabase();
+    const { error } = await supabase
+      .from("feature_flags")
+      .update({ enabled, updated_at: new Date().toISOString() })
+      .eq("id", id);
+
+    if (!error) {
+      setFlags(flags.map((f) => f.id === id ? { ...f, enabled, updated_at: new Date().toISOString() } : f));
+    }
+  }
+
+  if (loading) {
     return (
       <div className="space-y-6">
         <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Feature Flags</h1>
-        <div className="a-card p-4" style={{ borderColor: "color-mix(in srgb, var(--a-error) 20%, transparent)" }}>
-          <p className="text-[13px] text-red-400">{error.message}</p>
+        <div className="a-card p-8">
+          <p style={{ color: "var(--a-text-4)" }}>Loading...</p>
         </div>
       </div>
     );
@@ -17,17 +53,18 @@ export default async function FeatureFlagsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Feature Flags</h1>
-          <p className="mt-1 text-[13px]" style={{ color: "var(--a-text-3)" }}>{flags?.length || 0} flags</p>
-        </div>
-        <button className="a-btn a-focus px-4 py-2 bg-white text-black rounded-md text-[13px] font-semibold hover:bg-white/90 transition-colors duration-100">
-          Add Flag
-        </button>
+      <div>
+        <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Feature Flags</h1>
+        <p className="mt-1 text-[13px]" style={{ color: "var(--a-text-3)" }}>{flags.length} flags</p>
       </div>
 
-      {!flags?.length ? (
+      {error && (
+        <div className="a-card p-4" style={{ borderColor: "color-mix(in srgb, var(--a-error) 20%, transparent)" }}>
+          <p className="text-[13px] text-red-400">{error}</p>
+        </div>
+      )}
+
+      {!flags.length ? (
         <div className="a-card p-16 text-center">
           <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl border" style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)", opacity: 0.5 }}>🚩</div>
           <p className="text-[14px] font-medium mb-1" style={{ color: "var(--a-text-2)" }}>No feature flags</p>
@@ -56,14 +93,17 @@ export default async function FeatureFlagsPage() {
                     <span className="text-[12px]" style={{ color: "var(--a-text-3)" }}>{flag.description || "—"}</span>
                   </td>
                   <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => toggleFlag(flag.id, !flag.enabled)}
+                      className="flex items-center gap-2 a-btn a-focus"
+                    >
                       <div className={`w-8 h-4 rounded-full relative transition-colors ${flag.enabled ? "bg-emerald-500/30" : "bg-white/10"}`}>
                         <div className={`absolute top-0.5 w-3 h-3 rounded-full transition-all ${flag.enabled ? "left-4 bg-emerald-400" : "left-0.5 bg-white/40"}`} />
                       </div>
                       <span className={`text-[11px] font-medium ${flag.enabled ? "text-emerald-400" : "text-white/40"}`}>
                         {flag.enabled ? "ON" : "OFF"}
                       </span>
-                    </div>
+                    </button>
                   </td>
                   <td className="px-4 py-3">
                     <span className="text-[12px]" style={{ color: "var(--a-text-4)" }}>
