@@ -24,21 +24,21 @@ serve(async (req) => {
       .single();
 
     const gscSiteUrl = Deno.env.get("GSC_SITE_URL");
-    const ga4Credentials = Deno.env.get("GA4_SERVICE_ACCOUNT_KEY");
+    const gscCredentials = Deno.env.get("GSC_SERVICE_ACCOUNT_KEY");
 
-    if (!gscSiteUrl || !ga4Credentials) {
+    if (!gscSiteUrl || !gscCredentials) {
       await supabase
         .from("analytics_sync_log")
         .update({ status: "skipped", error_message: "GSC credentials not configured", completed_at: new Date().toISOString() })
         .eq("id", log?.id);
 
       return new Response(
-        JSON.stringify({ ok: true, message: "GSC credentials not configured. Set GSC_SITE_URL and GA4_SERVICE_ACCOUNT_KEY." }),
+        JSON.stringify({ ok: true, message: "GSC credentials not configured. Set GSC_SITE_URL and GSC_SERVICE_ACCOUNT_KEY." }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    const creds = JSON.parse(ga4Credentials);
+    const creds = JSON.parse(gscCredentials);
     const accessToken = await getAccessToken(creds);
 
     // Fetch search analytics

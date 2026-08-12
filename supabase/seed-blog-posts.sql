@@ -1,0 +1,267 @@
+-- Insert all 40 blog posts into blog_posts table
+-- Run this in Supabase SQL Editor after seed.sql
+
+INSERT INTO blog_posts (id, slug, cluster_id, locale, title, description, author, published_at, updated_at, status, reading_minutes, primary_keyword, secondary_keywords, search_intent, related_tools) VALUES
+  -- Background Removal cluster
+  ('c1000000-0000-0000-0000-000000000005', 'complete-guide-background-removal', 'b1000000-0000-0000-0000-000000000001', 'en',
+   'The complete guide to removing image backgrounds in 2026',
+   'Everything you need to know about removing backgrounds from photos — tools, techniques, AI models, and when to use each approach.',
+   'Motionix', '2026-07-15', '2026-07-15', 'published', 8,
+   'background removal guide', '{"remove background","AI background remover","background eraser"}', 'Complete guide to background removal',
+   '{"background-remover"}'),
+
+  ('c1000000-0000-0000-0000-000000000006', 'product-photo-background-removal', 'b1000000-0000-0000-0000-000000000001', 'en',
+   'How to remove backgrounds from product photos for e-commerce',
+   'Step-by-step guide to creating clean product photos with transparent or white backgrounds for Etsy, Shopify, and Amazon.',
+   'Motionix', '2026-07-20', '2026-07-20', 'published', 6,
+   'product photo background removal', '{"e-commerce product photos","transparent background","white background"}', 'Product photo background removal for e-commerce',
+   '{"background-remover","image-compressor"}'),
+
+  ('c1000000-0000-0000-0000-000000000007', 'ai-vs-photoshop-background-removal', 'b1000000-0000-0000-0000-000000000001', 'en',
+   'AI background removal vs Photoshop: when to use each',
+   'A practical comparison of AI-powered background removal and manual Photoshop editing — speed, quality, cost, and use cases.',
+   'Motionix', '2026-07-25', '2026-07-25', 'published', 7,
+   'AI vs Photoshop background removal', '{"AI background remover","Photoshop background","background removal comparison"}', 'Comparing AI and Photoshop background removal',
+   '{"background-remover"}'),
+
+  ('c1000000-0000-0000-0000-000000000008', 'remove-background-pet-photos', 'b1000000-0000-0000-0000-000000000001', 'en',
+   'How to remove backgrounds from pet photos',
+   'Tips for getting clean cutouts of cats, dogs, and other pets — handling fur, ears, and tricky edges.',
+   'Motionix', '2026-08-01', '2026-08-01', 'published', 5,
+   'remove background pet photos', '{"pet photo background","cat background removal","dog photo editing"}', 'Pet photo background removal',
+   '{"background-remover"}'),
+
+  ('c1000000-0000-0000-0000-000000000009', 'extract-person-group-photo', 'b1000000-0000-0000-0000-000000000001', 'en',
+   'Removing backgrounds from group photos: a practical guide',
+   'How to isolate individual people from group photos for headshots, profiles, and composites.',
+   'Motionix', '2026-08-05', '2026-08-05', 'published', 5,
+   'extract person from group photo', '{"group photo editing","isolate person","headshot extraction"}', 'Extracting people from group photos',
+   '{"background-remover"}'),
+
+  -- Passport Photos cluster
+  ('c1000000-0000-0000-0000-000000000010', 'take-passport-photo-with-phone', 'b1000000-0000-0000-0000-000000000002', 'en',
+   'How to take a passport photo with your phone',
+   'Step-by-step guide to taking a passport-worthy photo using just your smartphone — no studio visit required.',
+   'Motionix', '2026-07-10', '2026-07-10', 'published', 5,
+   'take passport photo with phone', '{"phone passport photo","smartphone passport","DIY passport photo"}', 'Taking passport photos with a phone',
+   '{"passport-photo-maker"}'),
+
+  ('c1000000-0000-0000-0000-000000000011', 'passport-photo-requirements-by-country', 'b1000000-0000-0000-0000-000000000002', 'en',
+   'Passport photo requirements by country: a quick reference',
+   'Side-by-side comparison of passport photo specs for 20+ countries. Size, background, head position, and special rules.',
+   'Motionix', '2026-07-18', '2026-07-18', 'published', 7,
+   'passport photo requirements by country', '{"passport photo specs","visa photo requirements","country passport rules"}', 'Country-specific passport photo requirements',
+   '{"passport-photo-maker"}'),
+
+  ('c1000000-0000-0000-0000-000000000012', 'passport-photo-rejected-why', 'b1000000-0000-0000-0000-000000000002', 'en',
+   'Why your passport photo keeps getting rejected',
+   'The most common reasons passport photos are rejected — and how to fix them before you submit.',
+   'Motionix', '2026-08-02', '2026-08-02', 'published', 5,
+   'passport photo rejected', '{"passport photo rejection","passport photo mistakes","fix passport photo"}', 'Fixing rejected passport photos',
+   '{"passport-photo-maker"}'),
+
+  -- Image Compression cluster
+  ('c1000000-0000-0000-0000-000000000013', 'compress-images-without-losing-quality', 'b1000000-0000-0000-0000-000000000006', 'en',
+   'How to compress images without losing quality',
+   'The science behind image compression — lossy vs lossless, quality settings, and how to shrink files by 60-80% without visible degradation.',
+   'Motionix', '2026-07-08', '2026-07-08', 'published', 7,
+   'compress images without losing quality', '{"image compression","lossy vs lossless","quality compression"}', 'Image compression without quality loss',
+   '{"image-compressor"}'),
+
+  ('c1000000-0000-0000-0000-000000000014', 'compress-images-for-email', 'b1000000-0000-0000-0000-000000000006', 'en',
+   'How to compress images for email attachments',
+   'Shrink photos to fit under email attachment limits — 10 MB, 25 MB, or whatever your provider allows.',
+   'Motionix', '2026-07-15', '2026-07-15', 'published', 5,
+   'compress images for email', '{"email image size","attachment limit","email compression"}', 'Compressing images for email',
+   '{"image-compressor","photo-resizer"}'),
+
+  ('c1000000-0000-0000-0000-000000000015', 'compress-images-for-wordpress', 'b1000000-0000-0000-0000-000000000006', 'en',
+   'How to compress images for WordPress and CMS uploads',
+   'Shrink images before uploading to WordPress, Squarespace, Wix, and other CMS platforms.',
+   'Motionix', '2026-08-10', '2026-08-10', 'published', 5,
+   'compress images for WordPress', '{"WordPress image optimization","CMS image compression","upload size limit"}', 'Image compression for CMS platforms',
+   '{"image-compressor","photo-resizer"}'),
+
+  ('c1000000-0000-0000-0000-000000000016', 'compress-images-email-newsletters', 'b1000000-0000-0000-0000-000000000006', 'en',
+   'Image compression for email newsletters',
+   'Optimize images for email clients — Gmail, Outlook, Apple Mail — without losing quality or getting flagged as spam.',
+   'Motionix', '2026-08-12', '2026-08-12', 'published', 5,
+   'email newsletter images', '{"email image optimization","newsletter compression","email client images"}', 'Optimizing images for email newsletters',
+   '{"image-compressor","photo-resizer"}'),
+
+  ('c1000000-0000-0000-0000-000000000017', 'compress-png-without-losing-transparency', 'b1000000-0000-0000-0000-000000000006', 'en',
+   'How to compress PNG files without losing transparency',
+   'PNG compression techniques that reduce file size while preserving the alpha channel for transparent images.',
+   'Motionix', '2026-08-02', '2026-08-02', 'published', 5,
+   'compress PNG transparency', '{"PNG compression","transparent PNG","alpha channel compression"}', 'Compressing PNG files with transparency',
+   '{"image-compressor"}'),
+
+  ('c1000000-0000-0000-0000-000000000018', 'reduce-image-file-size-web-performance', 'b1000000-0000-0000-0000-000000000006', 'en',
+   'How to reduce image file size for web performance',
+   'Image optimization for Core Web Vitals — formats, compression, lazy loading, and responsive images.',
+   'Motionix', '2026-08-08', '2026-08-08', 'published', 7,
+   'image optimization web performance', '{"Core Web Vitals images","web image optimization","page speed images"}', 'Image optimization for web performance',
+   '{"image-compressor","photo-resizer"}'),
+
+  -- Photo Resizing cluster
+  ('c1000000-0000-0000-0000-000000000019', 'resize-photos-social-media', 'b1000000-0000-0000-0000-000000000007', 'en',
+   'How to resize photos for social media platforms',
+   'Exact dimensions for Instagram, Facebook, X, LinkedIn, TikTok, and YouTube profile photos, posts, and covers.',
+   'Motionix', '2026-07-12', '2026-07-12', 'published', 6,
+   'resize photos social media', '{"social media image sizes","Instagram photo size","Facebook image dimensions"}', 'Resizing photos for social media',
+   '{"photo-resizer"}'),
+
+  ('c1000000-0000-0000-0000-000000000020', 'resize-image-to-file-size', 'b1000000-0000-0000-0000-000000000007', 'en',
+   'How to resize images to exact file size (KB)',
+   'When a portal says "under 50 KB" or "maximum 100 KB" — here''s how to hit the exact file size target.',
+   'Motionix', '2026-07-20', '2026-07-20', 'published', 5,
+   'resize image to file size', '{"image file size","KB target","file size limit"}', 'Resizing images to specific file sizes',
+   '{"photo-resizer","image-compressor"}'),
+
+  ('c1000000-0000-0000-0000-000000000021', 'resize-images-government-portals', 'b1000000-0000-0000-0000-000000000007', 'en',
+   'How to resize images for government portals and forms',
+   'Hit the exact pixel and file size requirements for passport, visa, and government form uploads.',
+   'Motionix', '2026-07-28', '2026-07-28', 'published', 5,
+   'resize images government portals', '{"government portal photo","visa photo size","passport photo dimensions"}', 'Resizing images for government portals',
+   '{"photo-resizer","passport-photo-maker"}'),
+
+  ('c1000000-0000-0000-0000-000000000022', 'resize-images-for-print', 'b1000000-0000-0000-0000-000000000007', 'en',
+   'How to resize images for print: DPI, dimensions, and quality',
+   'Convert screen-resolution images to print-ready files with the correct DPI and dimensions.',
+   'Motionix', '2026-08-06', '2026-08-06', 'published', 6,
+   'resize images for print', '{"print DPI","print dimensions","print resolution"}', 'Resizing images for print',
+   '{"photo-resizer"}'),
+
+  ('c1000000-0000-0000-0000-000000000023', 'resize-without-stretching', 'b1000000-0000-0000-0000-000000000007', 'en',
+   'How to resize images without stretching or distortion',
+   'Maintain aspect ratio when resizing photos — avoid the stretched, squished, or distorted look.',
+   'Motionix', '2026-08-08', '2026-08-08', 'published', 5,
+   'resize without stretching', '{"aspect ratio","image distortion","proportional resize"}', 'Resizing images without distortion',
+   '{"photo-resizer"}'),
+
+  ('c1000000-0000-0000-0000-000000000024', 'batch-resize-images', 'b1000000-0000-0000-0000-000000000007', 'en',
+   'How to batch resize multiple images at once',
+   'Resize dozens or hundreds of images to the same dimensions in one operation.',
+   'Motionix', '2026-08-10', '2026-08-10', 'published', 5,
+   'batch resize images', '{"bulk resize","multiple images resize","batch image processing"}', 'Batch resizing images',
+   '{"photo-resizer"}'),
+
+  -- Digital Signatures cluster
+  ('c1000000-0000-0000-0000-000000000025', 'create-digital-signature', 'b1000000-0000-0000-0000-000000000008', 'en',
+   'How to create a digital signature for PDFs and documents',
+   'Draw, type, or upload a signature — get a transparent PNG for contracts, forms, and email.',
+   'Motionix', '2026-07-05', '2026-07-05', 'published', 5,
+   'create digital signature', '{"digital signature","electronic signature","PDF signature"}', 'Creating digital signatures',
+   '{"signature-maker"}'),
+
+  ('c1000000-0000-0000-0000-000000000026', 'transparent-signature-from-scan', 'b1000000-0000-0000-0000-000000000008', 'en',
+   'How to create a transparent signature from a paper scan',
+   'Scan your handwritten signature, remove the paper background, and get a clean transparent PNG.',
+   'Motionix', '2026-07-12', '2026-07-12', 'published', 5,
+   'transparent signature scan', '{"scan signature","signature background removal","paper signature digital"}', 'Creating transparent signatures from scans',
+   '{"signature-maker","background-remover"}'),
+
+  ('c1000000-0000-0000-0000-000000000027', 'create-signature-on-phone', 'b1000000-0000-0000-0000-000000000008', 'en',
+   'How to create a signature on your phone',
+   'Draw your signature with your finger on a touchscreen — the most natural way to create a digital signature.',
+   'Motionix', '2026-08-02', '2026-08-02', 'published', 4,
+   'create signature on phone', '{"phone signature","touchscreen signature","finger signature"}', 'Creating signatures on mobile devices',
+   '{"signature-maker"}'),
+
+  ('c1000000-0000-0000-0000-000000000028', 'electronic-vs-digital-signatures', 'b1000000-0000-0000-0000-000000000008', 'en',
+   'Electronic signatures vs digital signatures: what''s the difference?',
+   'Electronic signatures and digital signatures are often confused. Here''s how they differ and when to use each.',
+   'Motionix', '2026-07-18', '2026-07-18', 'published', 5,
+   'electronic vs digital signatures', '{"electronic signature","digital signature","e-signature"}', 'Understanding signature types',
+   '{"signature-maker"}'),
+
+  ('c1000000-0000-0000-0000-000000000029', 'add-signature-to-pdf', 'b1000000-0000-0000-0000-000000000008', 'en',
+   'How to add a signature to a PDF without printing',
+   'Sign PDF documents digitally — no printer, scanner, or paper required.',
+   'Motionix', '2026-07-25', '2026-07-25', 'published', 5,
+   'add signature to PDF', '{"PDF signature","sign PDF","digital PDF signing"}', 'Adding signatures to PDFs',
+   '{"signature-maker"}'),
+
+  -- Video Compression cluster
+  ('c1000000-0000-0000-0000-000000000030', 'compress-video-for-email', 'b1000000-0000-0000-0000-000000000003', 'en',
+   'How to compress video for email and messaging',
+   'Shrink MP4, MOV, and WebM files to fit under email and messaging app size limits.',
+   'Motionix', '2026-07-18', '2026-07-18', 'published', 6,
+   'compress video for email', '{"video email attachment","video compression","shrink video"}', 'Compressing videos for email',
+   '{"video-compressor"}'),
+
+  ('c1000000-0000-0000-0000-000000000031', 'compress-video-messaging-apps', 'b1000000-0000-0000-0000-000000000003', 'en',
+   'How to compress video for WhatsApp, Slack, and Discord',
+   'Shrink video files to fit under messaging app attachment limits.',
+   'Motionix', '2026-08-04', '2026-08-04', 'published', 5,
+   'compress video messaging', '{"WhatsApp video size","Slack video limit","Discord video compression"}', 'Compressing videos for messaging apps',
+   '{"video-compressor"}'),
+
+  ('c1000000-0000-0000-0000-000000000032', 'video-formats-comparison', 'b1000000-0000-0000-0000-000000000003', 'en',
+   'How to choose the right video format for your project',
+   'MP4, MOV, WebM, AVI — when to use each video format and what makes them different.',
+   'Motionix', '2026-08-06', '2026-08-06', 'published', 6,
+   'video formats comparison', '{"MP4 vs MOV","WebM vs MP4","video format guide"}', 'Video format comparison guide',
+   '{"video-compressor"}'),
+
+  -- Privacy & Security cluster
+  ('c1000000-0000-0000-0000-000000000033', 'browser-vs-cloud-image-tools', 'b1000000-0000-0000-0000-000000000004', 'en',
+   'Browser-based vs cloud-based image tools: a privacy comparison',
+   'What happens to your files when you use online image tools — and why browser-based processing is the safer choice.',
+   'Motionix', '2026-07-28', '2026-07-28', 'published', 6,
+   'browser vs cloud image tools', '{"privacy image tools","browser-based processing","cloud image security"}', 'Privacy comparison of image tools',
+   '{"background-remover","image-compressor"}'),
+
+  -- Image Formats cluster
+  ('c1000000-0000-0000-0000-000000000034', 'jpg-vs-png-vs-webp-vs-avif', 'b1000000-0000-0000-0000-000000000005', 'en',
+   'JPG vs PNG vs WebP vs AVIF: which format to use when',
+   'A practical guide to image formats — when to use each one, what they''re good at, and what they can''t do.',
+   'Motionix', '2026-07-22', '2026-07-22', 'published', 8,
+   'JPG vs PNG vs WebP vs AVIF', '{"image format comparison","WebP vs JPEG","AVIF vs PNG"}', 'Image format comparison guide',
+   '{"image-compressor","photo-resizer"}'),
+
+  ('c1000000-0000-0000-0000-000000000035', 'images-blurry-on-web', 'b1000000-0000-0000-0000-000000000005', 'en',
+   'Why your images look blurry on the web (and how to fix it)',
+   'Common causes of blurry web images — resolution, compression, scaling, and Retina displays.',
+   'Motionix', '2026-08-04', '2026-08-04', 'published', 5,
+   'blurry images web', '{"blurry web images","image quality web","Retina display images"}', 'Fixing blurry images on the web',
+   '{"photo-resizer","image-compressor"}'),
+
+  -- Student & Academic cluster
+  ('c1000000-0000-0000-0000-000000000036', 'student-id-photo-guide', 'b1000000-0000-0000-0000-000000000009', 'en',
+   'Student ID photos: size requirements for Common App, scholarships, and more',
+   'Exact dimensions and file requirements for student ID photos across major application platforms.',
+   'Motionix', '2026-07-25', '2026-07-25', 'published', 5,
+   'student ID photo guide', '{"Common App photo","scholarship photo","student ID requirements"}', 'Student ID photo requirements',
+   '{"student-id-photo-maker"}'),
+
+  ('c1000000-0000-0000-0000-000000000037', 'prepare-student-id-card-photo', 'b1000000-0000-0000-0000-000000000009', 'en',
+   'How to prepare photos for a student ID card',
+   'Exact specs for student ID card photos — size, background, attire, and common mistakes.',
+   'Motionix', '2026-08-08', '2026-08-08', 'published', 4,
+   'student ID card photo', '{"student card photo","school ID photo","ID card requirements"}', 'Preparing student ID card photos',
+   '{"student-id-photo-maker"}'),
+
+  -- Resume & Career cluster
+  ('c1000000-0000-0000-0000-000000000038', 'professional-headshot-with-phone', 'b1000000-0000-0000-0000-000000000010', 'en',
+   'How to take a professional headshot with your phone',
+   'No DSLR? No problem. Your smartphone can take headshots good enough for LinkedIn, resumes, and business cards.',
+   'Motionix', '2026-08-01', '2026-08-01', 'published', 6,
+   'professional headshot phone', '{"phone headshot","LinkedIn photo","professional photo phone"}', 'Taking professional headshots with a phone',
+   '{"resume-photo-maker","background-remover"}'),
+
+  ('c1000000-0000-0000-0000-000000000039', 'resume-photo-guide', 'b1000000-0000-0000-0000-000000000010', 'en',
+   'Resume photo guide: what recruiters actually look for',
+   'Should you include a photo on your resume? What kind of photo works best? Data from recruiters and hiring managers.',
+   'Motionix', '2026-08-05', '2026-08-05', 'published', 5,
+   'resume photo guide', '{"resume photo","CV photo","resume headshot"}', 'Guide to resume photos',
+   '{"resume-photo-maker"}'),
+
+  ('c1000000-0000-0000-0000-000000000040', 'linkedin-profile-photo-tips', 'b1000000-0000-0000-0000-000000000010', 'en',
+   'How to make your LinkedIn profile photo stand out',
+   'Data-backed tips for a LinkedIn photo that gets more profile views and connection requests.',
+   'Motionix', '2026-08-10', '2026-08-10', 'published', 5,
+   'LinkedIn profile photo', '{"LinkedIn photo tips","profile picture","LinkedIn headshot"}', 'Optimizing LinkedIn profile photos',
+   '{"resume-photo-maker","background-remover"}')
+
+ON CONFLICT (slug) DO NOTHING;
