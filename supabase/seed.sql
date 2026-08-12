@@ -107,34 +107,34 @@ ON CONFLICT (slug) DO NOTHING;
 -- 5. Seed Blog Posts
 -- ============================================================
 
-INSERT INTO blog_posts (id, slug, cluster_id, locale, title, description, author, published_at, updated_at, status, reading_minutes, primary_keyword, secondary_keywords, search_intent, related_tools, tags) VALUES
+INSERT INTO blog_posts (id, slug, cluster_id, locale, title, description, author, published_at, updated_at, status, reading_minutes, primary_keyword, secondary_keywords, search_intent, related_tools) VALUES
   ('c1000000-0000-0000-0000-000000000001', 'privacy-first-image-tools', 'b1000000-0000-0000-0000-000000000001', 'en',
    'Privacy-first image tools: why we still process in your browser',
    'Server-side image manipulation used to be the default. Browser-native tooling now means we never see your file.',
    'Motionix', '2026-07-04', '2026-07-04', 'published', 5,
    'privacy-first image tools', '{"browser-based processing","image privacy","client-side tools"}', 'Understanding how privacy-first image tools work',
-   '{"background-remover","image-compressor"}', '{"privacy","engineering","browser"}'),
+   '{"background-remover","image-compressor"}'),
 
   ('c1000000-0000-0000-0000-000000000002', 'passport-photo-rules-2026', 'b1000000-0000-0000-0000-000000000002', 'en',
    'Passport photos that pass: US, UK, India, and Schengen rules (2026)',
    'Passport photo rules are country-by-country, regular as taxes, and quietly changed in 2024-25. We walk through what each country actually wants.',
    'Motionix', '2026-06-22', '2026-06-22', 'published', 6,
    'passport photo rules', '{"passport photo requirements","visa photo rules","passport photo size"}', 'Country-specific passport photo requirements',
-   '{"passport-photo-maker"}', '{"passport","guide","compliance"}'),
+   '{"passport-photo-maker"}'),
 
   ('c1000000-0000-0000-0000-000000000003', 'webcodecs-vs-ffmpeg-wasm', 'b1000000-0000-0000-0000-000000000003', 'en',
    'WebCodecs vs ffmpeg.wasm: why we switched our video compressor',
    'A side-by-side comparison of WebCodecs and ffmpeg.wasm for in-browser video compression in 2025-26.',
    'Motionix', '2026-06-15', '2026-06-15', 'published', 7,
    'WebCodecs vs ffmpeg.wasm', '{"video compression","browser video","WebCodecs performance"}', 'Understanding browser video compression technology',
-   '{"video-compressor"}', '{"engineering","video","performance"}'),
+   '{"video-compressor"}'),
 
   ('c1000000-0000-0000-0000-000000000004', 'how-motionix-stays-free', 'b1000000-0000-0000-0000-000000000004', 'en',
    'How Motionix stays free: a cost-first build story',
    'Most AI tools burn investor cash on server GPUs. We''re profitable from day one because nearly everything runs in the browser.',
    'Motionix', '2026-06-08', '2026-06-08', 'published', 5,
    'how motionix stays free', '{"free image tools","browser-based tools","cost-efficient SaaS"}', 'Understanding how Motionix stays free',
-   NULL, '{"business","engineering","fundamentals"}')
+   NULL)
 ON CONFLICT (slug) DO NOTHING;
 
 -- ============================================================
