@@ -49,10 +49,8 @@ export default async function AnalyticsOverviewPage() {
                   <div className="hidden group-hover:block text-[10px] px-1.5 py-0.5 rounded border" style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)", color: "var(--a-text-2)" }}>
                     {s.impressions || 0}
                   </div>
-                  <div className="w-full rounded-t transition-colors duration-100"
+                  <div className="w-full rounded-t transition-colors duration-100 a-chart-hover"
                     style={{ height: `${height}%`, background: "color-mix(in srgb, var(--a-accent) 30%, transparent)" }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "color-mix(in srgb, var(--a-accent) 50%, transparent)"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "color-mix(in srgb, var(--a-accent) 30%, transparent)"; }}
                   />
                 </div>
               );

@@ -119,18 +119,12 @@ export default async function AdminDashboard() {
                 key={action.href}
                 href={action.href}
                 className={`a-focus flex flex-col gap-2 p-4 rounded-lg border transition-all duration-150 group a-btn ${
-                  action.primary ? "col-span-2 md:col-span-1" : ""
+                  action.primary ? "col-span-2 md:col-span-1" : "a-border-hover"
                 }`}
                 style={{
                   background: action.primary ? "var(--a-text-1)" : "var(--a-bg-elevated)",
                   borderColor: action.primary ? "transparent" : "var(--a-border)",
                   color: action.primary ? "#000" : "inherit",
-                }}
-                onMouseEnter={(e) => {
-                  if (!action.primary) e.currentTarget.style.background = "var(--a-bg-hover)";
-                }}
-                onMouseLeave={(e) => {
-                  if (!action.primary) e.currentTarget.style.background = "var(--a-bg-elevated)";
                 }}
               >
                 <div>
@@ -151,10 +145,8 @@ export default async function AdminDashboard() {
                 <Link
                   key={post.slug}
                   href={`/admin/blog/${post.slug}`}
-                  className="flex items-start justify-between gap-3 py-3 px-2 -mx-2 rounded-md transition-colors duration-100 block"
+                  className="flex items-start justify-between gap-3 py-3 px-2 -mx-2 rounded-md transition-colors duration-100 block a-hover"
                   style={{ borderBottom: i < recentPosts.length - 1 ? "1px solid var(--a-border)" : "none" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--a-bg-hover)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
                 >
                   <div className="min-w-0">
                     <p className="text-[13px] font-medium truncate" style={{ color: "var(--a-text-1)" }}>{post.title}</p>

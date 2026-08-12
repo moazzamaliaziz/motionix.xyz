@@ -42,10 +42,8 @@ export default async function ToolsManagerPage() {
             </thead>
             <tbody>
               {tools.map((tool, i) => (
-                <tr key={tool.id} className="transition-colors duration-100"
+                <tr key={tool.id} className="transition-colors duration-100 a-hover"
                   style={{ borderBottom: i < tools.length - 1 ? "1px solid var(--a-border)" : "none" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--a-bg-hover)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">

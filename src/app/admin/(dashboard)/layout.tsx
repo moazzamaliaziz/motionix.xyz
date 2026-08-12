@@ -98,6 +98,9 @@ export default async function DashboardLayout({
           box-shadow: 0 0 0 2px var(--a-bg-page), 0 0 0 4px rgba(255,255,255,0.16);
         }
         .a-btn:active { transform: scale(0.98); }
+        .a-hover:hover { background: var(--a-bg-hover); }
+        .a-border-hover:hover { border-color: var(--a-border-hover); }
+        .a-chart-hover:hover { background: color-mix(in srgb, var(--a-accent) 50%, transparent); }
       `}</style>
 
       <AdminHeader user={session.user} issueCount={issueCount} />

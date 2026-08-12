@@ -40,10 +40,8 @@ export default async function BlogManagerPage() {
           <h2 className="text-[13px] font-semibold mb-3" style={{ color: "var(--a-text-2)" }}>Topic Clusters</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
             {clusters.map((c) => (
-              <div key={c.id} className="p-3 rounded-lg border transition-colors duration-100 cursor-default"
+              <div key={c.id} className="p-3 rounded-lg border transition-colors duration-100 cursor-default a-border-hover"
                 style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)" }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--a-border-hover)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--a-border)"; }}
               >
                 <p className="text-[13px] font-medium" style={{ color: "var(--a-text-1)" }}>{c.name}</p>
                 <p className="text-[11px] mt-0.5" style={{ color: "var(--a-text-4)" }}>/{c.slug}</p>
@@ -73,10 +71,8 @@ export default async function BlogManagerPage() {
             </thead>
             <tbody>
               {posts.map((post, i) => (
-                <tr key={post.id} className="transition-colors duration-100"
+                <tr key={post.id} className="transition-colors duration-100 a-hover"
                   style={{ borderBottom: i < posts.length - 1 ? "1px solid var(--a-border)" : "none" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--a-bg-hover)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
                 >
                   <td className="px-4 py-3">
                     <p className="text-[13px] font-medium" style={{ color: "var(--a-text-1)" }}>{post.title}</p>
