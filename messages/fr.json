@@ -95,7 +95,13 @@
     "eyebrow": "Le catalogue",
     "title": "Ceux que nous utilisons sans cesse.",
     "subtitle": "Huit outils, tous fonctionnant dans votre navigateur. Pas de téléchargement, pas de compte, pas de suivi.",
-    "seeFullList": "Voir la liste complète →"
+    "seeFullList": "Voir la liste complète →",
+    "tools": {
+      "passport": "Passeport",
+      "resume": "CV",
+      "compress": "Compresser",
+      "resize": "Redimensionner"
+    }
   },
   "Testimonials": {
     "eyebrow": "Du terrain",

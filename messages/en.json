@@ -95,7 +95,13 @@
                          "eyebrow":  "The catalog",
                          "title":  "The ones we keep using.",
                          "subtitle":  "Eight tools, all running in your browser. No upload, no account, no tracking.",
-                         "seeFullList":  "See the full list â†’"
+                         "seeFullList":  "See the full list →",
+                         "tools": {
+                             "passport": "Passport",
+                             "resume": "Resume",
+                             "compress": "Compress",
+                             "resize": "Resize"
+                         }
                      },
     "Testimonials":  {
                          "eyebrow":  "From the field",

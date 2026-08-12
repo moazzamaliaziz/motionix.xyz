@@ -95,7 +95,13 @@
     "eyebrow": "工具目录",
     "title": "我们一直在用的工具。",
     "subtitle": "八个工具，全部在浏览器中运行。无需上传、无需账户、无追踪。",
-    "seeFullList": "查看完整列表 →"
+    "seeFullList": "查看完整列表 →",
+    "tools": {
+      "passport": "护照",
+      "resume": "简历",
+      "compress": "压缩",
+      "resize": "调整大小"
+    }
   },
   "Testimonials": {
     "eyebrow": "用户反馈",

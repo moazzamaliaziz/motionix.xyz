@@ -95,7 +95,13 @@
     "eyebrow": "カタログ",
     "title": "よく使われているもの。",
     "subtitle": "8つのツール、すべてブラウザ内で動作。アップロードなし、アカウントなし、トラッキングなし。",
-    "seeFullList": "全リストを見る →"
+    "seeFullList": "全リストを見る →",
+    "tools": {
+      "passport": "パスポート",
+      "resume": "履歴書",
+      "compress": "圧縮",
+      "resize": "リサイズ"
+    }
   },
   "Testimonials": {
     "eyebrow": "現場から",
