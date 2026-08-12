@@ -3,260 +3,309 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useCallback } from "react";
+import {
+  LayoutDashboard,
+  Wrench,
+  FileText,
+  Image,
+  Languages,
+  Search,
+  Sparkles,
+  KeyRound,
+  Layers,
+  Link2,
+  ArrowRight,
+  AlertTriangle,
+  BarChart3,
+  Monitor,
+  Gauge,
+  CircleAlert,
+  Users,
+  Shield,
+  Activity,
+  Plug,
+  Flag,
+  Settings,
+  ChevronDown,
+  ChevronRight,
+  Headphones,
+  X,
+  Calendar,
+  Columns3,
+  Mail,
+  UserCircle,
+  type LucideIcon,
+} from "lucide-react";
+import { useAdminTheme } from "./theme-context";
 
-interface AdminSidebarProps {
-  role: string;
+interface NavChild {
+  label: string;
+  href: string;
+  icon: LucideIcon;
 }
 
-const icons = {
-  dashboard: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5.5" height="5.5" rx="1.5"/><rect x="10.5" y="2" width="5.5" height="5.5" rx="1.5"/><rect x="2" y="10.5" width="5.5" height="5.5" rx="1.5"/><rect x="10.5" y="10.5" width="5.5" height="5.5" rx="1.5"/></svg>,
-  tools: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11.5 2l4.5 4.5-8.5 8.5H3v-4.5L11.5 2z"/><path d="M9 4.5l4.5 4.5"/></svg>,
-  blog: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="10" height="14" rx="2"/><path d="M5 6h6M5 9h4"/></svg>,
-  media: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="14" height="14" rx="2.5"/><circle cx="6.5" cy="6.5" r="1.5"/><path d="M16 12l-5-5-9 9"/></svg>,
-  translations: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5.5" height="5.5" rx="1"/><rect x="10.5" y="2" width="5.5" height="5.5" rx="1"/><rect x="2" y="10.5" width="5.5" height="5.5" rx="1"/><path d="M13.5 10.5v5.5M10.75 13.25h5.5"/></svg>,
-  seo: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="8" r="5.5"/><path d="M16 16l-4-4"/></svg>,
-  keywords: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 6h16M1 12h16"/><path d="M4.5 2v14M13.5 2v14"/></svg>,
-  clusters: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="3"/><circle cx="3.5" cy="3.5" r="1.5"/><circle cx="14.5" cy="3.5" r="1.5"/><circle cx="3.5" cy="14.5" r="1.5"/><circle cx="14.5" cy="14.5" r="1.5"/><path d="M6.5 6.5L5 5M11.5 6.5l1.5-1.5M6.5 11.5L5 13M11.5 11.5l1.5 1.5"/></svg>,
-  links: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7.5 10.5a3.5 3.5 0 005 .5l2.5-2.5a3.5 3.5 0 00-5-5L9 4.5"/><path d="M10.5 7.5a3.5 3.5 0 00-5-.5L3 9.5a3.5 3.5 0 005 5l1-1"/></svg>,
-  redirects: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9h12M11 5l4 4-4 4"/></svg>,
-  opportunities: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 2l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-4z"/></svg>,
-  analytics: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 16v-5l3.5-3.5 3 2.5 5.5-7 2 2"/></svg>,
-  searchConsole: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="14" height="12" rx="2"/><path d="M2 7h14M5.5 3v4M12.5 3v4"/></svg>,
-  performance: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="11" r="6.5"/><path d="M9 11l3.5-5.5"/><circle cx="9" cy="11" r="1"/></svg>,
-  notFound: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="7"/><path d="M9 6v4M9 12.5v.5"/></svg>,
-  users: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="7" cy="5.5" r="3"/><path d="M1.5 16c0-3.5 3-5.5 5.5-5.5s5.5 2 5.5 5.5"/><circle cx="13.5" cy="6" r="2"/><path d="M12.5 10.5c2.5 0.5 4.5 2 4.5 5.5"/></svg>,
-  roles: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2.5" y="3.5" width="13" height="11" rx="2.5"/><circle cx="9" cy="8" r="2.5"/><path d="M5.5 14.5v-1.5c0-1.5 2-3 3.5-3s3.5 1.5 3.5 3V14.5"/></svg>,
-  activity: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="7"/><path d="M9 5v4l3.5 2"/></svg>,
-  flags: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 2v14"/><path d="M3 2h10l-2.5 4 2.5 4H3"/></svg>,
-  integrations: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="3"/><path d="M9 2v3M9 13v3M2 9h3M13 9h3"/><path d="M4 4l2 2M12 12l2 2M4 14l2-2M12 6l2-2"/></svg>,
-  settings: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="2.5"/><path d="M14.5 11.5v1.5a1.5 1.5 0 01-3 0v-1a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V11.5a1.5 1.5 0 00-3 0v1.5a1.5 1.5 0 01-3 0"/><path d="M15.5 6.5V5a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V5a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V6.5"/></svg>,
-};
+interface NavGroup {
+  label: string;
+  icon: LucideIcon;
+  badge?: string;
+  href?: string;
+  children?: NavChild[];
+}
 
-const menuItems = [
-  { label: "Dashboard", href: "/admin", icon: icons.dashboard },
+const menuItems: NavGroup[] = [
+  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   {
     label: "Content",
     children: [
-      { label: "Tools", href: "/admin/tools", icon: icons.tools },
-      { label: "Blog", href: "/admin/blog", icon: icons.blog },
-      { label: "Media", href: "/admin/media", icon: icons.media },
-      { label: "Translations", href: "/admin/translations", icon: icons.translations },
+      { label: "Tools", href: "/admin/tools", icon: Wrench },
+      { label: "Blog", href: "/admin/blog", icon: FileText },
+      { label: "Media", href: "/admin/media", icon: Image },
+      { label: "Translations", href: "/admin/translations", icon: Languages },
+    ],
+  },
+  {
+    label: "Planning",
+    children: [
+      { label: "Calendar", href: "/admin/calendar", icon: Calendar },
+      { label: "Kanban Board", href: "/admin/kanban", icon: Columns3 },
     ],
   },
   {
     label: "SEO",
     children: [
-      { label: "Overview", href: "/admin/seo", icon: icons.seo },
-      { label: "Opportunities", href: "/admin/seo/opportunities", icon: icons.opportunities },
-      { label: "Keywords", href: "/admin/seo/keywords", icon: icons.keywords },
-      { label: "Clusters", href: "/admin/seo/clusters", icon: icons.clusters },
-      { label: "Internal Links", href: "/admin/seo/links", icon: icons.links },
-      { label: "Redirects", href: "/admin/seo/redirects", icon: icons.redirects },
-      { label: "Issues", href: "/admin/seo/issues", icon: icons.notFound },
+      { label: "Overview", href: "/admin/seo", icon: Search },
+      { label: "Opportunities", href: "/admin/seo/opportunities", icon: Sparkles },
+      { label: "Keywords", href: "/admin/seo/keywords", icon: KeyRound },
+      { label: "Clusters", href: "/admin/seo/clusters", icon: Layers },
+      { label: "Internal Links", href: "/admin/seo/links", icon: Link2 },
+      { label: "Redirects", href: "/admin/seo/redirects", icon: ArrowRight },
+      { label: "Issues", href: "/admin/seo/issues", icon: AlertTriangle },
     ],
   },
   {
     label: "Analytics",
     children: [
-      { label: "Overview", href: "/admin/analytics", icon: icons.analytics },
-      { label: "Search Console", href: "/admin/analytics/search-console", icon: icons.searchConsole },
-      { label: "Tool Usage", href: "/admin/analytics/tools", icon: icons.tools },
-      { label: "Performance", href: "/admin/analytics/performance", icon: icons.performance },
-      { label: "404 Monitor", href: "/admin/analytics/404s", icon: icons.notFound },
+      { label: "Overview", href: "/admin/analytics", icon: BarChart3 },
+      { label: "Search Console", href: "/admin/analytics/search-console", icon: Monitor },
+      { label: "Tool Usage", href: "/admin/analytics/tools", icon: Wrench },
+      { label: "Performance", href: "/admin/analytics/performance", icon: Gauge },
+      { label: "404 Monitor", href: "/admin/analytics/404s", icon: CircleAlert },
+    ],
+  },
+  {
+    label: "Communication",
+    children: [
+      { label: "Messages", href: "/admin/messages", icon: Mail },
     ],
   },
   {
     label: "Users",
     children: [
-      { label: "Users", href: "/admin/users", icon: icons.users },
-      { label: "Roles", href: "/admin/users/roles", icon: icons.roles },
-      { label: "Activity", href: "/admin/activity", icon: icons.activity },
+      { label: "Users", href: "/admin/users", icon: Users },
+      { label: "Roles", href: "/admin/users/roles", icon: Shield },
+      { label: "Activity", href: "/admin/activity", icon: Activity },
+      { label: "Profile", href: "/admin/profile", icon: UserCircle },
+    ],
+  },
     ],
   },
   {
     label: "System",
     children: [
-      { label: "Integrations", href: "/admin/system/integrations", icon: icons.integrations },
-      { label: "Feature Flags", href: "/admin/system/flags", icon: icons.flags },
-      { label: "Settings", href: "/admin/settings", icon: icons.settings },
+      { label: "Integrations", href: "/admin/system/integrations", icon: Plug },
+      { label: "Feature Flags", href: "/admin/system/flags", icon: Flag },
+      { label: "Settings", href: "/admin/settings", icon: Settings },
     ],
   },
 ];
 
-export function AdminSidebar({ role }: AdminSidebarProps) {
+export function AdminSidebar({ role }: { role: string }) {
   const pathname = usePathname();
+  const { sidebarCollapsed, mobileNavOpen, setMobileNavOpen } = useAdminTheme();
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-  const [collapsed, setCollapsed] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const newExpanded: Record<string, boolean> = {};
     menuItems.forEach((item) => {
       if (item.children) {
-        const hasActive = item.children.some((c) => pathname === c.href || pathname.startsWith(c.href + "/"));
+        const hasActive = item.children.some(
+          (c) => pathname === c.href || pathname.startsWith(c.href + "/")
+        );
         if (hasActive) newExpanded[item.label] = true;
       }
     });
     setExpanded((prev) => ({ ...newExpanded, ...prev }));
   }, [pathname]);
 
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "b") {
-        e.preventDefault();
-        setCollapsed((c) => !c);
-      }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, []);
+  const toggle = useCallback(
+    (label: string) => setExpanded((prev) => ({ ...prev, [label]: !prev[label] })),
+    []
+  );
 
-  const toggle = useCallback((label: string) =>
-    setExpanded((prev) => ({ ...prev, [label]: !prev[label] })), []);
-
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(href + "/");
+  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
   const sidebarContent = (
     <>
-      <div className="h-14 flex items-center px-4 border-b" style={{ borderColor: "var(--a-border)" }}>
-        <Link href="/admin" className="flex items-center gap-2.5 group">
-          <div className="w-7 h-7 rounded-md bg-white flex items-center justify-center transition-transform duration-150 group-hover:scale-105">
-            <span className="text-black font-bold text-[11px]">M</span>
-          </div>
-          {!collapsed && (
-            <div className="flex items-baseline gap-1.5">
-              <span className="font-semibold text-[14px] tracking-tight" style={{ color: "var(--a-text-1)" }}>Motionix</span>
-              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded" style={{ color: "var(--a-text-4)", background: "var(--a-border)" }}>admin</span>
-            </div>
-          )}
-        </Link>
-      </div>
+      <nav className="admin-scrollbar flex-1 overflow-y-auto px-3 py-4">
+        <ul className="space-y-1">
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const isOpen = expanded[item.label] && !sidebarCollapsed;
+            const groupActive = item.children?.some((c) => isActive(c.href)) ?? false;
 
-      <nav className="flex-1 overflow-y-auto px-3 py-3 sidebar-scroll">
-        <ul className="space-y-0.5">
-          {menuItems.map((item) => (
-            <li key={item.label}>
-              {item.href ? (
-                <Link
-                  href={item.href}
-                  title={collapsed ? item.label : undefined}
-                  className="a-focus relative flex items-center gap-2.5 px-2.5 py-[7px] rounded-md text-[13px] font-medium transition-colors duration-100"
-                  style={{
-                    color: pathname === item.href ? "var(--a-text-1)" : "var(--a-text-3)",
-                    background: pathname === item.href ? "var(--a-bg-elevated)" : "transparent",
-                  }}
-                  onMouseEnter={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "var(--a-bg-hover)"; }}
-                  onMouseLeave={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "transparent"; }}
-                >
-                  {pathname === item.href && (
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 rounded-r-full" style={{ background: "var(--a-accent)" }} />
-                  )}
-                  <span className="shrink-0 w-[18px] h-[18px] flex items-center justify-center" style={{ opacity: pathname === item.href ? 1 : 0.5 }}>{item.icon}</span>
-                  {!collapsed && <span>{item.label}</span>}
-                </Link>
-              ) : (
-                <div className="mt-2.5">
-                  <button
-                    onClick={() => toggle(item.label)}
-                    className="flex items-center justify-between w-full px-2.5 py-[5px] text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors duration-100"
-                    style={{ color: "var(--a-text-4)" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--a-text-3)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--a-text-4)"; }}
+            return (
+              <li key={item.label}>
+                {item.href ? (
+                  /* Single link (Dashboard) */
+                  <Link
+                    href={item.href}
+                    title={sidebarCollapsed ? item.label : undefined}
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                      isActive(item.href)
+                        ? "bg-[var(--a-bg-elevated)] text-[var(--a-text-1)]"
+                        : "text-[var(--a-text-3)] hover:bg-[var(--a-bg-hover)] hover:text-[var(--a-text-1)]"
+                    }`}
                   >
-                    {!collapsed && (
-                      <>
-                        <span>{item.label}</span>
-                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
-                          className={`transition-transform duration-150 ${expanded[item.label] ? "rotate-90" : ""}`}>
-                          <path d="M2 1l3 3-3 3" />
-                        </svg>
-                      </>
+                    <Icon className="size-[1.15rem] shrink-0 opacity-70" />
+                    {!sidebarCollapsed && <span>{item.label}</span>}
+                  </Link>
+                ) : (
+                  /* Collapsible group */
+                  <div>
+                    <button
+                      onClick={() => toggle(item.label)}
+                      className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                        groupActive
+                          ? "bg-[var(--a-bg-elevated)] text-[var(--a-text-1)]"
+                          : "text-[var(--a-text-3)] hover:bg-[var(--a-bg-hover)] hover:text-[var(--a-text-1)]"
+                      }`}
+                    >
+                      <Icon className="size-[1.15rem] shrink-0 opacity-70" />
+                      {!sidebarCollapsed && (
+                        <>
+                          <span className="flex-1 text-left">{item.label}</span>
+                          {item.badge && (
+                            <span className="rounded-full bg-[var(--a-error)] px-2 py-0.5 text-[0.625rem] font-semibold text-white">
+                              {item.badge}
+                            </span>
+                          )}
+                          {isOpen ? (
+                            <ChevronDown className="size-4 opacity-60" />
+                          ) : (
+                            <ChevronRight className="size-4 opacity-60" />
+                          )}
+                        </>
+                      )}
+                    </button>
+
+                    {isOpen && item.children && (
+                      <ul className="mt-1 space-y-0.5 pl-8">
+                        {item.children.map((child) => {
+                          const ChildIcon = child.icon;
+                          const active = isActive(child.href);
+                          return (
+                            <li key={child.href}>
+                              <Link
+                                href={child.href}
+                                title={sidebarCollapsed ? child.label : undefined}
+                                className={`flex items-center gap-2 rounded-md py-1.5 text-[0.8125rem] transition-colors ${
+                                  active
+                                    ? "text-[var(--a-accent)]"
+                                    : "text-[var(--a-text-3)] hover:text-[var(--a-text-1)]"
+                                }`}
+                              >
+                                <span className="h-px w-2.5 bg-current opacity-60" />
+                                {child.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
                     )}
-                  </button>
-                  {expanded[item.label] && (
-                    <ul className="mt-0.5 space-y-px">
-                      {item.children?.map((child) => {
-                        const active = isActive(child.href);
-                        return (
-                          <li key={child.href}>
-                            <Link
-                              href={child.href}
-                              title={collapsed ? child.label : undefined}
-                              className="a-focus relative flex items-center gap-2.5 px-2.5 py-[6px] rounded-md text-[13px] transition-colors duration-100"
-                              style={{
-                                color: active ? "var(--a-text-1)" : "var(--a-text-3)",
-                                background: active ? "var(--a-bg-elevated)" : "transparent",
-                                fontWeight: active ? 500 : 400,
-                              }}
-                              onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "var(--a-bg-hover)"; }}
-                              onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
-                            >
-                              {active && (
-                                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-3.5 rounded-r-full" style={{ background: "var(--a-accent)" }} />
-                              )}
-                              <span className="shrink-0 w-[18px] h-[18px] flex items-center justify-center" style={{ opacity: active ? 1 : 0.4 }}>{child.icon}</span>
-                              {!collapsed && <span>{child.label}</span>}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </div>
-              )}
-            </li>
-          ))}
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </nav>
 
-      <div className="border-t px-3 py-3" style={{ borderColor: "var(--a-border)" }}>
-        <div className="flex items-center gap-2.5 px-2.5">
-          <div className="w-2 h-2 rounded-full shrink-0" style={{ background: "var(--a-success)" }} />
-          {!collapsed && (
-            <span className="text-[11px] truncate" style={{ color: "var(--a-text-4)" }}>{role}</span>
+      {/* Bottom user section */}
+      <div className="border-t border-[var(--a-border)] p-3">
+        <div className="flex items-center gap-3">
+          <span className="grid size-10 shrink-0 place-items-center rounded-full bg-[var(--a-accent)]/15 text-[var(--a-accent)]">
+            <Headphones className="size-5" />
+          </span>
+          {!sidebarCollapsed && (
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold text-[var(--a-text-1)]">{role}</p>
+              <p className="truncate text-xs text-[var(--a-text-4)]">Admin Panel</p>
+            </div>
           )}
         </div>
+        {!sidebarCollapsed && (
+          <div className="mt-3">
+            <div className="flex items-center justify-between text-xs text-[var(--a-text-4)]">
+              <span>Session</span>
+              <span>Active</span>
+            </div>
+            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-[var(--a-bg-elevated)]">
+              <div
+                className="h-full rounded-full"
+                style={{ width: "100%", background: "var(--a-gradient)" }}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
 
   return (
     <>
-      <button
-        onClick={() => setMobileOpen(!mobileOpen)}
-        className="fixed top-3 left-3 z-[60] md:hidden w-8 h-8 flex items-center justify-center rounded-md border a-btn a-focus"
-        style={{ background: "var(--a-bg-surface)", borderColor: "var(--a-border)", color: "var(--a-text-2)" }}
-      >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-          {mobileOpen ? <path d="M4 4l8 8M12 4l-8 8" /> : <><path d="M2 4h12M2 8h12M2 12h12" /></>}
-        </svg>
-      </button>
-
-      {mobileOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[49] md:hidden" onClick={() => setMobileOpen(false)} />
+      {/* Mobile backdrop */}
+      {mobileNavOpen && (
+        <button
+          aria-label="Close navigation"
+          onClick={() => setMobileNavOpen(false)}
+          className="fixed inset-0 z-30 bg-[var(--a-bg-page)]/70 backdrop-blur-sm lg:hidden"
+        />
       )}
 
+      {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 z-50 flex flex-col border-r transition-[width] duration-200 ${
-          collapsed ? "w-[60px]" : "w-[256px]"
-        } ${mobileOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
-        style={{ background: "var(--a-bg-page)", borderColor: "var(--a-border)" }}
+        className={`fixed inset-y-0 left-0 z-40 flex w-[15.5rem] flex-col border-r border-[var(--a-border)] bg-[var(--a-bg-sidebar)] pt-[4.5rem] transition-[width,transform] duration-300 ${
+          sidebarCollapsed ? "lg:w-[4.5rem]" : "lg:w-[15.5rem]"
+        } ${mobileNavOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
       >
         {sidebarContent}
 
+        {/* Collapse toggle (desktop only) */}
         <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="hidden lg:flex absolute -right-3 top-[72px] w-6 h-6 rounded-full border items-center justify-center z-10 a-btn a-focus"
-          style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)", color: "var(--a-text-4)" }}
-          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+          onClick={() => setMobileNavOpen(false)}
+          className="hidden lg:flex absolute -right-3 top-[72px] size-6 items-center justify-center rounded-full border border-[var(--a-border)] bg-[var(--a-bg-elevated)] text-[var(--a-text-4)] z-10 transition-colors hover:text-[var(--a-text-1)]"
+          title="Collapse sidebar"
         >
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
-            className={`transition-transform duration-200 ${collapsed ? "rotate-180" : ""}`}>
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
             <path d="M7 1L3 5l4 4" />
           </svg>
         </button>
       </aside>
+
+      {/* Mobile toggle */}
+      <button
+        onClick={() => setMobileNavOpen(!mobileNavOpen)}
+        className="fixed top-3 left-3 z-[60] flex size-8 items-center justify-center rounded-md border border-[var(--a-border)] bg-[var(--a-bg-surface)] text-[var(--a-text-2)] lg:hidden"
+        aria-label="Toggle navigation"
+      >
+        {mobileNavOpen ? (
+          <X className="size-4" />
+        ) : (
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+            <path d="M2 4h12M2 8h12M2 12h12" />
+          </svg>
+        )}
+      </button>
     </>
   );
 }

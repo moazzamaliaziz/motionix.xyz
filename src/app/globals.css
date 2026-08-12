@@ -284,3 +284,86 @@ body {
 .animate-orb-float {
   animation: orb-float 6s ease-in-out infinite;
 }
+
+/* ============ Admin theme (Fillow dark) ============
+   Scoped under .admin-theme so marketing site is unaffected.
+   All admin pages MUST have this class on the wrapper. */
+
+.admin-theme {
+  --a-bg-page:     oklch(0.202 0.020 289.1);
+  --a-bg-surface:  oklch(0.244 0.027 290.8);
+  --a-bg-elevated: oklch(0.289 0.025 291.3);
+  --a-bg-hover:    oklch(0.32  0.03  291);
+  --a-bg-sidebar:  oklch(0.225 0.023 288.2);
+  --a-border:      oklch(1 0 0 / 8%);
+  --a-border-hover:oklch(1 0 0 / 14%);
+  --a-border-focus:oklch(1 0 0 / 20%);
+  --a-text-1:      oklch(0.968 0.004 286.3);
+  --a-text-2:      oklch(0.85  0.015 290);
+  --a-text-3:      oklch(0.688 0.028 290.5);
+  --a-text-4:      oklch(0.50  0.025 290);
+  --a-radius:      0.75rem;
+  --a-radius-sm:   0.375rem;
+  --a-radius-lg:   1rem;
+  --a-accent:      oklch(0.634 0.209 287.6);
+  --a-accent-glow: oklch(0.755 0.141 295.4);
+  --a-success:     oklch(0.712 0.193 147.7);
+  --a-warning:     oklch(0.837 0.141 74.8);
+  --a-error:       oklch(0.678 0.214 14.2);
+  --a-info:        oklch(0.775 0.124 216);
+  --a-pink:        oklch(0.704 0.223 351.2);
+  --a-orange:      oklch(0.795 0.131 50.6);
+  --a-gradient:    linear-gradient(120deg, oklch(0.634 0.209 287.6) 0%, oklch(0.755 0.141 295.4) 100%);
+  --a-shadow-card: 0 4px 24px -12px oklch(0 0 0 / 50%);
+  --a-font:        "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+.admin-theme {
+  background-color: var(--a-bg-page);
+  color: var(--a-text-1);
+  font-family: var(--a-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+.admin-theme * {
+  border-color: var(--a-border);
+}
+
+/* Admin card surface — use for every panel */
+@utility admin-card {
+  background-color: var(--a-bg-surface);
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-radius-lg);
+  box-shadow: var(--a-shadow-card);
+}
+
+/* Admin scrollbar */
+@utility admin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--a-border) transparent;
+}
+.admin-scrollbar::-webkit-scrollbar { width: 6px; }
+.admin-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.admin-scrollbar::-webkit-scrollbar-thumb { background: var(--a-border); border-radius: 6px; }
+.admin-scrollbar::-webkit-scrollbar-thumb:hover { background: var(--a-border-hover); }
+
+/* Admin interactive card */
+@utility admin-card-hover {
+  transition: border-color 150ms, background 150ms;
+}
+.admin-card-hover:hover {
+  border-color: var(--a-border-hover);
+  background-color: var(--a-bg-elevated);
+}
+
+/* Admin focus ring */
+.admin-focus:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--a-bg-page), 0 0 0 4px var(--a-border-focus);
+}
+
+/* Admin button press */
+.admin-btn:active { transform: scale(0.98); }
+
+/* Admin hover surface */
+.admin-hover:hover { background-color: var(--a-bg-hover); }

@@ -84,9 +84,9 @@ export default function MediaPage() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Media Library</h1>
-        <div className="a-card p-8">
-          <p style={{ color: "var(--a-text-4)" }}>Loading...</p>
+        <h1 className="text-[24px] font-bold tracking-tight text-[var(--a-text-1)]">Media Library</h1>
+        <div className="admin-card p-8">
+          <p className="text-[var(--a-text-4)]">Loading...</p>
         </div>
       </div>
     );
@@ -96,8 +96,8 @@ export default function MediaPage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Media Library</h1>
-          <p className="mt-1 text-[13px]" style={{ color: "var(--a-text-3)" }}>{files.length} files</p>
+          <h1 className="text-[24px] font-bold tracking-tight text-[var(--a-text-1)]">Media Library</h1>
+          <p className="mt-1 text-[13px] text-[var(--a-text-3)]">{files.length} files</p>
         </div>
         <div>
           <input
@@ -110,7 +110,7 @@ export default function MediaPage() {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
-            className="a-btn a-focus px-4 py-2 bg-white text-black rounded-md text-[13px] font-semibold hover:bg-white/90 transition-colors duration-100 disabled:opacity-50"
+            className="admin-btn admin-focus px-4 py-2 bg-white text-black rounded-md text-[13px] font-semibold hover:bg-white/90 transition-colors duration-100 disabled:opacity-50"
           >
             {uploading ? "Uploading..." : "Upload File"}
           </button>
@@ -118,36 +118,35 @@ export default function MediaPage() {
       </div>
 
       {error && (
-        <div className="a-card p-4" style={{ borderColor: "color-mix(in srgb, var(--a-error) 20%, transparent)" }}>
+        <div className="admin-card p-4 border-[color-mix(in_srgb,var(--a-error)_20%,transparent)]">
           <p className="text-[13px] text-red-400">{error}</p>
         </div>
       )}
 
       {!files.length ? (
-        <div className="a-card p-16 text-center">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl border" style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)", opacity: 0.5 }}>📁</div>
-          <p className="text-[14px] font-medium mb-1" style={{ color: "var(--a-text-2)" }}>No media files</p>
-          <p className="text-[13px]" style={{ color: "var(--a-text-4)" }}>
+        <div className="admin-card p-16 text-center">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl border bg-[var(--a-bg-elevated)] border-[var(--a-border)] opacity-50">📁</div>
+          <p className="text-[14px] font-medium mb-1 text-[var(--a-text-2)]">No media files</p>
+          <p className="text-[13px] text-[var(--a-text-4)]">
             Click &quot;Upload File&quot; to add media.
           </p>
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {files.map((file) => (
-            <div key={file.id} className="a-card-interactive p-4 group relative">
-              <div className="w-full h-32 rounded-lg mb-3 flex items-center justify-center text-3xl" style={{ background: "var(--a-bg-elevated)" }}>
+            <div key={file.id} className="admin-card-hover p-4 group relative">
+              <div className="w-full h-32 rounded-lg mb-3 flex items-center justify-center text-3xl bg-[var(--a-bg-elevated)]">
                 {file.mime_type?.startsWith("image/") ? "🖼️" : file.mime_type?.startsWith("video/") ? "🎬" : "📄"}
               </div>
-              <p className="text-[12px] font-medium truncate" style={{ color: "var(--a-text-1)" }}>{file.original_name}</p>
-              <div className="flex items-center gap-2 mt-1 text-[11px]" style={{ color: "var(--a-text-4)" }}>
+              <p className="text-[12px] font-medium truncate text-[var(--a-text-1)]">{file.original_name}</p>
+              <div className="flex items-center gap-2 mt-1 text-[11px] text-[var(--a-text-4)]">
                 <span>{file.mime_type?.split("/")[1]?.toUpperCase()}</span>
                 {file.width && file.height && <span>{file.width}×{file.height}</span>}
                 <span>{formatBytes(file.size_bytes)}</span>
               </div>
               <button
                 onClick={() => handleDelete(file.id)}
-                className="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity a-btn"
-                style={{ background: "color-mix(in srgb, var(--a-error) 80%, transparent)", color: "white" }}
+                className="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity admin-btn bg-[color-mix(in_srgb,var(--a-error)_80%,transparent)] text-white"
               >
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
                   <path d="M2 2l6 6M8 2l-6 6" />

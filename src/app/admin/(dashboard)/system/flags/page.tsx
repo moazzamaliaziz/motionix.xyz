@@ -43,9 +43,9 @@ export default function FeatureFlagsPage() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Feature Flags</h1>
-        <div className="a-card p-8">
-          <p style={{ color: "var(--a-text-4)" }}>Loading...</p>
+        <h1 className="text-[24px] font-bold tracking-tight text-[var(--a-text-1)]">Feature Flags</h1>
+        <div className="admin-card p-8">
+          <p className="text-[var(--a-text-4)]">Loading...</p>
         </div>
       </div>
     );
@@ -54,48 +54,47 @@ export default function FeatureFlagsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Feature Flags</h1>
-        <p className="mt-1 text-[13px]" style={{ color: "var(--a-text-3)" }}>{flags.length} flags</p>
+        <h1 className="text-[24px] font-bold tracking-tight text-[var(--a-text-1)]">Feature Flags</h1>
+        <p className="mt-1 text-[13px] text-[var(--a-text-3)]">{flags.length} flags</p>
       </div>
 
       {error && (
-        <div className="a-card p-4" style={{ borderColor: "color-mix(in srgb, var(--a-error) 20%, transparent)" }}>
+        <div className="admin-card p-4 border-[var(--a-error)]/20">
           <p className="text-[13px] text-red-400">{error}</p>
         </div>
       )}
 
       {!flags.length ? (
-        <div className="a-card p-16 text-center">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl border" style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)", opacity: 0.5 }}>🚩</div>
-          <p className="text-[14px] font-medium mb-1" style={{ color: "var(--a-text-2)" }}>No feature flags</p>
-          <p className="text-[13px]" style={{ color: "var(--a-text-4)" }}>
-            Run <code className="px-1.5 py-0.5 rounded text-[12px]" style={{ background: "var(--a-bg-elevated)", color: "var(--a-text-3)" }}>supabase/seed.sql</code> to populate.
+        <div className="admin-card p-16 text-center">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl border bg-[var(--a-bg-elevated)] border-[var(--a-border)] opacity-50">🚩</div>
+          <p className="text-[14px] font-medium mb-1 text-[var(--a-text-2)]">No feature flags</p>
+          <p className="text-[13px] text-[var(--a-text-4)]">
+            Run <code className="px-1.5 py-0.5 rounded text-[12px] bg-[var(--a-bg-elevated)] text-[var(--a-text-3)]">supabase/seed.sql</code> to populate.
           </p>
         </div>
       ) : (
-        <div className="a-card overflow-hidden">
+        <div className="admin-card overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid var(--a-border)" }}>
+              <tr className="border-b border-[var(--a-border)]">
                 {["Flag", "Description", "Status", "Updated"].map((h) => (
-                  <th key={h} className="text-left px-4 py-3 text-[12px] font-medium" style={{ color: "var(--a-text-3)" }}>{h}</th>
+                  <th key={h} className="text-left px-4 py-3 text-[12px] font-medium text-[var(--a-text-3)]">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {flags.map((flag, i) => (
-                <tr key={flag.id} className="a-hover transition-colors duration-100"
-                  style={{ borderBottom: i < flags.length - 1 ? "1px solid var(--a-border)" : "none" }}>
+              {flags.map((flag) => (
+                <tr key={flag.id} className="transition-colors duration-100 admin-hover border-b border-[var(--a-border)] last:border-b-0">
                   <td className="px-4 py-3">
-                    <span className="text-[13px] font-mono font-medium" style={{ color: "var(--a-text-1)" }}>{flag.key}</span>
+                    <span className="text-[13px] font-mono font-medium text-[var(--a-text-1)]">{flag.key}</span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className="text-[12px]" style={{ color: "var(--a-text-3)" }}>{flag.description || "—"}</span>
+                    <span className="text-[12px] text-[var(--a-text-3)]">{flag.description || "—"}</span>
                   </td>
                   <td className="px-4 py-3">
                     <button
                       onClick={() => toggleFlag(flag.id, !flag.enabled)}
-                      className="flex items-center gap-2 a-btn a-focus"
+                      className="flex items-center gap-2 admin-btn admin-focus"
                     >
                       <div className={`w-8 h-4 rounded-full relative transition-colors ${flag.enabled ? "bg-emerald-500/30" : "bg-white/10"}`}>
                         <div className={`absolute top-0.5 w-3 h-3 rounded-full transition-all ${flag.enabled ? "left-4 bg-emerald-400" : "left-0.5 bg-white/40"}`} />
@@ -106,7 +105,7 @@ export default function FeatureFlagsPage() {
                     </button>
                   </td>
                   <td className="px-4 py-3">
-                    <span className="text-[12px]" style={{ color: "var(--a-text-4)" }}>
+                    <span className="text-[12px] text-[var(--a-text-4)]">
                       {new Date(flag.updated_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
                   </td>

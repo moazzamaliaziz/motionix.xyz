@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { Search, Bell, Settings, AlignLeft, ExternalLink } from "lucide-react";
 import { createBrowserSupabase } from "@/lib/supabase";
+import { useAdminTheme } from "./theme-context";
 
 interface AdminHeaderProps {
   user: {
@@ -30,14 +32,12 @@ function Breadcrumbs() {
       {crumbs.map((crumb, i) => (
         <span key={crumb.href} className="flex items-center gap-1">
           {i > 0 && (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" style={{ color: "var(--a-text-4)" }}>
-              <path d="M4 2l4 4-4 4" />
-            </svg>
+            <span className="text-[var(--a-text-4)]">/</span>
           )}
           {crumb.isLast ? (
-            <span className="font-medium" style={{ color: "var(--a-text-2)" }}>{crumb.label}</span>
+            <span className="font-medium text-[var(--a-text-2)]">{crumb.label}</span>
           ) : (
-            <Link href={crumb.href} className="transition-colors duration-100 hover:opacity-80" style={{ color: "var(--a-text-3)" }}>
+            <Link href={crumb.href} className="text-[var(--a-text-3)] hover:text-[var(--a-text-2)] transition-colors">
               {crumb.label}
             </Link>
           )}
@@ -47,9 +47,27 @@ function Breadcrumbs() {
   );
 }
 
+function IconBadge({ icon: Icon, count, tone, label }: { icon: typeof Bell; count: number; tone: string; label: string }) {
+  return (
+    <button
+      aria-label={label}
+      className="relative grid size-10 place-items-center rounded-full text-[var(--a-text-3)] transition-colors hover:bg-[var(--a-bg-hover)]"
+    >
+      <Icon className="size-[1.15rem]" />
+      <span
+        className="absolute -top-0.5 -right-0.5 grid min-w-5 place-items-center rounded-full px-1 text-[0.625rem] font-semibold text-white"
+        style={{ background: tone }}
+      >
+        {count}
+      </span>
+    </button>
+  );
+}
+
 export function AdminHeader({ user, issueCount = 0 }: AdminHeaderProps) {
   const displayName = user.user_metadata?.display_name || user.email || "Admin";
   const router = useRouter();
+  const { toggleSidebar, setMobileNavOpen, mobileNavOpen, sidebarCollapsed } = useAdminTheme();
   const [showMenu, setShowMenu] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
@@ -62,99 +80,127 @@ export function AdminHeader({ user, issueCount = 0 }: AdminHeaderProps) {
   }
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 h-14 flex items-center justify-between px-5 z-[55] backdrop-blur-xl"
-      style={{ background: "color-mix(in srgb, var(--a-bg-page) 85%, transparent)", borderBottom: "1px solid var(--a-border)" }}
-    >
-      <div className="flex items-center gap-4 pl-10 md:pl-0">
-        <Breadcrumbs />
-      </div>
-
-      <div className="flex items-center gap-2.5">
-        {issueCount > 0 && (
-          <Link href="/admin/seo/issues" className="relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border a-btn"
-            style={{ background: "color-mix(in srgb, var(--a-warning) 8%, transparent)", borderColor: "color-mix(in srgb, var(--a-warning) 15%, transparent)" }}>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" style={{ color: "var(--a-warning)" }}>
-              <path d="M7 1L13 12H1L7 1z" />
-              <path d="M7 5.5v3M7 10.5v.5" />
-            </svg>
-            <span className="text-[11px] font-medium" style={{ color: "var(--a-warning)" }}>{issueCount}</span>
+    <header className="fixed inset-x-0 top-0 z-50 h-[4.5rem] border-b border-[var(--a-border)] bg-[var(--a-bg-sidebar)]">
+      <div className="flex h-full items-center">
+        {/* Brand block — aligned to sidebar width */}
+        <div className={`flex h-full shrink-0 items-center gap-3 border-r border-[var(--a-border)] px-5 transition-[width] duration-300 ${sidebarCollapsed ? "lg:w-[4.5rem] lg:justify-center lg:px-0" : "lg:w-[15.5rem]"}`}>
+          <Link href="/admin" className="flex items-center gap-2.5 group">
+            <span
+              className="grid size-10 shrink-0 place-items-center rounded-full text-lg font-bold text-white"
+              style={{ background: "var(--a-gradient)" }}
+            >
+              M
+            </span>
+            {!sidebarCollapsed && (
+              <span className="leading-tight">
+                <span className="block text-lg font-bold tracking-tight text-[var(--a-text-1)]">motionix</span>
+                <span className="block text-[0.625rem] text-[var(--a-text-4)]">Admin Panel</span>
+              </span>
+            )}
           </Link>
-        )}
+        </div>
 
-        <Link
-          href="/"
-          target="_blank"
-          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-[12px] transition-colors duration-100"
-          style={{ color: "var(--a-text-3)" }}
-        >
-          <span>Site</span>
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M9 1v6M9 1H3M9 7L1 1" />
-          </svg>
-        </Link>
-
-        <div className="w-px h-5" style={{ background: "var(--a-border)" }} />
-
-        {/* User menu */}
-        <div className="relative">
+        {/* Main bar */}
+        <div className="flex min-w-0 flex-1 items-center gap-3 px-4 sm:px-6">
           <button
-            onClick={() => setShowMenu(!showMenu)}
-            className="flex items-center gap-2 px-2 py-1.5 rounded-md transition-colors duration-100 a-btn"
-            style={{ background: showMenu ? "var(--a-bg-hover)" : "transparent" }}
+            aria-label="Toggle navigation"
+            onClick={() => {
+              if (window.innerWidth < 1024) {
+                setMobileNavOpen(!mobileNavOpen);
+              } else {
+                toggleSidebar();
+              }
+            }}
+            className="grid size-9 place-items-center rounded-md text-[var(--a-text-3)] transition-colors hover:text-[var(--a-text-1)]"
           >
-            <div className="w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-medium border"
-              style={{ background: "var(--a-bg-elevated)", color: "var(--a-text-3)", borderColor: "var(--a-border)" }}>
-              {displayName.charAt(0).toUpperCase()}
-            </div>
-            <span className="text-[12px] hidden md:block" style={{ color: "var(--a-text-2)" }}>{displayName}</span>
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
-              style={{ color: "var(--a-text-4)", transform: showMenu ? "rotate(180deg)" : "none", transition: "transform 150ms" }}>
-              <path d="M2 3.5l3 3 3-3" />
-            </svg>
+            <AlignLeft className="size-5" />
           </button>
 
-          {showMenu && (
-            <>
-              <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
-              <div className="absolute right-0 top-full mt-1 w-56 rounded-lg border shadow-lg z-50"
-                style={{ background: "var(--a-bg-surface)", borderColor: "var(--a-border)" }}>
-                <div className="px-3 py-2.5 border-b" style={{ borderColor: "var(--a-border)" }}>
-                  <p className="text-[12px] font-medium" style={{ color: "var(--a-text-1)" }}>{displayName}</p>
-                  <p className="text-[11px]" style={{ color: "var(--a-text-4)" }}>{user.email}</p>
-                </div>
-                <div className="py-1">
-                  <Link
-                    href="/admin/settings"
-                    onClick={() => setShowMenu(false)}
-                    className="flex items-center gap-2.5 px-3 py-2 text-[13px] transition-colors duration-100"
-                    style={{ color: "var(--a-text-2)" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--a-bg-hover)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" style={{ color: "var(--a-text-4)" }}>
-                      <circle cx="7" cy="7" r="2" />
-                      <path d="M11 9v1a1.5 1.5 0 01-3 0v-.5a1.5 1.5 0 00-3 0v.5a1.5 1.5 0 01-3 0V9" />
-                    </svg>
-                    Settings
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    disabled={loggingOut}
-                    className="flex items-center gap-2.5 px-3 py-2 text-[13px] transition-colors duration-100 w-full text-left"
-                    style={{ color: "var(--a-error)" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--a-bg-hover)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" style={{ color: "var(--a-error)" }}>
-                      <path d="M5 1H3a2 2 0 00-2 2v8a2 2 0 002 2h2M9 10l3-3-3-3M12 7H5" />
-                    </svg>
-                    {loggingOut ? "Signing out..." : "Sign out"}
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
+          <h1 className="hidden text-lg font-semibold text-[var(--a-text-1)] sm:block">Dashboard</h1>
+
+          <div className="ml-auto flex items-center gap-2 sm:gap-3">
+            {/* Search */}
+            <div className="relative hidden md:block">
+              <Search className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-[var(--a-text-4)]" />
+              <input
+                placeholder="Search here..."
+                className="h-11 w-56 rounded-full border border-[var(--a-border)] bg-[var(--a-bg-elevated)] pl-10 pr-4 text-sm text-[var(--a-text-1)] placeholder:text-[var(--a-text-4)] focus:outline-none focus:ring-2 focus:ring-[var(--a-accent)]/30 lg:w-72"
+              />
+            </div>
+
+            {/* Settings */}
+            <button
+              aria-label="Settings"
+              className="grid size-10 place-items-center rounded-full text-[var(--a-warning)] transition-colors hover:bg-[var(--a-bg-hover)]"
+            >
+              <Settings className="size-[1.15rem]" />
+            </button>
+
+            {/* Notification badges */}
+            <div className="hidden items-center gap-2 sm:flex">
+              {issueCount > 0 && (
+                <Link href="/admin/seo/issues">
+                  <IconBadge icon={Bell} count={issueCount} tone="var(--a-warning)" label="SEO Issues" />
+                </Link>
+              )}
+            </div>
+
+            {/* Site link */}
+            <Link
+              href="/"
+              target="_blank"
+              className="hidden items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] text-[var(--a-text-3)] transition-colors hover:text-[var(--a-text-1)] sm:flex"
+            >
+              <span>Site</span>
+              <ExternalLink className="size-3" />
+            </Link>
+
+            <div className="hidden h-5 w-px bg-[var(--a-border)] sm:block" />
+
+            {/* User menu */}
+            <div className="relative">
+              <button
+                onClick={() => setShowMenu(!showMenu)}
+                aria-label="Account"
+                className="grid size-10 place-items-center rounded-full text-sm font-semibold text-white"
+                style={{ background: "var(--a-gradient)" }}
+              >
+                {displayName.charAt(0).toUpperCase()}
+              </button>
+
+              {showMenu && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowMenu(false)} />
+                  <div className="absolute right-0 top-full mt-1 w-56 rounded-lg border border-[var(--a-border)] bg-[var(--a-bg-surface)] shadow-lg z-50">
+                    <div className="border-b border-[var(--a-border)] px-3 py-2.5">
+                      <p className="text-[12px] font-medium text-[var(--a-text-1)]">{displayName}</p>
+                      <p className="text-[11px] text-[var(--a-text-4)]">{user.email}</p>
+                    </div>
+                    <div className="py-1">
+                      <Link
+                        href="/admin/settings"
+                        onClick={() => setShowMenu(false)}
+                        className="flex items-center gap-2.5 px-3 py-2 text-[13px] text-[var(--a-text-2)] transition-colors hover:bg-[var(--a-bg-hover)]"
+                      >
+                        <Settings className="size-3.5 text-[var(--a-text-4)]" />
+                        Settings
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        disabled={loggingOut}
+                        className="flex w-full items-center gap-2.5 px-3 py-2 text-[13px] text-[var(--a-error)] transition-colors hover:bg-[var(--a-bg-hover)]"
+                      >
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                          <path d="M5 1H3a2 2 0 00-2 2v8a2 2 0 002 2h2M9 10l3-3-3-3M12 7H5" />
+                        </svg>
+                        {loggingOut ? "Signing out..." : "Sign out"}
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </header>

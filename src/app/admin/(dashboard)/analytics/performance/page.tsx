@@ -12,8 +12,8 @@ export default async function PerformancePage() {
   if (error) {
     return (
       <div className="space-y-6">
-        <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Performance</h1>
-        <div className="a-card p-4" style={{ borderColor: "color-mix(in srgb, var(--a-error) 20%, transparent)" }}>
+        <h1 className="text-[24px] font-bold tracking-tight text-[var(--a-text-1)]">Performance</h1>
+        <div className="admin-card p-4" style={{ borderColor: "color-mix(in srgb, var(--a-error) 20%, transparent)" }}>
           <p className="text-[13px] text-red-400">{error.message}</p>
         </div>
       </div>
@@ -42,32 +42,31 @@ export default async function PerformancePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Performance</h1>
-        <p className="mt-1 text-[13px]" style={{ color: "var(--a-text-3)" }}>Core Web Vitals monitoring.</p>
+        <h1 className="text-[24px] font-bold tracking-tight text-[var(--a-text-1)]">Performance</h1>
+        <p className="mt-1 text-[13px] text-[var(--a-text-3)]">Core Web Vitals monitoring.</p>
       </div>
 
       {!snapshots?.length ? (
-        <div className="a-card p-16 text-center">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl border" style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)", opacity: 0.5 }}>⚡</div>
-          <p className="text-[14px] font-medium mb-1" style={{ color: "var(--a-text-2)" }}>No performance data</p>
-          <p className="text-[13px]" style={{ color: "var(--a-text-4)" }}>Core Web Vitals data will appear here once measured.</p>
+        <div className="admin-card p-16 text-center">
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl border bg-[var(--a-bg-elevated)] border-[var(--a-border)] opacity-50">⚡</div>
+          <p className="text-[14px] font-medium mb-1 text-[var(--a-text-2)]">No performance data</p>
+          <p className="text-[13px] text-[var(--a-text-4)]">Core Web Vitals data will appear here once measured.</p>
         </div>
       ) : (
-        <div className="a-card overflow-hidden">
+        <div className="admin-card overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid var(--a-border)" }}>
+              <tr className="border-b border-[var(--a-border)]">
                 {["Page", "LCP", "INP", "CLS", "TTFB"].map((h) => (
-                  <th key={h} className="text-left px-4 py-3 text-[12px] font-medium" style={{ color: "var(--a-text-3)" }}>{h}</th>
+                  <th key={h} className="text-left px-4 py-3 text-[12px] font-medium text-[var(--a-text-3)]">{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {pageStats.map((page, i) => (
-                <tr key={page.url} className="a-hover transition-colors duration-100"
-                  style={{ borderBottom: i < pageStats.length - 1 ? "1px solid var(--a-border)" : "none" }}>
+                <tr key={page.url} className="admin-hover transition-colors duration-100 border-b border-[var(--a-border)] last:border-b-0">
                   <td className="px-4 py-3">
-                    <span className="text-[12px] font-mono truncate block max-w-[250px]" style={{ color: "var(--a-text-1)" }}>{page.url}</span>
+                    <span className="text-[12px] font-mono truncate block max-w-[250px] text-[var(--a-text-1)]">{page.url}</span>
                   </td>
                   <td className="px-4 py-3">
                     <CwvBadge value={page.lcp} unit="s" good={2.5} poor={4} />
@@ -96,7 +95,7 @@ function avg(arr: number[]): number {
 }
 
 function CwvBadge({ value, unit, good, poor }: { value: number; unit: string; good: number; poor: number }) {
-  if (value === 0) return <span style={{ color: "var(--a-text-4)" }}>—</span>;
+  if (value === 0) return <span className="text-[var(--a-text-4)]">—</span>;
   const color = value <= good ? "var(--a-success)" : value <= poor ? "var(--a-warning)" : "var(--a-error)";
   const display = unit === "ms" ? `${Math.round(value)}` : unit === "s" ? value.toFixed(1) : value.toFixed(2);
   return (

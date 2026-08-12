@@ -70,9 +70,9 @@ export default function EditBlogPostPage() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Edit Post</h1>
-        <div className="a-card p-8">
-          <p style={{ color: "var(--a-text-4)" }}>Loading...</p>
+        <h1 className="text-[24px] font-bold tracking-tight text-[var(--a-text-1)]">Edit Post</h1>
+        <div className="admin-card p-8">
+          <p className="text-[var(--a-text-4)]">Loading...</p>
         </div>
       </div>
     );
@@ -82,14 +82,13 @@ export default function EditBlogPostPage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Edit Post</h1>
-          <p className="mt-1 text-[13px]" style={{ color: "var(--a-text-3)" }}>/{slug}</p>
+          <h1 className="text-[24px] font-bold tracking-tight text-[var(--a-text-1)]">Edit Post</h1>
+          <p className="mt-1 text-[13px] text-[var(--a-text-3)]">/{slug}</p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => router.back()}
-            className="a-btn a-focus px-4 py-2 rounded-md text-[13px] font-medium border transition-colors duration-100"
-            style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)", color: "var(--a-text-2)" }}
+            className="admin-btn admin-focus px-4 py-2 rounded-md text-[13px] font-medium border transition-colors duration-100 bg-[var(--a-bg-elevated)] border-[var(--a-border)] text-[var(--a-text-2)]"
           >
             Cancel
           </button>
@@ -102,8 +101,7 @@ export default function EditBlogPostPage() {
                 router.refresh();
               }
             }}
-            className="a-btn a-focus px-4 py-2 rounded-md text-[13px] font-medium border transition-colors duration-100"
-            style={{ background: "color-mix(in srgb, var(--a-error) 10%, transparent)", borderColor: "color-mix(in srgb, var(--a-error) 20%, transparent)", color: "var(--a-error)" }}
+            className="admin-btn admin-focus px-4 py-2 rounded-md text-[13px] font-medium border transition-colors duration-100 bg-[var(--a-error)]/10 border-[var(--a-error)]/20 text-[var(--a-error)]"
           >
             Delete
           </button>
@@ -111,59 +109,54 @@ export default function EditBlogPostPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="a-card p-5 space-y-4">
+        <div className="admin-card p-5 space-y-4">
           <div>
-            <label className="block text-[12px] font-medium mb-1.5" style={{ color: "var(--a-text-3)" }}>Title</label>
+            <label className="block text-[12px] font-medium mb-1.5 text-[var(--a-text-3)]">Title</label>
             <input
               type="text"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
               required
-              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] transition-all duration-150 a-focus"
-              style={{ background: "var(--a-bg-elevated)", border: "1px solid var(--a-border)", color: "var(--a-text-1)" }}
+              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] transition-all duration-150 admin-focus bg-[var(--a-bg-elevated)] border border-[var(--a-border)] text-[var(--a-text-1)]"
             />
           </div>
 
           <div>
-            <label className="block text-[12px] font-medium mb-1.5" style={{ color: "var(--a-text-3)" }}>Slug</label>
+            <label className="block text-[12px] font-medium mb-1.5 text-[var(--a-text-3)]">Slug</label>
             <input
               type="text"
               value={form.slug}
               onChange={(e) => setForm({ ...form, slug: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] font-mono transition-all duration-150 a-focus"
-              style={{ background: "var(--a-bg-elevated)", border: "1px solid var(--a-border)", color: "var(--a-text-1)" }}
+              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] font-mono transition-all duration-150 admin-focus bg-[var(--a-bg-elevated)] border border-[var(--a-border)] text-[var(--a-text-1)]"
             />
           </div>
 
           <div>
-            <label className="block text-[12px] font-medium mb-1.5" style={{ color: "var(--a-text-3)" }}>Description</label>
+            <label className="block text-[12px] font-medium mb-1.5 text-[var(--a-text-3)]">Description</label>
             <textarea
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               rows={3}
-              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] transition-all duration-150 a-focus resize-y"
-              style={{ background: "var(--a-bg-elevated)", border: "1px solid var(--a-border)", color: "var(--a-text-1)" }}
+              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] transition-all duration-150 admin-focus resize-y bg-[var(--a-bg-elevated)] border border-[var(--a-border)] text-[var(--a-text-1)]"
             />
           </div>
 
           <div>
-            <label className="block text-[12px] font-medium mb-1.5" style={{ color: "var(--a-text-3)" }}>Content (Markdown)</label>
+            <label className="block text-[12px] font-medium mb-1.5 text-[var(--a-text-3)]">Content (Markdown)</label>
             <textarea
               value={form.content}
               onChange={(e) => setForm({ ...form, content: e.target.value })}
               rows={20}
-              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] font-mono transition-all duration-150 a-focus resize-y"
-              style={{ background: "var(--a-bg-elevated)", border: "1px solid var(--a-border)", color: "var(--a-text-1)" }}
+              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] font-mono transition-all duration-150 admin-focus resize-y bg-[var(--a-bg-elevated)] border border-[var(--a-border)] text-[var(--a-text-1)]"
             />
           </div>
 
           <div>
-            <label className="block text-[12px] font-medium mb-1.5" style={{ color: "var(--a-text-3)" }}>Status</label>
+            <label className="block text-[12px] font-medium mb-1.5 text-[var(--a-text-3)]">Status</label>
             <select
               value={form.status}
               onChange={(e) => setForm({ ...form, status: e.target.value })}
-              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] transition-all duration-150 a-focus"
-              style={{ background: "var(--a-bg-elevated)", border: "1px solid var(--a-border)", color: "var(--a-text-1)" }}
+              className="w-full px-3.5 py-2.5 rounded-lg text-[13px] transition-all duration-150 admin-focus bg-[var(--a-bg-elevated)] border border-[var(--a-border)] text-[var(--a-text-1)]"
             >
               <option value="draft">Draft</option>
               <option value="published">Published</option>
@@ -175,7 +168,7 @@ export default function EditBlogPostPage() {
           <button
             type="submit"
             disabled={saving}
-            className="a-btn a-focus px-4 py-2 bg-white text-black rounded-md text-[13px] font-semibold hover:bg-white/90 transition-colors duration-100 disabled:opacity-50"
+            className="admin-btn admin-focus px-4 py-2 bg-white text-black rounded-md text-[13px] font-semibold hover:bg-white/90 transition-colors duration-100 disabled:opacity-50"
           >
             {saving ? "Saving..." : "Save Changes"}
           </button>

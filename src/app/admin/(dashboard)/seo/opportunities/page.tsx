@@ -44,8 +44,8 @@ export default async function SeoOpportunitiesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>SEO Opportunity Center</h1>
-        <p className="mt-1 text-[13px]" style={{ color: "var(--a-text-3)" }}>Ranking gains, CTR opportunities, and technical issues.</p>
+        <h1 className="text-[24px] font-bold tracking-tight text-[var(--a-text-1)]">SEO Opportunity Center</h1>
+        <p className="mt-1 text-[13px] text-[var(--a-text-3)]">Ranking gains, CTR opportunities, and technical issues.</p>
       </div>
 
       {/* Summary stats */}
@@ -64,11 +64,11 @@ export default async function SeoOpportunitiesPage() {
         ) : (
           <Table headers={["Keyword", "Current Rank", "Volume", "Difficulty"]}>
             {top10Opps.slice(0, 10).map((kw) => (
-              <tr key={kw.id} className="a-hover transition-colors duration-100" style={{ borderBottom: "1px solid var(--a-border)" }}>
-                <td className="px-4 py-3"><span className="text-[13px] font-medium" style={{ color: "var(--a-text-1)" }}>{kw.keyword}</span></td>
-                <td className="px-4 py-3"><span className="text-[13px] font-medium" style={{ color: "var(--a-warning)" }}>#{kw.current_rank}</span></td>
-                <td className="px-4 py-3"><span className="text-[13px]" style={{ color: "var(--a-text-2)" }}>{kw.search_volume?.toLocaleString()}</span></td>
-                <td className="px-4 py-3"><span className="text-[13px]" style={{ color: "var(--a-text-3)" }}>{kw.keyword_difficulty}</span></td>
+              <tr key={kw.id} className="admin-hover transition-colors duration-100 border-b border-[var(--a-border)]">
+                <td className="px-4 py-3"><span className="text-[13px] font-medium text-[var(--a-text-1)]">{kw.keyword}</span></td>
+                <td className="px-4 py-3"><span className="text-[13px] font-medium text-[var(--a-warning)]">#{kw.current_rank}</span></td>
+                <td className="px-4 py-3"><span className="text-[13px] text-[var(--a-text-2)]">{kw.search_volume?.toLocaleString()}</span></td>
+                <td className="px-4 py-3"><span className="text-[13px] text-[var(--a-text-3)]">{kw.keyword_difficulty}</span></td>
               </tr>
             ))}
           </Table>
@@ -82,11 +82,11 @@ export default async function SeoOpportunitiesPage() {
         ) : (
           <Table headers={["Page", "Impressions", "Clicks", "CTR"]}>
             {ctrOpps.slice(0, 10).map((opp) => (
-              <tr key={opp.page_url} className="a-hover transition-colors duration-100" style={{ borderBottom: "1px solid var(--a-border)" }}>
-                <td className="px-4 py-3"><span className="text-[12px] font-mono" style={{ color: "var(--a-accent)" }}>{opp.page_url}</span></td>
-                <td className="px-4 py-3"><span className="text-[13px]" style={{ color: "var(--a-text-2)" }}>{opp.impressions.toLocaleString()}</span></td>
-                <td className="px-4 py-3"><span className="text-[13px]" style={{ color: "var(--a-text-2)" }}>{opp.clicks.toLocaleString()}</span></td>
-                <td className="px-4 py-3"><span className="text-[13px] font-medium" style={{ color: "var(--a-error)" }}>{(opp.ctr * 100).toFixed(1)}%</span></td>
+              <tr key={opp.page_url} className="admin-hover transition-colors duration-100 border-b border-[var(--a-border)]">
+                <td className="px-4 py-3"><span className="text-[12px] font-mono text-[var(--a-accent)]">{opp.page_url}</span></td>
+                <td className="px-4 py-3"><span className="text-[13px] text-[var(--a-text-2)]">{opp.impressions.toLocaleString()}</span></td>
+                <td className="px-4 py-3"><span className="text-[13px] text-[var(--a-text-2)]">{opp.clicks.toLocaleString()}</span></td>
+                <td className="px-4 py-3"><span className="text-[13px] font-medium text-[var(--a-error)]">{(opp.ctr * 100).toFixed(1)}%</span></td>
               </tr>
             ))}
           </Table>
@@ -100,16 +100,15 @@ export default async function SeoOpportunitiesPage() {
         ) : (
           <Table headers={["Severity", "Type", "Page", "Description"]}>
             {[...criticalIssues, ...warningIssues].slice(0, 10).map((issue) => (
-              <tr key={issue.id} className="a-hover transition-colors duration-100" style={{ borderBottom: "1px solid var(--a-border)" }}>
+              <tr key={issue.id} className="admin-hover transition-colors duration-100 border-b border-[var(--a-border)]">
                 <td className="px-4 py-3">
-                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full" style={{
-                    background: issue.severity === "critical" ? "color-mix(in srgb, var(--a-error) 15%, transparent)" : "color-mix(in srgb, var(--a-warning) 15%, transparent)",
-                    color: issue.severity === "critical" ? "var(--a-error)" : "var(--a-warning)"
-                  }}>{issue.severity}</span>
+                  <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-full ${
+                    issue.severity === "critical" ? "bg-[var(--a-error)]/15 text-[var(--a-error)]" : "bg-[var(--a-warning)]/15 text-[var(--a-warning)]"
+                  }`}>{issue.severity}</span>
                 </td>
-                <td className="px-4 py-3"><span className="text-[12px]" style={{ color: "var(--a-text-2)" }}>{issue.issue_type}</span></td>
-                <td className="px-4 py-3"><span className="text-[12px] font-mono truncate block max-w-[200px]" style={{ color: "var(--a-accent)" }}>{issue.page_url}</span></td>
-                <td className="px-4 py-3"><span className="text-[12px]" style={{ color: "var(--a-text-3)" }}>{issue.description || "—"}</span></td>
+                <td className="px-4 py-3"><span className="text-[12px] text-[var(--a-text-2)]">{issue.issue_type}</span></td>
+                <td className="px-4 py-3"><span className="text-[12px] font-mono truncate block max-w-[200px] text-[var(--a-accent)]">{issue.page_url}</span></td>
+                <td className="px-4 py-3"><span className="text-[12px] text-[var(--a-text-3)]">{issue.description || "—"}</span></td>
               </tr>
             ))}
           </Table>
@@ -123,12 +122,12 @@ export default async function SeoOpportunitiesPage() {
         ) : (
           <Table headers={["Locale", "Page", "SEO", "Content", "Indexable"]}>
             {transGaps.slice(0, 15).map((gap) => (
-              <tr key={`${gap.locale}-${gap.page_path}`} className="a-hover transition-colors duration-100" style={{ borderBottom: "1px solid var(--a-border)" }}>
-                <td className="px-4 py-3"><span className="text-[12px] font-medium uppercase" style={{ color: "var(--a-text-1)" }}>{gap.locale}</span></td>
-                <td className="px-4 py-3"><span className="text-[12px] font-mono" style={{ color: "var(--a-text-2)" }}>{gap.page_path}</span></td>
-                <td className="px-4 py-3"><span style={{ color: gap.seo_complete ? "var(--a-success)" : "var(--a-error)" }}>{gap.seo_complete ? "✓" : "✗"}</span></td>
-                <td className="px-4 py-3"><span style={{ color: gap.content_complete ? "var(--a-success)" : "var(--a-error)" }}>{gap.content_complete ? "✓" : "✗"}</span></td>
-                <td className="px-4 py-3"><span style={{ color: gap.indexable ? "var(--a-success)" : "var(--a-error)" }}>{gap.indexable ? "✓" : "✗"}</span></td>
+              <tr key={`${gap.locale}-${gap.page_path}`} className="admin-hover transition-colors duration-100 border-b border-[var(--a-border)]">
+                <td className="px-4 py-3"><span className="text-[12px] font-medium uppercase text-[var(--a-text-1)]">{gap.locale}</span></td>
+                <td className="px-4 py-3"><span className="text-[12px] font-mono text-[var(--a-text-2)]">{gap.page_path}</span></td>
+                <td className="px-4 py-3"><span className={gap.seo_complete ? "text-[var(--a-success)]" : "text-[var(--a-error)]"}>{gap.seo_complete ? "✓" : "✗"}</span></td>
+                <td className="px-4 py-3"><span className={gap.content_complete ? "text-[var(--a-success)]" : "text-[var(--a-error)]"}>{gap.content_complete ? "✓" : "✗"}</span></td>
+                <td className="px-4 py-3"><span className={gap.indexable ? "text-[var(--a-success)]" : "text-[var(--a-error)]"}>{gap.indexable ? "✓" : "✗"}</span></td>
               </tr>
             ))}
           </Table>
@@ -140,8 +139,8 @@ export default async function SeoOpportunitiesPage() {
 
 function StatCard({ label, value, color }: { label: string; value: number; color: string }) {
   return (
-    <div className="a-card p-4">
-      <p className="text-[11px] font-medium mb-2" style={{ color: "var(--a-text-3)" }}>{label}</p>
+    <div className="admin-card p-4">
+      <p className="text-[11px] font-medium mb-2 text-[var(--a-text-3)]">{label}</p>
       <p className="text-[28px] font-bold tracking-tight" style={{ color }}>{value}</p>
     </div>
   );
@@ -149,10 +148,10 @@ function StatCard({ label, value, color }: { label: string; value: number; color
 
 function Section({ title, desc, children }: { title: string; desc: string; children: React.ReactNode }) {
   return (
-    <div className="a-card overflow-hidden">
-      <div className="px-5 py-4 border-b" style={{ borderColor: "var(--a-border)" }}>
-        <h2 className="text-[14px] font-semibold" style={{ color: "var(--a-text-1)" }}>{title}</h2>
-        <p className="text-[12px] mt-0.5" style={{ color: "var(--a-text-4)" }}>{desc}</p>
+    <div className="admin-card overflow-hidden">
+      <div className="px-5 py-4 border-b border-[var(--a-border)]">
+        <h2 className="text-[14px] font-semibold text-[var(--a-text-1)]">{title}</h2>
+        <p className="text-[12px] mt-0.5 text-[var(--a-text-4)]">{desc}</p>
       </div>
       {children}
     </div>
@@ -163,9 +162,9 @@ function Table({ headers, children }: { headers: string[]; children: React.React
   return (
     <table className="w-full">
       <thead>
-        <tr style={{ borderBottom: "1px solid var(--a-border)" }}>
+        <tr className="border-b border-[var(--a-border)]">
           {headers.map((h) => (
-            <th key={h} className="text-left px-4 py-3 text-[12px] font-medium" style={{ color: "var(--a-text-3)" }}>{h}</th>
+            <th key={h} className="text-left px-4 py-3 text-[12px] font-medium text-[var(--a-text-3)]">{h}</th>
           ))}
         </tr>
       </thead>
@@ -177,7 +176,7 @@ function Table({ headers, children }: { headers: string[]; children: React.React
 function EmptyRow({ text }: { text: string }) {
   return (
     <div className="px-5 py-8 text-center">
-      <p className="text-[13px]" style={{ color: "var(--a-text-4)" }}>{text}</p>
+      <p className="text-[13px] text-[var(--a-text-4)]">{text}</p>
     </div>
   );
 }
