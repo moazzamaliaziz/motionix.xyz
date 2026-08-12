@@ -7,15 +7,7 @@ import { ActivityTimeline } from "@/components/admin/dashboard/ActivityTimeline"
 import { ProgressCard } from "@/components/admin/dashboard/ProgressCard";
 import { DonutCard } from "@/components/admin/dashboard/DonutCard";
 import { BarChartCard } from "@/components/admin/dashboard/BarChartCard";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { TrafficChart } from "@/components/admin/dashboard/TrafficChart";
 
 function pctChange(current: number, previous: number): number {
   if (previous === 0) return current > 0 ? 100 : 0;
@@ -209,34 +201,7 @@ export default async function AdminDashboard() {
       <div className="grid gap-6 xl:grid-cols-[1.35fr_1fr]">
         <ChartCard title="Traffic (30 days)" subtitle="Impressions and clicks over time">
           <div className="h-72">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData} barCategoryGap={4}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--a-border)" horizontal={true} vertical={false} />
-                <XAxis
-                  dataKey="name"
-                  tickLine={false}
-                  axisLine={false}
-                  tick={{ fill: "var(--a-text-4)", fontSize: 11 }}
-                  interval="preserveStartEnd"
-                />
-                <YAxis
-                  tickLine={false}
-                  axisLine={false}
-                  tick={{ fill: "var(--a-text-4)", fontSize: 11 }}
-                />
-                <Tooltip
-                  contentStyle={{
-                    background: "var(--a-bg-surface)",
-                    border: "1px solid var(--a-border)",
-                    borderRadius: "0.75rem",
-                    fontSize: "0.75rem",
-                    color: "var(--a-text-1)",
-                  }}
-                />
-                <Bar dataKey="impressions" name="Impressions" fill="var(--a-accent)" barSize={16} radius={[8, 8, 0, 0]} isAnimationActive={false} />
-                <Bar dataKey="clicks" name="Clicks" fill="var(--a-pink)" barSize={16} radius={[8, 8, 0, 0]} isAnimationActive={false} />
-              </BarChart>
-            </ResponsiveContainer>
+            <TrafficChart data={chartData} />
           </div>
         </ChartCard>
 

@@ -19,7 +19,7 @@ const baseConfig: NextConfig = {
     ] as never,
   },
 
-  serverExternalPackages: ["mongodb", "@aws-sdk/client-s3", "@aws-sdk/s3-request-presigner", "recharts"],
+  serverExternalPackages: ["mongodb", "@aws-sdk/client-s3", "@aws-sdk/s3-request-presigner"],
 
   images: {
     formats: ["image/avif", "image/webp"],
