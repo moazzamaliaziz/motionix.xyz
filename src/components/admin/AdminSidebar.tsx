@@ -46,7 +46,7 @@ interface NavChild {
 
 interface NavGroup {
   label: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
   badge?: string;
   href?: string;
   children?: NavChild[];
