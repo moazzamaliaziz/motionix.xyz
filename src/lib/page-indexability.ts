@@ -40,10 +40,18 @@ async function isTranslationComplete(
   locale: string
 ): Promise<boolean> {
   try {
+    // Blog posts use frontmatter for SEO, not translation keys
+    if (path.startsWith("/blog/")) {
+      const blogT = await getTranslations({ locale, namespace: "Blog" });
+      const noPosts = safeTranslate(blogT, "noPosts");
+      return !!noPosts;
+    }
+
     const t = await getTranslations({ locale, namespace: "SEO" });
 
-    const titleKey = `${path === "/" ? "home" : path.replace(/^\//, "").replace(/\//g, ".")}.title`;
-    const descKey = `${path === "/" ? "home" : path.replace(/^\//, "").replace(/\//g, ".")}.description`;
+    const normalizedPath = path === "" ? "/" : path;
+    const titleKey = `${normalizedPath === "/" ? "home" : normalizedPath.replace(/^\//, "").replace(/\//g, ".")}.title`;
+    const descKey = `${normalizedPath === "/" ? "home" : normalizedPath.replace(/^\//, "").replace(/\//g, ".")}.description`;
 
     const title = safeTranslate(t, titleKey);
     const desc = safeTranslate(t, descKey);
@@ -56,13 +64,6 @@ async function isTranslationComplete(
       const toolT = await getTranslations({ locale, namespace: `Tools.${slug}` });
       const tagline = safeTranslate(toolT, "tagline");
       if (!tagline || tagline.length < 10) return false;
-    }
-
-    if (path.startsWith("/blog/")) {
-      const slug = path.split("/")[2];
-      const blogT = await getTranslations({ locale, namespace: "Blog" });
-      const noPosts = safeTranslate(blogT, "noPosts");
-      if (!noPosts) return false;
     }
 
     return true;

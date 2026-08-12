@@ -19,7 +19,8 @@ export async function getPageSEO(
   const t = await getTranslations({ locale, namespace: "SEO" });
   const { indexable } = await getPageIndexability(locale, path);
 
-  const pathKey = path === "/" ? "home" : path.replace(/^\//, "").replace(/\//g, ".");
+  const normalizedPath = path === "" ? "/" : path;
+  const pathKey = normalizedPath === "/" ? "home" : normalizedPath.replace(/^\//, "").replace(/\//g, ".");
 
   let title = safeTranslate(t, `${pathKey}.title`);
   let description = safeTranslate(t, `${pathKey}.description`);
