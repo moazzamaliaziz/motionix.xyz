@@ -7,6 +7,8 @@ import { AdminHeader } from "@/components/admin/AdminHeader";
 import { AdminThemeProvider } from "@/components/admin/theme-context";
 import { ThemeCustomizer } from "@/components/admin/ThemeCustomizer";
 
+export const dynamic = "force-dynamic";
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
