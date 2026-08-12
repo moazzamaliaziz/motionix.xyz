@@ -107,8 +107,6 @@ const menuItems: NavGroup[] = [
       { label: "Profile", href: "/admin/profile", icon: UserCircle },
     ],
   },
-    ],
-  },
   {
     label: "System",
     children: [
