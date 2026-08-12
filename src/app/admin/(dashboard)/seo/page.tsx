@@ -26,51 +26,45 @@ export default async function SEOManagerPage() {
   ];
 
   const sections = [
-    { title: "Keywords & Clusters", desc: "Track target keywords, search volume, and topic cluster strategy.", href: "/admin/seo/keywords", icon: "◉" },
-    { title: "Internal Links", desc: "Map link structure, find orphan pages, and optimize link equity.", href: "/admin/seo/links", icon: "◈" },
-    { title: "Redirects", desc: "Manage 301/302 redirects and monitor redirect chains.", href: "/admin/seo/redirects", icon: "→" },
-    { title: "SEO Issues", desc: "View and resolve technical SEO issues found during audits.", href: "/admin/seo/issues", icon: issueCount ? "⚠" : "✓" },
+    { title: "Keywords & Clusters", desc: "Track target keywords, search volume, and topic cluster strategy.", href: "/admin/seo/keywords" },
+    { title: "Internal Links", desc: "Map link structure, find orphan pages, and optimize link equity.", href: "/admin/seo/links" },
+    { title: "Redirects", desc: "Manage 301/302 redirects and monitor redirect chains.", href: "/admin/seo/redirects" },
+    { title: "SEO Issues", desc: "View and resolve technical SEO issues found during audits.", href: "/admin/seo/issues" },
   ];
 
   return (
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-[22px] font-semibold text-white tracking-tight">SEO Manager</h1>
-          <p className="mt-1 text-[13px] text-white/30">Search engine optimization tools and tracking.</p>
+          <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>SEO Manager</h1>
+          <p className="mt-1 text-[13px]" style={{ color: "var(--a-text-3)" }}>Search engine optimization tools and tracking.</p>
         </div>
-        <button className="px-4 py-2 bg-white text-black rounded-lg text-[13px] font-medium hover:bg-white/90 transition-colors">
+        <button className="a-btn a-focus px-4 py-2 bg-white text-black rounded-md text-[13px] font-semibold hover:bg-white/90 transition-colors duration-100">
           Run Audit
         </button>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         {stats.map((stat) => (
-          <Link key={stat.label} href={stat.href} className="admin-card admin-card-hover p-4 transition-all duration-200">
-            <p className="text-[11px] font-medium text-white/25 uppercase tracking-wider">{stat.label}</p>
-            <p className="mt-2 text-[24px] font-semibold text-white tracking-tight">{stat.value}</p>
+          <Link key={stat.label} href={stat.href} className="a-card-interactive p-4 group block">
+            <p className="text-[12px] font-medium mb-2" style={{ color: "var(--a-text-3)" }}>{stat.label}</p>
+            <div className="flex items-baseline gap-2">
+              <span className="text-[28px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>{stat.value}</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+                className="transition-opacity duration-150 group-hover:opacity-100"
+                style={{ color: "var(--a-text-4)", opacity: 0.3 }}>
+                <path d="M4 2l4 4-4 4" />
+              </svg>
+            </div>
           </Link>
         ))}
       </div>
 
-      {/* Sections */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {sections.map((section) => (
-          <Link
-            key={section.href}
-            href={section.href}
-            className="admin-card admin-card-hover p-5 transition-all duration-200 group"
-          >
-            <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-[14px] text-white/25 shrink-0 group-hover:text-white/40 transition-colors">
-                {section.icon}
-              </div>
-              <div>
-                <h3 className="text-[14px] font-medium text-white/80 group-hover:text-white transition-colors">{section.title}</h3>
-                <p className="text-[12px] text-white/25 mt-1 leading-relaxed">{section.desc}</p>
-              </div>
-            </div>
+        {sections.map((s) => (
+          <Link key={s.href} href={s.href} className="a-card-interactive p-5 group block">
+            <h3 className="text-[14px] font-semibold group-hover:opacity-80 transition-opacity duration-100" style={{ color: "var(--a-text-1)" }}>{s.title}</h3>
+            <p className="text-[12px] mt-1 leading-relaxed" style={{ color: "var(--a-text-3)" }}>{s.desc}</p>
           </Link>
         ))}
       </div>

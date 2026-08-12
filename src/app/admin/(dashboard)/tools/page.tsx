@@ -8,8 +8,8 @@ export default async function ToolsManagerPage() {
   if (error) {
     return (
       <div className="space-y-6">
-        <h1 className="text-[22px] font-semibold text-white tracking-tight">Tools</h1>
-        <div className="admin-card p-4 border-red-500/20 bg-red-500/[0.03]">
+        <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Tools</h1>
+        <div className="a-card p-4" style={{ borderColor: "color-mix(in srgb, var(--a-error) 20%, transparent)" }}>
           <p className="text-[13px] text-red-400">{error.message}</p>
         </div>
       </div>
@@ -20,69 +20,55 @@ export default async function ToolsManagerPage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-[22px] font-semibold text-white tracking-tight">Tools</h1>
-          <p className="mt-1 text-[13px] text-white/30">{tools?.length || 0} registered</p>
+          <h1 className="text-[24px] font-bold tracking-tight" style={{ color: "var(--a-text-1)" }}>Tools</h1>
+          <p className="mt-1 text-[13px]" style={{ color: "var(--a-text-3)" }}>{tools?.length || 0} registered</p>
         </div>
-        <button className="px-4 py-2 bg-white text-black rounded-lg text-[13px] font-medium hover:bg-white/90 transition-colors">
+        <button className="a-btn a-focus px-4 py-2 bg-white text-black rounded-md text-[13px] font-semibold hover:bg-white/90 transition-colors duration-100">
           Add Tool
         </button>
       </div>
 
       {!tools?.length ? (
-        <div className="admin-card p-16 text-center">
-          <div className="w-12 h-12 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center mx-auto mb-4 text-xl opacity-50">🛠</div>
-          <p className="text-[14px] text-white/50 mb-1">No tools yet</p>
-          <p className="text-[13px] text-white/25">
-            Run <code className="px-1.5 py-0.5 bg-white/[0.06] rounded text-white/40 text-[12px]">supabase/seed.sql</code> to populate.
-          </p>
-        </div>
+        <EmptyState icon="🛠" title="No tools yet" hint="Run supabase/seed.sql to populate." />
       ) : (
-        <div className="admin-card overflow-hidden">
+        <div className="a-card overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-white/[0.06]">
+              <tr style={{ borderBottom: "1px solid var(--a-border)" }}>
                 {["Tool", "Engine", "Status", "Phase", ""].map((h) => (
-                  <th key={h} className="text-left px-5 py-3 text-[11px] font-medium text-white/25 uppercase tracking-wider">{h}</th>
+                  <th key={h} className="text-left px-4 py-3 text-[12px] font-medium" style={{ color: "var(--a-text-3)" }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {tools.map((tool, i) => (
-                <tr
-                  key={tool.id}
-                  className={`transition-colors hover:bg-white/[0.02] ${
-                    i < tools.length - 1 ? "border-b border-white/[0.03]" : ""
-                  }`}
+                <tr key={tool.id} className="transition-colors duration-100"
+                  style={{ borderBottom: i < tools.length - 1 ? "1px solid var(--a-border)" : "none" }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--a-bg-hover)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
                 >
-                  <td className="px-5 py-3.5">
+                  <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-sm">
+                      <div className="w-8 h-8 rounded-md flex items-center justify-center text-sm border" style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)" }}>
                         {tool.glyph || "🛠"}
                       </div>
                       <div>
-                        <p className="text-[13px] font-medium text-white/80">{tool.name}</p>
-                        <p className="text-[11px] text-white/20">/{tool.slug}</p>
+                        <p className="text-[13px] font-medium" style={{ color: "var(--a-text-1)" }}>{tool.name}</p>
+                        <p className="text-[11px]" style={{ color: "var(--a-text-4)" }}>/{tool.slug}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-5 py-3.5">
-                    <span className="text-[12px] text-white/35 font-mono">{tool.engine}</span>
+                  <td className="px-4 py-3">
+                    <span className="text-[12px] font-mono" style={{ color: "var(--a-text-3)" }}>{tool.engine}</span>
                   </td>
-                  <td className="px-5 py-3.5">
-                    <span className={`inline-flex items-center gap-1.5 text-[11px] font-medium ${
-                      tool.status === "published" ? "text-emerald-400" : "text-amber-400"
-                    }`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${
-                        tool.status === "published" ? "bg-emerald-500" : "bg-amber-500"
-                      }`} />
-                      {tool.status}
-                    </span>
+                  <td className="px-4 py-3">
+                    <StatusBadge status={tool.status} />
                   </td>
-                  <td className="px-5 py-3.5">
-                    <span className="text-[12px] text-white/30">{tool.phase}</span>
+                  <td className="px-4 py-3">
+                    <span className="text-[12px]" style={{ color: "var(--a-text-4)" }}>{tool.phase}</span>
                   </td>
-                  <td className="px-5 py-3.5 text-right">
-                    <Link href={`/admin/tools/${tool.slug}`} className="text-[12px] text-white/30 hover:text-white/60 transition-colors">
+                  <td className="px-4 py-3 text-right">
+                    <Link href={`/admin/tools/${tool.slug}`} className="text-[12px] transition-colors duration-100 hover:opacity-80" style={{ color: "var(--a-text-3)" }}>
                       Edit →
                     </Link>
                   </td>
@@ -92,6 +78,31 @@ export default async function ToolsManagerPage() {
           </table>
         </div>
       )}
+    </div>
+  );
+}
+
+function StatusBadge({ status }: { status: string }) {
+  const isPublished = status === "published";
+  return (
+    <span className="inline-flex items-center gap-1.5 text-[11px] font-medium"
+      style={{ color: isPublished ? "var(--a-success)" : "var(--a-warning)" }}>
+      <span className="w-1.5 h-1.5 rounded-full" style={{ background: isPublished ? "var(--a-success)" : "var(--a-warning)" }} />
+      {status}
+    </span>
+  );
+}
+
+function EmptyState({ icon, title, hint }: { icon: string; title: string; hint: string }) {
+  return (
+    <div className="a-card p-16 text-center">
+      <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl border" style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)", opacity: 0.5 }}>
+        {icon}
+      </div>
+      <p className="text-[14px] font-medium mb-1" style={{ color: "var(--a-text-2)" }}>{title}</p>
+      <p className="text-[13px]" style={{ color: "var(--a-text-4)" }}>
+        Run <code className="px-1.5 py-0.5 rounded text-[12px]" style={{ background: "var(--a-bg-elevated)", color: "var(--a-text-3)" }}>supabase/seed.sql</code> to populate.
+      </p>
     </div>
   );
 }

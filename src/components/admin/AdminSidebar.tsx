@@ -2,134 +2,31 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface AdminSidebarProps {
   role: string;
 }
 
-// Inline SVG icons — compact, crisp at 16px
 const icons = {
-  dashboard: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="1.5" y="1.5" width="5" height="5" rx="1" />
-      <rect x="9.5" y="1.5" width="5" height="5" rx="1" />
-      <rect x="1.5" y="9.5" width="5" height="5" rx="1" />
-      <rect x="9.5" y="9.5" width="5" height="5" rx="1" />
-    </svg>
-  ),
-  tools: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10.5 1.5l4 4-8 8H2.5v-4l8-8z" />
-      <path d="M8 4l4 4" />
-    </svg>
-  ),
-  blog: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H2V2z" />
-      <path d="M5 6h6M5 9h4" />
-    </svg>
-  ),
-  media: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="1.5" y="1.5" width="13" height="13" rx="2" />
-      <circle cx="5.5" cy="5.5" r="1.5" />
-      <path d="M14.5 10.5l-4-4-8.5 8.5" />
-    </svg>
-  ),
-  translations: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M1.5 1.5h5v5h-5z" />
-      <path d="M9.5 1.5h5v5h-5z" />
-      <path d="M1.5 9.5h5v5h-5z" />
-      <path d="M12 9.5v5M9.5 12h5" />
-    </svg>
-  ),
-  seo: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="7" cy="7" r="5" />
-      <path d="M14.5 14.5l-4-4" />
-    </svg>
-  ),
-  keywords: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M1 5.5h14M1 10.5h14" />
-      <path d="M4 1.5v13M12 1.5v13" />
-    </svg>
-  ),
-  clusters: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="8" cy="8" r="3" />
-      <circle cx="3" cy="3" r="1.5" />
-      <circle cx="13" cy="3" r="1.5" />
-      <circle cx="3" cy="13" r="1.5" />
-      <circle cx="13" cy="13" r="1.5" />
-      <path d="M5.5 5.5L4.5 4.5M10.5 5.5l1-1M5.5 10.5l-1 1M10.5 10.5l1 1" />
-    </svg>
-  ),
-  links: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M7 9a3 3 0 004 .5l2-2a3 3 0 00-4.2-4.3L7.5 4.5" />
-      <path d="M9 7a3 3 0 00-4-.5l-2 2a3 3 0 004.2 4.3L8.5 11.5" />
-    </svg>
-  ),
-  redirects: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 8h10M9 4l4 4-4 4" />
-    </svg>
-  ),
-  analytics: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M1.5 14.5v-4l3-3 3 2 4-6 3.5 3.5" />
-    </svg>
-  ),
-  searchConsole: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="1.5" y="2.5" width="13" height="11" rx="1.5" />
-      <path d="M1.5 6h13M5 2.5v3.5M11 2.5v3.5" />
-    </svg>
-  ),
-  performance: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="8" cy="10" r="6" />
-      <path d="M8 10l3-5" />
-      <circle cx="8" cy="10" r="1" />
-    </svg>
-  ),
-  users: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="6" cy="5" r="3" />
-      <path d="M1 14c0-3 2.5-5 5-5s5 2 5 5" />
-      <circle cx="12" cy="5" r="2" />
-      <path d="M11 9c2 0.5 4 2 4 5" />
-    </svg>
-  ),
-  roles: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="3" width="12" height="10" rx="2" />
-      <circle cx="8" cy="7" r="2" />
-      <path d="M5 13v-1c0-1.5 1.5-2.5 3-2.5s3 1 3 2.5v1" />
-    </svg>
-  ),
-  activity: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="8" cy="8" r="6.5" />
-      <path d="M8 4v4l3 2" />
-    </svg>
-  ),
-  flags: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2.5 1.5v13" />
-      <path d="M2.5 1.5h9l-2 3.5 2 3.5h-9" />
-    </svg>
-  ),
-  settings: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="8" cy="8" r="2.5" />
-      <path d="M13 10v1.5a1.5 1.5 0 01-3 0v-1a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V10a1.5 1.5 0 00-3 0v1.5a1.5 1.5 0 01-3 0" />
-      <path d="M14 6V4.5a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0v-1a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V6" />
-    </svg>
-  ),
+  dashboard: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5.5" height="5.5" rx="1.5"/><rect x="10.5" y="2" width="5.5" height="5.5" rx="1.5"/><rect x="2" y="10.5" width="5.5" height="5.5" rx="1.5"/><rect x="10.5" y="10.5" width="5.5" height="5.5" rx="1.5"/></svg>,
+  tools: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M11.5 2l4.5 4.5-8.5 8.5H3v-4.5L11.5 2z"/><path d="M9 4.5l4.5 4.5"/></svg>,
+  blog: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="10" height="14" rx="2"/><path d="M5 6h6M5 9h4"/></svg>,
+  media: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="14" height="14" rx="2.5"/><circle cx="6.5" cy="6.5" r="1.5"/><path d="M16 12l-5-5-9 9"/></svg>,
+  translations: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="5.5" height="5.5" rx="1"/><rect x="10.5" y="2" width="5.5" height="5.5" rx="1"/><rect x="2" y="10.5" width="5.5" height="5.5" rx="1"/><path d="M13.5 10.5v5.5M10.75 13.25h5.5"/></svg>,
+  seo: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="8" r="5.5"/><path d="M16 16l-4-4"/></svg>,
+  keywords: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M1 6h16M1 12h16"/><path d="M4.5 2v14M13.5 2v14"/></svg>,
+  clusters: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="3"/><circle cx="3.5" cy="3.5" r="1.5"/><circle cx="14.5" cy="3.5" r="1.5"/><circle cx="3.5" cy="14.5" r="1.5"/><circle cx="14.5" cy="14.5" r="1.5"/><path d="M6.5 6.5L5 5M11.5 6.5l1.5-1.5M6.5 11.5L5 13M11.5 11.5l1.5 1.5"/></svg>,
+  links: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7.5 10.5a3.5 3.5 0 005 .5l2.5-2.5a3.5 3.5 0 00-5-5L9 4.5"/><path d="M10.5 7.5a3.5 3.5 0 00-5-.5L3 9.5a3.5 3.5 0 005 5l1-1"/></svg>,
+  redirects: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9h12M11 5l4 4-4 4"/></svg>,
+  analytics: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 16v-5l3.5-3.5 3 2.5 5.5-7 2 2"/></svg>,
+  searchConsole: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="14" height="12" rx="2"/><path d="M2 7h14M5.5 3v4M12.5 3v4"/></svg>,
+  performance: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="11" r="6.5"/><path d="M9 11l3.5-5.5"/><circle cx="9" cy="11" r="1"/></svg>,
+  users: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="7" cy="5.5" r="3"/><path d="M1.5 16c0-3.5 3-5.5 5.5-5.5s5.5 2 5.5 5.5"/><circle cx="13.5" cy="6" r="2"/><path d="M12.5 10.5c2.5 0.5 4.5 2 4.5 5.5"/></svg>,
+  roles: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2.5" y="3.5" width="13" height="11" rx="2.5"/><circle cx="9" cy="8" r="2.5"/><path d="M5.5 14.5v-1.5c0-1.5 2-3 3.5-3s3.5 1.5 3.5 3V14.5"/></svg>,
+  activity: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="7"/><path d="M9 5v4l3.5 2"/></svg>,
+  flags: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 2v14"/><path d="M3 2h10l-2.5 4 2.5 4H3"/></svg>,
+  settings: <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="9" r="2.5"/><path d="M14.5 11.5v1.5a1.5 1.5 0 01-3 0v-1a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V11.5a1.5 1.5 0 00-3 0v1.5a1.5 1.5 0 01-3 0"/><path d="M15.5 6.5V5a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V5a1.5 1.5 0 00-3 0v1a1.5 1.5 0 01-3 0V6.5"/></svg>,
 };
 
 const menuItems = [
@@ -185,7 +82,7 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Auto-expand sections containing the active page
+  // Auto-expand sections containing active page
   useEffect(() => {
     const newExpanded: Record<string, boolean> = {};
     menuItems.forEach((item) => {
@@ -197,26 +94,36 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
     setExpanded((prev) => ({ ...newExpanded, ...prev }));
   }, [pathname]);
 
-  const toggle = (label: string) =>
-    setExpanded((prev) => ({ ...prev, [label]: !prev[label] }));
+  // Keyboard shortcut: Cmd+B / Ctrl+B
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "b") {
+        e.preventDefault();
+        setCollapsed((c) => !c);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
+  const toggle = useCallback((label: string) =>
+    setExpanded((prev) => ({ ...prev, [label]: !prev[label] })), []);
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(href + "/");
 
   const sidebarContent = (
     <>
-      {/* Logo */}
-      <div className="h-14 flex items-center px-5 border-b border-white/[0.06]">
+      {/* Logo area */}
+      <div className="h-14 flex items-center px-4 border-b" style={{ borderColor: "var(--a-border)" }}>
         <Link href="/admin" className="flex items-center gap-2.5 group">
-          <div className="w-7 h-7 rounded-md bg-white flex items-center justify-center transition-transform group-hover:scale-105">
+          <div className="w-7 h-7 rounded-md bg-white flex items-center justify-center transition-transform duration-150 group-hover:scale-105">
             <span className="text-black font-bold text-[11px]">M</span>
           </div>
           {!collapsed && (
             <div className="flex items-baseline gap-1.5">
-              <span className="font-semibold text-[14px] text-white tracking-tight">Motionix</span>
-              <span className="text-[10px] font-medium text-white/30 bg-white/[0.06] px-1.5 py-0.5 rounded">
-                admin
-              </span>
+              <span className="font-semibold text-[14px] tracking-tight" style={{ color: "var(--a-text-1)" }}>Motionix</span>
+              <span className="text-[10px] font-medium px-1.5 py-0.5 rounded" style={{ color: "var(--a-text-4)", background: "var(--a-border)" }}>admin</span>
             </div>
           )}
         </Link>
@@ -224,36 +131,42 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-3 sidebar-scroll">
-        <ul className="space-y-1">
+        <ul className="space-y-0.5">
           {menuItems.map((item) => (
             <li key={item.label}>
               {item.href ? (
                 <Link
                   href={item.href}
                   title={collapsed ? item.label : undefined}
-                  className={`flex items-center gap-2.5 px-2.5 py-[7px] rounded-md text-[13px] transition-all duration-150 ${
-                    pathname === item.href
-                      ? "bg-white/[0.08] text-white"
-                      : "text-white/40 hover:bg-white/[0.04] hover:text-white/70"
-                  }`}
+                  className="a-focus relative flex items-center gap-2.5 px-2.5 py-[7px] rounded-md text-[13px] font-medium transition-colors duration-100"
+                  style={{
+                    color: pathname === item.href ? "var(--a-text-1)" : "var(--a-text-3)",
+                    background: pathname === item.href ? "var(--a-bg-elevated)" : "transparent",
+                  }}
+                  onMouseEnter={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "var(--a-bg-hover)"; }}
+                  onMouseLeave={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "transparent"; }}
                 >
-                  <span className="shrink-0 w-4 h-4 flex items-center justify-center opacity-70">{item.icon}</span>
+                  {/* Active bar */}
+                  {pathname === item.href && (
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 rounded-r-full" style={{ background: "var(--a-accent)" }} />
+                  )}
+                  <span className="shrink-0 w-[18px] h-[18px] flex items-center justify-center" style={{ opacity: pathname === item.href ? 1 : 0.5 }}>{item.icon}</span>
                   {!collapsed && <span>{item.label}</span>}
                 </Link>
               ) : (
-                <div className="mt-2">
+                <div className="mt-2.5">
                   <button
                     onClick={() => toggle(item.label)}
-                    className="flex items-center justify-between w-full px-2.5 py-[5px] text-[10px] font-semibold text-white/25 uppercase tracking-[0.08em] hover:text-white/40 transition-colors"
+                    className="flex items-center justify-between w-full px-2.5 py-[5px] text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors duration-100"
+                    style={{ color: "var(--a-text-4)" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "var(--a-text-3)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "var(--a-text-4)"; }}
                   >
                     {!collapsed && (
                       <>
                         <span>{item.label}</span>
-                        <svg
-                          width="8" height="8" viewBox="0 0 8 8" fill="none"
-                          stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
-                          className={`transition-transform duration-200 ${expanded[item.label] ? "rotate-90" : ""}`}
-                        >
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+                          className={`transition-transform duration-150 ${expanded[item.label] ? "rotate-90" : ""}`}>
                           <path d="M2 1l3 3-3 3" />
                         </svg>
                       </>
@@ -268,17 +181,20 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
                             <Link
                               href={child.href}
                               title={collapsed ? child.label : undefined}
-                              className={`flex items-center gap-2.5 px-2.5 py-[6px] rounded-md text-[13px] transition-all duration-150 ${
-                                active
-                                  ? "bg-white/[0.08] text-white"
-                                  : "text-white/35 hover:bg-white/[0.04] hover:text-white/60"
-                              }`}
+                              className="a-focus relative flex items-center gap-2.5 px-2.5 py-[6px] rounded-md text-[13px] transition-colors duration-100"
+                              style={{
+                                color: active ? "var(--a-text-1)" : "var(--a-text-3)",
+                                background: active ? "var(--a-bg-elevated)" : "transparent",
+                                fontWeight: active ? 500 : 400,
+                              }}
+                              onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "var(--a-bg-hover)"; }}
+                              onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
                             >
-                              <span className="shrink-0 w-4 h-4 flex items-center justify-center opacity-50">{child.icon}</span>
-                              {!collapsed && <span>{child.label}</span>}
-                              {!collapsed && active && (
-                                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-blue-500" />
+                              {active && (
+                                <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-3.5 rounded-r-full" style={{ background: "var(--a-accent)" }} />
                               )}
+                              <span className="shrink-0 w-[18px] h-[18px] flex items-center justify-center" style={{ opacity: active ? 1 : 0.4 }}>{child.icon}</span>
+                              {!collapsed && <span>{child.label}</span>}
                             </Link>
                           </li>
                         );
@@ -293,11 +209,11 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="border-t border-white/[0.06] px-3 py-3">
+      <div className="border-t px-3 py-3" style={{ borderColor: "var(--a-border)" }}>
         <div className="flex items-center gap-2.5 px-2.5">
-          <div className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+          <div className="w-2 h-2 rounded-full shrink-0" style={{ background: "var(--a-success)" }} />
           {!collapsed && (
-            <span className="text-[11px] text-white/30 truncate">
+            <span className="text-[11px] truncate" style={{ color: "var(--a-text-4)" }}>
               {role}
             </span>
           )}
@@ -311,7 +227,8 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
       {/* Mobile hamburger */}
       <button
         onClick={() => setMobileOpen(!mobileOpen)}
-        className="fixed top-3 left-3 z-[60] md:hidden w-8 h-8 flex items-center justify-center rounded-md bg-[#111] border border-white/[0.08] text-white/60 hover:text-white transition-colors"
+        className="fixed top-3 left-3 z-[60] md:hidden w-8 h-8 flex items-center justify-center rounded-md border a-btn a-focus"
+        style={{ background: "var(--a-bg-surface)", borderColor: "var(--a-border)", color: "var(--a-text-2)" }}
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
           {mobileOpen ? <path d="M4 4l8 8M12 4l-8 8" /> : <><path d="M2 4h12M2 8h12M2 12h12" /></>}
@@ -320,26 +237,27 @@ export function AdminSidebar({ role }: AdminSidebarProps) {
 
       {/* Mobile overlay */}
       {mobileOpen && (
-        <div
-          className="fixed inset-0 bg-black/60 z-[49] md:hidden"
-          onClick={() => setMobileOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[49] md:hidden" onClick={() => setMobileOpen(false)} />
       )}
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 z-50 flex flex-col bg-[#0c0c0c] border-r border-white/[0.06] transition-all duration-200 ${
-          collapsed ? "w-[60px]" : "w-[240px]"
+        className={`fixed top-0 left-0 bottom-0 z-50 flex flex-col border-r transition-[width] duration-200 ${
+          collapsed ? "w-[60px]" : "w-[256px]"
         } ${mobileOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+        style={{ background: "var(--a-bg-page)", borderColor: "var(--a-border)" }}
       >
         {sidebarContent}
 
         {/* Collapse toggle — desktop only */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="hidden md:flex absolute -right-3 top-[72px] w-6 h-6 rounded-full bg-[#191919] border border-white/[0.08] items-center justify-center text-white/40 hover:text-white/70 hover:bg-[#222] transition-all duration-150 z-10"
+          className="hidden lg:flex absolute -right-3 top-[72px] w-6 h-6 rounded-full border items-center justify-center z-10 a-btn a-focus"
+          style={{ background: "var(--a-bg-elevated)", borderColor: "var(--a-border)", color: "var(--a-text-4)" }}
+          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className={`transition-transform duration-200 ${collapsed ? "rotate-180" : ""}`}>
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"
+            className={`transition-transform duration-200 ${collapsed ? "rotate-180" : ""}`}>
             <path d="M7 1L3 5l4 4" />
           </svg>
         </button>
