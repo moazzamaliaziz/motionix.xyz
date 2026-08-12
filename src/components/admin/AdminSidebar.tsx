@@ -164,7 +164,7 @@ export function AdminSidebar({ role }: { role: string }) {
                         : "text-[var(--a-text-3)] hover:bg-[var(--a-bg-hover)] hover:text-[var(--a-text-1)]"
                     }`}
                   >
-                    <Icon className="size-[1.15rem] shrink-0 opacity-70" />
+                    {Icon && <Icon className="size-[1.15rem] shrink-0 opacity-70" />}
                     {!sidebarCollapsed && <span>{item.label}</span>}
                   </Link>
                 ) : (
@@ -178,7 +178,7 @@ export function AdminSidebar({ role }: { role: string }) {
                           : "text-[var(--a-text-3)] hover:bg-[var(--a-bg-hover)] hover:text-[var(--a-text-1)]"
                       }`}
                     >
-                      <Icon className="size-[1.15rem] shrink-0 opacity-70" />
+                    {Icon && <Icon className="size-[1.15rem] shrink-0 opacity-70" />}
                       {!sidebarCollapsed && (
                         <>
                           <span className="flex-1 text-left">{item.label}</span>
