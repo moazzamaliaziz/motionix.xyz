@@ -16,7 +16,7 @@ export function BarChartCard({ title, data, bars, height = 300, className = "" }
       <h3 className="text-lg font-semibold text-[var(--a-text-1)]">{title}</h3>
       <div className="mt-4" style={{ height }}>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} barCategoryGap={4}>
+          <BarChart data={data} barCategoryGap={4} barGap={2}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--a-border)" horizontal={true} vertical={false} />
             <XAxis
               dataKey="name"
@@ -46,7 +46,6 @@ export function BarChartCard({ title, data, bars, height = 300, className = "" }
                 name={bar.name}
                 fill={bar.color}
                 barSize={16}
-                barGap={2}
                 radius={[8, 8, 0, 0]}
                 isAnimationActive={false}
               />
