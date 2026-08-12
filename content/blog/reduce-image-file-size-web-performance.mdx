@@ -1,0 +1,61 @@
+---
+title: "How to reduce image file size for web performance"
+description: "Image optimization for Core Web Vitals — formats, compression, lazy loading, and responsive images."
+date: "2026-08-08"
+author: "Motionix"
+tags: ["web performance", "Core Web Vitals", "optimization"]
+readingMinutes: 7
+---
+
+Images account for 50-70% of a typical webpage's total bytes. Optimizing them is the single highest-impact performance improvement you can make.
+
+## The Core Web Vitals connection
+
+Google's Core Web Vitals directly impact SEO rankings:
+- **LCP (Largest Contentful Paint):** Often an image. Faster load = better score.
+- **CLS (Cumulative Layout Shift):** Images without dimensions cause layout shifts.
+- **INP (Interaction to Next Paint):** Large images block the main thread during decode.
+
+## Image optimization checklist
+
+### 1. Choose the right format
+- **Photos:** WebP (25-35% smaller than JPEG)
+- **Graphics with transparency:** WebP or PNG
+- **Icons:** SVG (vector, infinitely scalable)
+- **Animated:** WebP animation (50-70% smaller than GIF)
+
+### 2. Compress appropriately
+- **Hero images:** Quality 80-85 (visually identical)
+- **Thumbnails:** Quality 60-70 (acceptable at small sizes)
+- **Background images:** Quality 50-60 (often blurred anyway)
+
+### 3. Serve responsive images
+Use `<picture>` or `srcset` to serve different sizes based on viewport:
+- Mobile: 640px wide
+- Tablet: 1024px wide
+- Desktop: 1920px wide
+
+### 4. Lazy load below-the-fold images
+Add `loading="lazy"` to images that aren't immediately visible. Don't lazy load hero images.
+
+### 5. Set explicit dimensions
+Always include `width` and `height` attributes to prevent layout shifts.
+
+## Measuring impact
+
+Use Lighthouse or PageSpeed Insights to measure:
+- **LCP target:** < 2.5 seconds
+- **Image weight target:** < 500 KB total per page
+- **Format target:** WebP or AVIF for all photos
+
+## Common mistakes
+
+- **Serving 4K images to mobile.** A 400px-wide phone doesn't need a 3840px image.
+- **Using PNG for photos.** PNG is 5-10x larger than WebP for photographs.
+- **Not lazy loading.** Loading 20 images at once blocks rendering.
+- **Missing dimensions.** Causes layout shifts that hurt CLS scores.
+
+## Related tools
+
+- [Image Compressor](/tools/image-compressor) — compress for web delivery
+- [Photo Resizer](/tools/photo-resizer) — create responsive image sizes

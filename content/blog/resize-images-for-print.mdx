@@ -1,0 +1,61 @@
+---
+title: "How to resize images for print: DPI, dimensions, and quality"
+description: "Convert screen-resolution images to print-ready files with the correct DPI and dimensions."
+date: "2026-08-06"
+author: "Motionix"
+tags: ["print", "DPI", "resize"]
+readingMinutes: 6
+---
+
+Printing requires higher resolution than screens. A photo that looks sharp on your monitor might print blurry. Here's how to prepare images for print.
+
+## DPI explained
+
+**DPI (Dots Per Inch)** measures print resolution:
+- **72 DPI:** Screen standard. Looks fine on monitors, blurry in print.
+- **150 DPI:** Acceptable for large prints viewed from a distance (posters, banners).
+- **300 DPI:** Professional standard. Sharp at normal viewing distance.
+
+## Print size calculations
+
+To find the pixel dimensions needed for a print:
+
+```
+Width in inches × DPI = pixels needed
+8 inches × 300 DPI = 2400 pixels wide
+```
+
+## Common print sizes
+
+| Print size | Pixels at 300 DPI | Pixels at 150 DPI |
+|-----------|-------------------|-------------------|
+| 4×6 inches | 1200×1800 | 600×900 |
+| 5×7 inches | 1500×2100 | 750×1050 |
+| 8×10 inches | 2400×3000 | 1200×1500 |
+| A4 (8.3×11.7) | 2490×3510 | 1245×1755 |
+| Letter (8.5×11) | 2550×3300 | 1275×1650 |
+
+## Resizing for print
+
+1. **Check the original resolution.** If the image is 1200×1800 pixels, it's good for a 4×6 print at 300 DPI.
+2. **Resize to the target dimensions.** Don't upscale — it creates softness.
+3. **Set the DPI metadata.** Some print services read DPI metadata.
+4. **Save as JPEG at quality 90+.** Print needs higher quality than screen.
+
+## When upscaling is necessary
+
+If you need a larger print than the resolution supports:
+- **AI upscaling** can increase resolution by 2-4x with reasonable quality.
+- **Accept lower DPI.** A 200 DPI print is acceptable for most viewing distances.
+- **Viewing distance matters.** A poster viewed from 6 feet looks fine at 150 DPI.
+
+## Common mistakes
+
+- **Using screen-resolution images for print.** 72 DPI prints look blurry.
+- **Over-compressing.** JPEG artifacts are much more visible in print than on screen.
+- **Ignoring aspect ratio.** Resizing distorts the image if proportions aren't maintained.
+
+## Related tools
+
+- [Photo Resizer](/tools/photo-resizer) — resize to exact print dimensions
+- [Image Compressor](/tools/image-compressor) — compress for print service uploads

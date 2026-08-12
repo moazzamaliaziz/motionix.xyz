@@ -1,0 +1,59 @@
+---
+title: "How to compress PNG files without losing transparency"
+description: "PNG compression techniques that reduce file size while preserving the alpha channel for transparent images."
+date: "2026-08-02"
+author: "Motionix"
+tags: ["PNG", "compression", "transparency"]
+readingMinutes: 5
+---
+
+PNG files with transparency are often larger than they need to be. Here's how to shrink them without losing the transparency that makes them useful.
+
+## Why PNGs are large
+
+PNG uses lossless compression — every pixel is preserved exactly. For photographs, this means file sizes 5-10x larger than JPEG. For screenshots and graphics with flat colors, PNG is actually efficient.
+
+The transparency (alpha channel) adds 25% to the file size because it stores an extra value for every pixel.
+
+## Compression techniques
+
+### 1. Remove unnecessary metadata
+PNG files can contain EXIF data, color profiles, and text chunks. Removing these saves 5-15% without affecting the image.
+
+### 2. Reduce color depth
+If your image doesn't need 16 million colors, use a palette:
+- **8-bit palette (256 colors):** Great for logos, icons, simple graphics
+- **24-bit:** Standard for photographs (no transparency)
+- **32-bit:** 24-bit + 8-bit alpha channel (transparency)
+
+### 3. Optimize the alpha channel
+If parts of your image are fully opaque, you can set the alpha channel to 100% in those areas. Some encoders store unnecessary transparency data.
+
+### 4. Use PNG optimization tools
+Tools like pngquant, OptiPNG, and zopflipng can reduce PNG size by 20-50% losslessly.
+
+## When to use WebP instead
+
+WebP supports transparency with both lossy and lossless compression:
+- **Lossy WebP with alpha:** 50-70% smaller than PNG
+- **Lossless WebP:** 20-30% smaller than PNG
+
+Browser support for WebP transparency is 97% in 2026.
+
+## Workflow for transparent images
+
+1. **Create the image** with transparency as needed.
+2. **Export as PNG** from your editor.
+3. **Optimize the PNG** with a compression tool.
+4. **Consider WebP** if the file is still too large and browser support is acceptable.
+
+## Common mistakes
+
+- **Converting JPEG to PNG.** You don't gain transparency — just a larger file.
+- **Using 32-bit PNG for non-transparent images.** Use 24-bit if you don't need transparency.
+- **Over-compressing.** Lossy PNG compression can create visible banding in gradients.
+
+## Related tools
+
+- [Image Compressor](/tools/image-compressor) — compress PNGs while preserving transparency
+- [Background Remover](/tools/background-remover) — create transparent PNGs from photos

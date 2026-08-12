@@ -1,0 +1,60 @@
+---
+title: "How to compress video for email and messaging"
+description: "Shrink MP4, MOV, and WebM files to fit under email and messaging app size limits."
+date: "2026-07-18"
+author: "Motionix"
+tags: ["video", "email", "compression"]
+readingMinutes: 6
+---
+
+Most email providers cap attachments at 20-25 MB. WhatsApp limits videos to 16 MB. Discord caps at 25 MB (free) or 50 MB (Nitro). A 2-minute phone video can easily be 200 MB. Here's how to shrink it.
+
+## Size limits by platform
+
+| Platform | Limit | Recommended approach |
+|----------|-------|---------------------|
+| Gmail | 25 MB | Compress to 20 MB |
+| Outlook | 20 MB | Compress to 15 MB |
+| WhatsApp | 16 MB | Compress to 14 MB |
+| Discord (free) | 25 MB | Compress to 22 MB |
+| Slack | 1 GB | Usually no compression needed |
+| iMessage | 100 MB | Compress to 80 MB |
+
+## How video compression works
+
+Video compression removes redundant data:
+- **Temporal compression.** Only stores differences between frames, not every full frame.
+- **Spatial compression.** Reduces detail in areas the eye can't see (like smooth gradients).
+- **Audio compression.** AAC audio at 128 kbps is indistinguishable from the original for most content.
+
+## Step-by-step compression
+
+1. **Check the original file size.** Right-click → Properties (Windows) or Get Info (Mac).
+2. **Set a target size.** If the limit is 25 MB, target 20 MB for safety.
+3. **Use a browser-based compressor.** No upload, no server, no waiting.
+4. **Download the result.** The compressed video is ready to attach.
+
+## Quality settings
+
+| Target | Quality | Use case |
+|--------|---------|----------|
+| Email (20 MB) | Medium | Good enough for most content |
+| WhatsApp (16 MB) | Medium-Low | Acceptable for casual videos |
+| Archive (no limit) | High | Keep maximum quality |
+
+## What gets sacrificed
+
+- **Resolution.** 4K → 1080p or 720p for significant savings.
+- **Bitrate.** Lower bitrate = smaller file, but more compression artifacts.
+- **Audio quality.** 128 kbps AAC is usually fine; 64 kbps is acceptable for voice.
+- **Frame rate.** 30 fps → 24 fps saves ~20% with minimal visible difference.
+
+## Common mistakes
+
+- **Compressing already-compressed video.** H.264 → H.264 doesn't help much. You need to reduce resolution or bitrate.
+- **Over-compressing.** Below 500 kbps for 1080p, artifacts become very visible.
+- **Not checking the result.** Always preview before sending.
+
+## Related tools
+
+- [Video Compressor](/tools/video-compressor) — target specific file sizes, runs in browser

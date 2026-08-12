@@ -1,0 +1,71 @@
+---
+title: "Browser-based vs cloud-based image tools: a privacy comparison"
+description: "What happens to your files when you use online image tools — and why browser-based processing is the safer choice."
+date: "2026-07-28"
+author: "Motionix"
+tags: ["privacy", "cloud", "comparison"]
+readingMinutes: 6
+---
+
+When you upload a photo to an online tool, where does it go? What happens to it after you download the result? The answers vary widely — and most users never ask.
+
+## How cloud-based tools work
+
+1. You upload your file to their server.
+2. Their server processes the file (resize, compress, remove background, etc.).
+3. You download the result.
+4. They... keep the file? Delete it? Use it for training?
+
+Most cloud tools delete files after 1-24 hours. But "delete" on a server doesn't always mean gone — backups, logs, and caches may retain copies.
+
+## How browser-based tools work
+
+1. Your browser downloads the processing code (JavaScript).
+2. Your browser reads the file from your local filesystem.
+3. Your browser processes the file using built-in APIs (Canvas, WebGL, ONNX Runtime).
+4. Your browser offers the result as a download.
+
+At no point does your file leave your device. The server only serves the code — it never sees your file.
+
+## Privacy comparison
+
+| Aspect | Cloud-based | Browser-based |
+|--------|-------------|---------------|
+| File upload | Yes | No |
+| Server sees your file | Yes | No |
+| File retention policy | Varies (1-24 hours typically) | N/A (never uploaded) |
+| GDPR implications | Data transfer to third party | No data transfer |
+| Training data risk | Possible | None |
+| Man-in-the-middle risk | Yes | No |
+
+## When cloud-based is acceptable
+
+- You're processing non-sensitive images (stock photos, public content)
+- You trust the service's privacy policy
+- You need features that require server-side processing (video background removal, large file handling)
+- You're okay with the file being on their server temporarily
+
+## When browser-based is essential
+
+- Personal photos (family, children, medical images)
+- Business documents (contracts, IDs, financial records)
+- Client work (NDAs, confidential materials)
+- Anything you wouldn't email to a stranger
+
+## How to verify browser-based claims
+
+1. Open your browser's Developer Tools (F12).
+2. Go to the Network tab.
+3. Upload a file to the tool.
+4. Watch for any upload requests to external servers.
+
+If the tool is truly browser-based, you'll see no network requests with your file data.
+
+## Related tools on Motionix
+
+All Motionix tools process in your browser. Your files never leave your device.
+
+- [Background Remover](/tools/background-remover)
+- [Image Compressor](/tools/image-compressor)
+- [Video Compressor](/tools/video-compressor)
+- [Photo Resizer](/tools/photo-resizer)

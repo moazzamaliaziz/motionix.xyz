@@ -1,0 +1,54 @@
+---
+title: "Image compression for email newsletters"
+description: "Optimize images for email clients — Gmail, Outlook, Apple Mail — without losing quality or getting flagged as spam."
+date: "2026-08-12"
+author: "Motionix"
+tags: ["email", "newsletter", "compression"]
+readingMinutes: 5
+---
+
+Email newsletters have unique image constraints. Too large and they get clipped by Gmail. Too small and they look blurry on Retina screens. Here's how to get it right.
+
+## Email client image handling
+
+| Client | Max email size | Image display | Clipping threshold |
+|--------|---------------|---------------|-------------------|
+| Gmail | 25 MB | Blocks by default (user must enable) | 102 KB (HTML) |
+| Outlook | 20 MB | Displays | No clipping |
+| Apple Mail | 20 MB | Displays | No clipping |
+| Yahoo | 25 MB | Blocks by default | No clipping |
+
+## Recommended image specs
+
+- **Width:** 600-800 px (standard email width)
+- **Format:** JPEG for photos, PNG for graphics
+- **Quality:** 70-80 (visually identical at email viewing distance)
+- **File size:** < 200 KB per image
+- **Total email size:** < 1 MB (for fast loading)
+
+## Compression workflow
+
+1. **Resize to 600-800 px wide.** Emails are typically 600px wide.
+2. **Compress to quality 75.** Good enough for email viewing.
+3. **Check total email size.** Add up all images + HTML + text.
+4. **Test in multiple clients.** Gmail, Outlook, and Apple Mail render differently.
+
+## Common mistakes
+
+- **Embedding full-resolution images.** A 4000px image in a 600px email wastes bandwidth.
+- **Using only images.** Emails with no text get flagged as spam.
+- **Not providing alt text.** Many clients block images by default.
+- **Over-compressing.** Below quality 60, artifacts become visible on Retina screens.
+
+## Retina displays
+
+For Retina/HiDPI screens, serve 2x images:
+- Display at 400px wide → serve 800px image
+- Use CSS `max-width: 100%` to scale down
+
+This looks sharp on Retina while still being reasonable file size.
+
+## Related tools
+
+- [Image Compressor](/tools/image-compressor) — compress for email delivery
+- [Photo Resizer](/tools/photo-resizer) — resize to email-appropriate dimensions

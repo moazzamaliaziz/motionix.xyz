@@ -1,0 +1,52 @@
+---
+title: "How to compress images for WordPress and CMS uploads"
+description: "Shrink images before uploading to WordPress, Squarespace, Wix, and other CMS platforms."
+date: "2026-08-10"
+author: "Motionix"
+tags: ["WordPress", "CMS", "compression"]
+readingMinutes: 5
+---
+
+Most CMS platforms have upload size limits and compress images on the server anyway. Pre-compressing gives you control over the quality and ensures faster page loads.
+
+## CMS upload limits
+
+| Platform | Default limit | Recommended image size |
+|----------|---------------|----------------------|
+| WordPress | 2-64 MB (host-dependent) | < 500 KB |
+| Squarespace | 20 MB | < 500 KB |
+| Wix | 15 MB | < 500 KB |
+| Shopify | 20 MB | < 300 KB |
+| Webflow | 4 MB | < 300 KB |
+
+## Why pre-compress
+
+1. **Control over quality.** CMS compression algorithms vary. Pre-compressing ensures consistent quality.
+2. **Faster uploads.** Smaller files upload faster, especially on slow connections.
+3. **Better page speed.** Serve optimized images immediately instead of waiting for server-side processing.
+4. **Storage savings.** CMS storage is often limited or metered.
+
+## WordPress-specific tips
+
+- **Maximum upload size:** Check Settings → Media for your host's limit.
+- **Thumbnail generation:** WordPress creates 3 sizes by default (thumbnail, medium, large). Pre-compressing the original saves storage for all copies.
+- **WebP support:** WordPress 5.8+ supports WebP natively. Use it instead of JPEG.
+- **Lazy loading:** WordPress lazy loads images by default. Don't disable it.
+
+## Compression workflow
+
+1. **Resize first.** WordPress displays images at max 1200px wide (theme-dependent). Don't upload 4000px images.
+2. **Compress to 80-85 quality.** Visually identical, 60-70% smaller.
+3. **Use WebP if supported.** 25-35% smaller than JPEG.
+4. **Upload and verify.** Check the image looks good at display size.
+
+## Common mistakes
+
+- **Uploading raw camera photos.** A 6000×4000 JPEG at quality 95 is 8-12 MB. Resize and compress first.
+- **Using BMP or TIFF.** Convert to JPEG or WebP before uploading.
+- **Not compressing at all.** Every 100 KB saved improves page load by ~0.1 seconds on 3G.
+
+## Related tools
+
+- [Image Compressor](/tools/image-compressor) — compress before CMS upload
+- [Photo Resizer](/tools/photo-resizer) — resize to CMS-appropriate dimensions

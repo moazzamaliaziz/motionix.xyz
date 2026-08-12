@@ -1,0 +1,52 @@
+---
+title: "Why your images look blurry on the web (and how to fix it)"
+description: "Common causes of blurry web images — resolution, compression, scaling, and Retina displays."
+date: "2026-08-04"
+author: "Motionix"
+tags: ["web", "blurriness", "troubleshooting"]
+readingMinutes: 5
+---
+
+Your images look sharp in the editor but blurry on your website. Here's why and how to fix it.
+
+## Common causes
+
+### 1. Serving low-resolution images
+A 600px image displayed at 600px looks fine on standard displays. On Retina/HiDPI displays (2x), it's effectively stretched to 1200px, making it blurry.
+
+**Fix:** Serve 2x images (1200px for 600px display) and let CSS scale them down.
+
+### 2. Over-compression
+JPEG quality below 60 creates visible artifacts that look like blurriness, especially in smooth gradients.
+
+**Fix:** Use quality 80+ for web images.
+
+### 3. Browser scaling
+When the browser scales an image up or down, it applies interpolation that can create softness.
+
+**Fix:** Serve images at the exact display size.
+
+### 4. Wrong resampling algorithm
+Some image editors use bilinear interpolation by default, which creates softer results than bicubic or Lanczos.
+
+**Fix:** Use bicubic resampling when resizing.
+
+## Retina/HiDPI fix
+
+For Retina displays, serve 2x images:
+```html
+<img src="image-1200.jpg" width="600" height="400" alt="..." />
+```
+
+The browser displays at 600px but uses the full 1200px for sharpness.
+
+## Testing
+
+1. **View on a Retina display.** Most modern laptops and phones have Retina screens.
+2. **Zoom to 200%.** If the image looks blurry at 200%, it's not sharp enough.
+3. **Compare with the original.** Open the original image side by side with the web version.
+
+## Related tools
+
+- [Photo Resizer](/tools/photo-resizer) — resize to exact web dimensions
+- [Image Compressor](/tools/image-compressor) — compress without visible quality loss

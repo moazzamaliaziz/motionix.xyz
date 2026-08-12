@@ -1,0 +1,70 @@
+---
+title: "JPG vs PNG vs WebP vs AVIF: which format to use when"
+description: "A practical guide to image formats — when to use each one, what they're good at, and what they can't do."
+date: "2026-07-22"
+author: "Motionix"
+tags: ["image formats", "comparison", "guide"]
+readingMinutes: 8
+---
+
+Every image format makes trade-offs. JPG is small but lossy. PNG is sharp but huge. WebP is the modern middle ground. AVIF is the future. Here's when to use each.
+
+## Format comparison
+
+| Format | Compression | Transparency | Animation | Browser support |
+|--------|-------------|-------------|-----------|----------------|
+| JPEG | Lossy | No | No | 100% |
+| PNG | Lossless | Yes | No | 100% |
+| WebP | Both | Yes | Yes | 97% |
+| AVIF | Both | Yes | Yes | 90% |
+| GIF | Lossless | 1-bit | Yes | 100% |
+
+## When to use JPEG
+
+- **Photographs.** JPEG's lossy compression is optimized for natural images.
+- **Email attachments.** Smallest file size for photos.
+- **Social media.** Most platforms convert uploads to JPEG anyway.
+- **When transparency isn't needed.** JPEG doesn't support alpha channels.
+
+## When to use PNG
+
+- **Screenshots.** Text and sharp edges stay crisp with lossless compression.
+- **Logos and icons.** Transparency support + lossless = clean edges.
+- **When you need transparency.** PNG supports full alpha channels.
+- **Print production.** Lossless quality for professional printing.
+
+## When to use WebP
+
+- **Web pages.** 25-35% smaller than JPEG at equivalent quality.
+- **When you need transparency + small size.** WebP's lossy+alpha is unique.
+- **Animated images.** WebP animation is smaller than GIF.
+- **Modern web apps.** 97% browser support in 2026.
+
+## When to use AVIF
+
+- **Hero images.** Maximum compression for large, prominent images.
+- **Photography portfolios.** Best quality-to-size ratio.
+- **When file size matters most.** AVIF is 50% smaller than JPEG.
+- **Progressive enhancement.** Use with JPEG fallback for older browsers.
+
+## Decision tree
+
+```
+Need transparency?
+├── Yes → PNG (lossless) or WebP (lossy, smaller)
+└── No → Is it a photograph?
+    ├── Yes → AVIF > WebP > JPEG (by quality/size)
+    └── No → PNG (screenshot, logo, icon)
+```
+
+## Conversion tips
+
+- **JPEG → WebP:** Usually saves 25-35% with no visible quality loss.
+- **PNG → WebP:** Saves 25-30% for photos, less for screenshots.
+- **GIF → WebP:** Animation file size drops by 50-70%.
+- **Never convert JPEG → PNG.** You don't regain lost quality — the file just gets bigger.
+
+## Related tools
+
+- [Image Compressor](/tools/image-compressor) — compress across formats
+- [Photo Resizer](/tools/photo-resizer) — resize and convert between formats

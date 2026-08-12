@@ -1,0 +1,61 @@
+---
+title: "How to compress images without losing quality"
+description: "The science behind image compression — lossy vs lossless, quality settings, and how to shrink files by 60-80% without visible degradation."
+date: "2026-07-08"
+author: "Motionix"
+tags: ["compression", "image quality", "guide"]
+readingMinutes: 7
+---
+
+A 12 MB photo doesn't need to be 12 MB. Modern compression algorithms can shrink most images by 60-80% without any visible difference at normal viewing distances. Here's how it works and how to use it.
+
+## Lossy vs lossless compression
+
+**Lossless** compression reduces file size without discarding any data. The decompressed image is pixel-identical to the original. PNG uses lossless compression.
+
+**Lossy** compression discards data that humans are unlikely to notice. JPEG uses lossy compression. The quality setting (1-100) controls how much data is discarded.
+
+## The quality sweet spot
+
+For JPEG:
+- **Quality 95-100:** Visually identical to original. File size: 40-60% of original.
+- **Quality 80-90:** Indistinguishable at normal viewing. File size: 20-40% of original.
+- **Quality 60-70:** Slight artifacts visible on close inspection. File size: 10-20% of original.
+- **Below 60:** Visible quality loss. Only use for thumbnails.
+
+For most web and email use, quality 80-85 is the sweet spot.
+
+## PNG optimization
+
+PNG compression is lossless, but you can still optimize:
+- **Remove metadata.** EXIF data, color profiles, and comments add bytes.
+- **Reduce color depth.** If the image doesn't need 16 million colors, use a palette.
+- **Strip alpha channel.** If you don't need transparency, remove it.
+
+## WebP and AVIF
+
+Modern formats compress better than JPEG:
+- **WebP:** 25-35% smaller than JPEG at equivalent quality
+- **AVIF:** 50% smaller than JPEG at equivalent quality
+
+Browser support:
+- WebP: 97% of browsers (2026)
+- AVIF: 90% of browsers (2026)
+
+## When to compress
+
+- **Email attachments.** Most mail servers cap at 10-25 MB.
+- **Web pages.** Page speed directly impacts SEO and user experience.
+- **CMS uploads.** WordPress, Squarespace, and others have upload limits.
+- **Storage.** Cloud storage costs add up with large files.
+
+## When not to compress
+
+- **Archival masters.** Keep originals uncompressed for future editing.
+- **Print production.** Print shops need maximum quality.
+- **Before editing.** Compress after all edits are done, not before.
+
+## Related tools
+
+- [Image Compressor](/tools/image-compressor) — quality-targeted compression in your browser
+- [Photo Resizer](/tools/photo-resizer) — resize before compressing for maximum savings

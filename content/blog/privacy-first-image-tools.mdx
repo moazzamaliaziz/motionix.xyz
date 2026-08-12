@@ -7,63 +7,49 @@ tags: ["privacy", "engineering", "browser"]
 readingMinutes: 5
 ---
 
-The single biggest decision we made when building Motionix was that no tool
-on the site should ever upload your file to our server. There are three
-reasons we held the line, and they're worth understanding before you trust
-an image tool with anything private.
+The single biggest decision we made when building Motionix was that no tool on the site should ever upload your file to our server. There are three reasons we held the line, and they're worth understanding before you trust an image tool with anything private.
 
 ## What runs client-side
 
-Picture tools used to mean "send your file to a worker, wait, send it back."
-That pattern has costs:
+Picture tools used to mean "send your file to a worker, wait, send it back." That pattern has costs:
 
-- **Round-trip latency.** Even on a fast fiber link, a 200 MB video between
-  you and a worker in another region burns 4-8 seconds.
-- **Discretion.** Your data passes through someone else's infra. Most tools
-  are honest about deleting it; the worst are not.
-- **Cost.** Servers are not free. Free-tier tools subsidise free users by
-  throwing ads on the result page or selling behavioural data.
+- **Round-trip latency.** Even on a fast fiber link, a 200 MB video between your browser and a server takes 10-30 seconds just to transfer.
+- **Privacy.** Once a file leaves your device, you lose control over it. Most services delete it eventually — but "eventually" is doing a lot of work.
+- **Cost.** Server-side processing means GPU servers, egress fees, and scaling headaches. Those costs get passed to users somehow — through ads, subscriptions, or data harvesting.
 
-For Motionix, every tool runs against the browser's native APIs:
+## How browser-based processing works
 
-- **Canvas** for crop / resize / format conversion.
-- **WebCodecs** for video decode / encode.
-- **ONNX Runtime Web** for background removal and other computer-vision
-  models.
+Modern browsers expose APIs that were previously only available to native apps:
 
-The trade-off is that you give up some accuracy for a 10× speedup on
-common tasks. We think that trade is worth it for the everyday flow.
+- **Canvas API** — image resizing, cropping, format conversion, pixel manipulation
+- **WebGL / WebGPU** — GPU-accelerated image processing
+- **ONNX Runtime Web** — run AI models (background removal, object detection) entirely in the browser
+- **WebCodecs** — hardware-accelerated video encoding and decoding
 
-## Why "client-side" doesn't mean "less powerful"
+These APIs are built into Chrome, Firefox, Safari, and Edge. No plugins, no downloads, no extensions.
 
-The pace has been relentless. ONNX Runtime Web matured enough in 2025 to
-make real-time background removal practical inside a single tab. WebCodecs
-moved from "experimental" to default-enabled across Safari, Chrome, and
-Edge. WASM SIMD makes image math genuinely fast.
+## The privacy guarantee
 
-The result: in 2026, a tool that uploads your file to a server can no
-longer convincingly argue it has to.
+When we say "your file never leaves your device," we mean it technically:
 
-## When we'd break the rule
+1. The JavaScript code runs in your browser's sandbox.
+2. The file is read from your local filesystem via the File API.
+3. Processing happens in memory using Canvas, WebGL, or ONNX Runtime.
+4. The result is offered as a download via the Blob API.
 
-There are three cases where server-side processing is the right answer:
+At no point does `fetch()` or `XMLHttpRequest` send your file to our servers. You can verify this by opening your browser's Network tab while using any tool.
 
-1. **Files too large to fit in browser memory.** Currently we cap everything
-   at 200 MB on the client.
-2. **Models that won't ship to the browser.** Diffusion-style image
-   generation is far off. We don't ship it today.
-3. **Anything that genuinely needs GPU cluster time.** Background-removal is
-   fine. Image generation isn't, yet.
+## The trade-off
 
-When we add a tool that needs server time, we'll mark it loudly. The default
-is that nothing leaves your device.
+Browser-based processing has real limits:
 
-## Why this matters for businesses
+- **File size.** Browser tabs have memory limits (typically 2-4 GB). A 4 GB video would crash most tabs.
+- **Speed variance.** A MacBook Pro M3 is 10x faster at ONNX inference than a 2018 Android phone.
+- **Feature gaps.** Some tasks (like multi-pass video encoding) are still better on a server.
 
-The privacy-first stance is also a cost-first stance. We don't pay S3
-egress, we don't pay for a worker fleet, we don't get rate-limited by
-anyone. The tools stay free for everyone for a long time because the cost
-floors stay low.
+We're transparent about these limits. Each tool page shows its maximum file size and browser compatibility.
 
-Stay tuned for the next post — we're going to walk through how WebCodecs
-beats ffmpeg.wasm for our video compressor.
+## Related reading
+
+- [How Motionix stays free](/blog/how-motionix-stays-free) — the economics of browser-based tools
+- [WebCodecs vs ffmpeg.wasm](/blog/webcodecs-vs-ffmpeg-wasm) — our video compression architecture
