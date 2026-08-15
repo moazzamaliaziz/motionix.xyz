@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useCallback, useEffect, useRef, useState, type DragEvent } from "react";
 import { cn } from "@/lib/cn";
@@ -27,7 +27,7 @@ export function ToolDropzone({
   const [over, setOver] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-  const errorTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const errorTimerRef = useRef<ReturnType<typeof setTimeout>>(null);
 
   // Auto-clear error after 5 seconds
   const showError = useCallback((msg: string) => {
