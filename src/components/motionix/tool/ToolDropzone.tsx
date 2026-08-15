@@ -32,7 +32,7 @@ export function ToolDropzone({
   // Auto-clear error after 5 seconds
   const showError = useCallback((msg: string) => {
     setError(msg);
-    clearTimeout(errorTimerRef.current);
+    clearTimeout(errorTimerRef.current ?? undefined);
     errorTimerRef.current = setTimeout(() => setError(null), 5000);
   }, []);
 
@@ -133,7 +133,7 @@ export function ToolDropzone({
             ) : null}
           </div>
           <p className="eyebrow-mono text-foreground/40">
-            Drop, click, or Ctrl+V · max {Math.round(maxSize / 1024 / 1024)} MB
+            Drop, click, or Ctrl+V Â· max {Math.round(maxSize / 1024 / 1024)} MB
           </p>
         </div>
       </div>
