@@ -1,10 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Before/After image comparison slider. Drag the divider to reveal
  * the original (left) vs processed (right) image.
+ * A-2 fix: fully keyboard-operable (Arrow keys, Home, End).
  */
 export function BeforeAfterSlider({
   original,
@@ -45,11 +46,36 @@ export function BeforeAfterSlider({
     }
   };
 
+  // A-2: keyboard handler for the slider
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    const step = e.shiftKey ? 10 : 2; // Shift+Arrow = bigger jump
+    switch (e.key) {
+      case "ArrowLeft":
+      case "ArrowDown":
+        e.preventDefault();
+        setSplit((s) => Math.max(0, s - step));
+        break;
+      case "ArrowRight":
+      case "ArrowUp":
+        e.preventDefault();
+        setSplit((s) => Math.min(100, s + step));
+        break;
+      case "Home":
+        e.preventDefault();
+        setSplit(0);
+        break;
+      case "End":
+        e.preventDefault();
+        setSplit(100);
+        break;
+    }
+  };
+
   return (
     <div className="rounded-2xl border border-foreground/10 bg-white p-3">
       <p className="eyebrow-mono text-foreground/50 mb-2 px-1">
         Before &amp; after — drag the divider
-        <span className="text-foreground/30 ml-2">{split}%</span>
+        <span className="text-foreground/30 ml-2">{Math.round(split)}%</span>
       </p>
       <div
         ref={sliderRef}
@@ -87,12 +113,23 @@ export function BeforeAfterSlider({
             className="absolute inset-0 w-full h-full object-contain"
           />
         </div>
+        {/* A-2: keyboard-focusable slider handle */}
         <div
           className="absolute top-0 bottom-0 z-10"
           style={{ left: `${split}%` }}
         >
           <div className="h-full w-0.5 bg-white shadow-md" />
-          <div className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 size-8 rounded-full bg-white border-2 border-foreground/20 shadow flex items-center justify-center cursor-ew-resize">
+          <div
+            role="slider"
+            aria-label="Before/After comparison"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(split)}
+            aria-valuetext={`${Math.round(split)}% before, ${Math.round(100 - split)}% after`}
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+            className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 size-8 rounded-full bg-white border-2 border-foreground/20 shadow flex items-center justify-center cursor-ew-resize focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+          >
             <svg
               width="12"
               height="12"
