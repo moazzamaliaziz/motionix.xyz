@@ -36,7 +36,7 @@ export function ToolDropzone({
     errorTimerRef.current = setTimeout(() => setError(null), 5000);
   }, []);
 
-  useEffect(() => () => clearTimeout(errorTimerRef.current), []);
+  useEffect(() => () => { clearTimeout(errorTimerRef.current ?? undefined); }, []);
 
   const handleFiles = useCallback(
     (files: FileList | null | undefined) => {
