@@ -92,15 +92,32 @@
         "a8": "ä¸€ä¸ªç‹¬ç«‹è¿è¥è€…ï¼ˆæˆ‘ï¼‰ã€‚é€šè¿‡è”ç³»é¡µé¢å‘é€å‹å¥½çš„ç•™è¨€ï¼›æˆ‘ä¼šé˜…è¯»çš„ã€‚æŠ¥å‘Š bug ä¹Ÿè¯·é€šè¿‡åŒä¸€æ–¹å¼ã€‚"
     },
     "ToolsPreview": {
-        "eyebrow": "å·¥å…·ç›®å½•",
-        "title": "æˆ‘ä»¬ä¸€ç›´åœ¨ç”¨çš„å·¥å…·ã€‚",
-        "subtitle": "å…«ä¸ªå·¥å…·ï¼Œå…¨éƒ¨åœ¨æµè§ˆå™¨ä¸­è¿è¡Œã€‚æ— éœ€ä¸Šä¼ ã€æ— éœ€è´¦æˆ·ã€æ— è¿½è¸ªã€‚",
-        "seeFullList": "æŸ¥çœ‹å®Œæ•´åˆ—è¡¨ â†’",
+        "eyebrow": "The catalog",
+        "title": "The ones we keep using.",
+        "subtitle": "Eight tools, all running in your browser. No upload, no account, no tracking.",
+        "seeFullList": "See the full list →",
+        "tryIt": "立即试用",
         "tools": {
-            "passport": "æŠ¤ç…§",
-            "resume": "ç®€åŽ†",
-            "compress": "åŽ‹ç¼©",
-            "resize": "è°ƒæ•´å¤§å°"
+            "passport": "Passport",
+            "passportBlurb": "即时生成符合官方尺寸要求的护照照片。",
+            "passportF1": "35×45mm 合规输出",
+            "passportF2": "背景移除与修正",
+            "passportF3": "可打印高分辨率",
+            "resume": "Resume",
+            "resumeBlurb": "为您的简历或LinkedIn打造专业头像照。",
+            "resumeF1": "白色或中性背景",
+            "resumeF2": "自动面部居中",
+            "resumeF3": "任意纵横比导出",
+            "compress": "Compress",
+            "compressBlurb": "在不损失可见质量的情况下缩小文件体积。",
+            "compressF1": "最高90%体积缩减",
+            "compressF2": "批量处理多张图片",
+            "compressF3": "支持JPG、PNG和WebP",
+            "resize": "Resize",
+            "resizeBlurb": "秒级完成图片精确像素尺寸调整。",
+            "resizeF1": "锁定纵横比或自由调整",
+            "resizeF2": "社交媒体预设尺寸",
+            "resizeF3": "下载前预览效果"
         }
     },
     "Testimonials": {

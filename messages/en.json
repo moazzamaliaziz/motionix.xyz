@@ -95,12 +95,29 @@
         "eyebrow": "The catalog",
         "title": "The ones we keep using.",
         "subtitle": "Eight tools, all running in your browser. No upload, no account, no tracking.",
-        "seeFullList": "See the full list â†’",
+        "seeFullList": "See the full list â†'",
+        "tryIt": "Try it",
         "tools": {
             "passport": "Passport",
+            "passportBlurb": "Instant passport photos that meet official size requirements.",
+            "passportF1": "35Ã—45 mm compliant output",
+            "passportF2": "Background removal & correction",
+            "passportF3": "Print-ready high resolution",
             "resume": "Resume",
+            "resumeBlurb": "Professional headshots for your CV or LinkedIn profile.",
+            "resumeF1": "White or neutral background",
+            "resumeF2": "Automatic face centering",
+            "resumeF3": "Export at any aspect ratio",
             "compress": "Compress",
-            "resize": "Resize"
+            "compressBlurb": "Shrink file sizes without losing visible quality.",
+            "compressF1": "Up to 90% size reduction",
+            "compressF2": "Batch process multiple images",
+            "compressF3": "JPG, PNG & WebP support",
+            "resize": "Resize",
+            "resizeBlurb": "Resize images to exact pixel dimensions in seconds.",
+            "resizeF1": "Lock aspect ratio or free-form",
+            "resizeF2": "Preset social media dimensions",
+            "resizeF3": "Preview before you download"
         }
     },
     "Testimonials": {

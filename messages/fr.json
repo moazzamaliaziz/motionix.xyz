@@ -92,15 +92,32 @@
         "a8": "Un opÃ©rateur solo (moi). Envoyez de gentils messages via la page de contact ; je les lirai. Signalez un bug de la mÃªme maniÃ¨re."
     },
     "ToolsPreview": {
-        "eyebrow": "Le catalogue",
-        "title": "Ceux que nous utilisons sans cesse.",
-        "subtitle": "Huit outils, tous fonctionnant dans votre navigateur. Pas de tÃ©lÃ©chargement, pas de compte, pas de suivi.",
-        "seeFullList": "Voir la liste complÃ¨te â†’",
+        "eyebrow": "The catalog",
+        "title": "The ones we keep using.",
+        "subtitle": "Eight tools, all running in your browser. No upload, no account, no tracking.",
+        "seeFullList": "See the full list →",
+        "tryIt": "Essayer",
         "tools": {
-            "passport": "Passeport",
-            "resume": "CV",
-            "compress": "Compresser",
-            "resize": "Redimensionner"
+            "passport": "Passport",
+            "passportBlurb": "Photos de passeport instantanées respectant les dimensions officielles.",
+            "passportF1": "Format conforme 35×45 mm",
+            "passportF2": "Suppression et correction de l'arrière-plan",
+            "passportF3": "Haute résolution prête à imprimer",
+            "resume": "Resume",
+            "resumeBlurb": "Photos professionnelles pour votre CV ou profil LinkedIn.",
+            "resumeF1": "Arrière-plan blanc ou neutre",
+            "resumeF2": "Centrage automatique du visage",
+            "resumeF3": "Export à n'importe quel rapport d'aspect",
+            "compress": "Compress",
+            "compressBlurb": "Réduisez la taille des fichiers sans perte de qualité visible.",
+            "compressF1": "Réduction jusqu'à 90 %",
+            "compressF2": "Traitement par lot de plusieurs images",
+            "compressF3": "Support JPG, PNG et WebP",
+            "resize": "Resize",
+            "resizeBlurb": "Redimensionnez des images en quelques secondes.",
+            "resizeF1": "Verrouiller le rapport d'aspect ou libre",
+            "resizeF2": "Préréglages pour réseaux sociaux",
+            "resizeF3": "Aperçu avant téléchargement"
         }
     },
     "Testimonials": {

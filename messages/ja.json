@@ -92,15 +92,32 @@
         "a8": "ä¸€äººã®é‹å–¶è€…ï¼ˆç§ï¼‰ã§ã™ã€‚ãŠå•ã„åˆã‚ã›ãƒšãƒ¼ã‚¸ã‹ã‚‰ãŠä¾¿ã‚Šã‚’ãã ã•ã„ã€‚èª­ã¿ã¾ã™ã€‚ãƒã‚°å ±å‘Šã‚‚åŒã˜æ–¹æ³•ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚"
     },
     "ToolsPreview": {
-        "eyebrow": "ã‚«ã‚¿ãƒ­ã‚°",
-        "title": "ã‚ˆãä½¿ã‚ã‚Œã¦ã„ã‚‹ã‚‚ã®ã€‚",
-        "subtitle": "8ã¤ã®ãƒ„ãƒ¼ãƒ«ã€ã™ã¹ã¦ãƒ–ãƒ©ã‚¦ã‚¶å†…ã§å‹•ä½œã€‚ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãªã—ã€ã‚¢ã‚«ã‚¦ãƒ³ãƒˆãªã—ã€ãƒˆãƒ©ãƒƒã‚­ãƒ³ã‚°ãªã—ã€‚",
-        "seeFullList": "å…¨ãƒªã‚¹ãƒˆã‚’è¦‹ã‚‹ â†’",
+        "eyebrow": "The catalog",
+        "title": "The ones we keep using.",
+        "subtitle": "Eight tools, all running in your browser. No upload, no account, no tracking.",
+        "seeFullList": "See the full list →",
+        "tryIt": "試してみる",
         "tools": {
-            "passport": "ãƒ‘ã‚¹ãƒãƒ¼ãƒˆ",
-            "resume": "å±¥æ­´æ›¸",
-            "compress": "åœ§ç¸®",
-            "resize": "ãƒªã‚µã‚¤ã‚º"
+            "passport": "Passport",
+            "passportBlurb": "公式サイズ要件を満たす即製パスポート写真。",
+            "passportF1": "35×45mm 準拠出力",
+            "passportF2": "背景除去＆補正",
+            "passportF3": "印刷対応高解像度",
+            "resume": "Resume",
+            "resumeBlurb": "履歴書やLinkedInプロフィール用のプロフェッショナルなヘッドショット。",
+            "resumeF1": "白またはニュートラル背景",
+            "resumeF2": "自動顔センター調整",
+            "resumeF3": "任意のアスペクト比でエクスポート",
+            "compress": "Compress",
+            "compressBlurb": "目に見える品質を損なわずにファイルサイズを縮小。",
+            "compressF1": "最大90%のサイズ削減",
+            "compressF2": "複数画像を一括処理",
+            "compressF3": "JPG、PNG、WebP対応",
+            "resize": "Resize",
+            "resizeBlurb": "数秒で画像を正確なピクセル尺寸にリサイズ。",
+            "resizeF1": "アスペクト比ロックまたはフリーフォーム",
+            "resizeF2": "SNS用プリセット",
+            "resizeF3": "ダウンロード前にプレビュー"
         }
     },
     "Testimonials": {

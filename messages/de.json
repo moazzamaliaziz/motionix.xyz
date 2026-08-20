@@ -91,15 +91,32 @@
         "a8": "Ein Einzelunternehmer (ich). Schick nette Nachrichten Ã¼ber die Kontaktseite; ich lese sie. Meld Bugs auf dieselbe Weise."
     },
     "ToolsPreview": {
-        "eyebrow": "Der Katalog",
-        "title": "Die, die wir stÃ¤ndig nutzen.",
-        "subtitle": "Acht Tools, alle im Browser. Kein Upload, kein Konto, kein Tracking.",
-        "seeFullList": "VollstÃ¤ndige Liste ansehen â†’",
+        "eyebrow": "The catalog",
+        "title": "The ones we keep using.",
+        "subtitle": "Eight tools, all running in your browser. No upload, no account, no tracking.",
+        "seeFullList": "See the full list →",
+        "tryIt": "Ausprobieren",
         "tools": {
-            "passport": "Reisepass",
-            "resume": "Lebenslauf",
-            "compress": "Komprimieren",
-            "resize": "Zuschnitt"
+            "passport": "Passport",
+            "passportBlurb": "Sofortige Passfotos, die die offiziellen Größenanforderungen erfüllen.",
+            "passportF1": "35×45 mm konform",
+            "passportF2": "Hintergrund entfernen & korrigieren",
+            "passportF3": "Druckfertige hochauflösende Bilder",
+            "resume": "Resume",
+            "resumeBlurb": "Professionelle Bewerbungsfotos für Ihren Lebenslauf oder LinkedIn.",
+            "resumeF1": "Weißer oder neutraler Hintergrund",
+            "resumeF2": "Automatische Gesichtszentrierung",
+            "resumeF3": "Export in jedem Seitenverhältnis",
+            "compress": "Compress",
+            "compressBlurb": "Dateigrößen verkleinern, ohne die sichtbare Qualität zu verlieren.",
+            "compressF1": "Bis zu 90% Größenreduzierung",
+            "compressF2": "Mehrere Bilder stapelweise verarbeiten",
+            "compressF3": "JPG-, PNG- & WebP-Unterstützung",
+            "resize": "Resize",
+            "resizeBlurb": "Bilder in Sekunden auf exakte Pixelgrößen skalieren.",
+            "resizeF1": "Seitenverhältnis sperren oder frei",
+            "resizeF2": "Voreinstellungen für Social-Media-Formate",
+            "resizeF3": "Vorschau vor dem Download"
         }
     },
     "Testimonials": {
