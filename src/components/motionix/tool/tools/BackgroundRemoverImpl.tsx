@@ -2,12 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { preloadBackgroundRemoval, removeBackgroundOnce } from "../lib/useBackgroundRemoval";
-import { RefineCanvas } from "./RefineCanvas";
 import { SaveToHistory } from "../SaveToHistory";
 import { CloudflareUpload } from "../CloudflareUpload";
 
 // Editorial monochrome — amber #fcbb00 is the only signal colour (btn-accent)
-// Keep Motionix palette: ink #0a0a0a, paper #ffffff, surface #f8f7f4, border #e5e3df
 const MAX_BYTES = 10 * 1024 * 1024;
 const SWATCHES = [
   { id: "transparent", label: "Transparent", css: "transparent" },
@@ -18,17 +16,49 @@ const SWATCHES = [
   { id: "studio", label: "Studio grey", css: "#f2f1ee" },
 ] as const;
 
-// 5 export formats — ponytail: no new deps, canvas-native only
 const EXPORT_FORMATS = [
-  { id: "image/png", label: "PNG", ext: "png", alpha: true, quality: undefined as number | undefined },
+  { id: "image/png", label: "PNG", ext: "png", alpha: true },
   { id: "image/jpeg", label: "JPG", ext: "jpg", alpha: false, quality: 0.92 },
   { id: "image/webp", label: "WebP", ext: "webp", alpha: true, quality: 0.9 },
   { id: "image/avif", label: "AVIF", ext: "avif", alpha: true, quality: 0.8 },
-  { id: "zip", label: "ZIP", ext: "zip", alpha: true, quality: undefined },
+  { id: "zip", label: "ZIP", ext: "zip", alpha: true },
 ] as const;
 type ExportId = typeof EXPORT_FORMATS[number]["id"];
 
 type Status = "idle" | "loading" | "done" | "error";
+
+// ponytail: instant HEX/RGB parsing — no deps
+function isValidHex(v: string): boolean {
+  return /^#([0-9A-F]{3}){1,2}$/i.test(v.trim());
+}
+function parseRgbInput(v: string): string | null {
+  const s = v.trim();
+  const m1 = s.match(/^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/i);
+  if (m1) {
+    const [r, g, b] = [Number(m1[1]), Number(m1[2]), Number(m1[3])];
+    if ([r, g, b].every((n) => n >= 0 && n <= 255)) return `#${[r, g, b].map((n) => n.toString(16).padStart(2, "0")).join("")}`;
+  }
+  const m2 = s.match(/^(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})$/);
+  if (m2) {
+    const [r, g, b] = [Number(m2[1]), Number(m2[2]), Number(m2[3])];
+    if ([r, g, b].every((n) => n >= 0 && n <= 255)) return `#${[r, g, b].map((n) => n.toString(16).padStart(2, "0")).join("")}`;
+  }
+  const m3 = s.match(/^(\d{1,3})\s+(\d{1,3})\s+(\d{1,3})$/);
+  if (m3) {
+    const [r, g, b] = [Number(m3[1]), Number(m3[2]), Number(m3[3])];
+    if ([r, g, b].every((n) => n >= 0 && n <= 255)) return `#${[r, g, b].map((n) => n.toString(16).padStart(2, "0")).join("")}`;
+  }
+  return null;
+}
+function normalizeColorInput(v: string): string | null {
+  const s = v.trim();
+  if (!s) return null;
+  if (isValidHex(s)) {
+    if (s.length === 4) return `#${s[1]}${s[1]}${s[2]}${s[2]}${s[3]}${s[3]}`.toLowerCase();
+    return s.toLowerCase();
+  }
+  return parseRgbInput(s);
+}
 
 export function BackgroundRemoverImpl() {
   const [status, setStatus] = useState<Status>("idle");
@@ -41,27 +71,47 @@ export function BackgroundRemoverImpl() {
   const [fileName, setFileName] = useState("image");
   const [srcFile, setSrcFile] = useState<File | null>(null);
   const [bg, setBg] = useState<string>("transparent");
-  const [shadowOpacity, setShadowOpacity] = useState(0.25);
-  const [shadowSize, setShadowSize] = useState(1);
+  const [customColor, setCustomColor] = useState<string>("#fcbb00");
+  const [colorInput, setColorInput] = useState<string>("");
+  const [colorError, setColorError] = useState<string | null>(null);
   const [elapsed, setElapsed] = useState<number | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const [showOriginal, setShowOriginal] = useState(false);
-  const [refineMode, setRefineMode] = useState(false);
-  const [imgDims, setImgDims] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
   const [exportFormat, setExportFormat] = useState<ExportId>("image/png");
   const [exportQuality, setExportQuality] = useState(0.9);
   const [isExporting, setIsExporting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const originalUrlRef = useRef<string | null>(null);
+  const cutoutUrlRef = useRef<string | null>(null);
 
-  // fast: warm model cache on mount + on hover (ponytail: fire-and-forget)
   useEffect(() => { preloadBackgroundRemoval(); }, []);
-
-  // cleanup object URLs
+  useEffect(() => {
+    originalUrlRef.current = originalUrl;
+    cutoutUrlRef.current = cutoutUrl;
+  }, [originalUrl, cutoutUrl]);
   useEffect(() => {
     return () => {
-      if (originalUrl) URL.revokeObjectURL(originalUrl);
-      if (cutoutUrl) URL.revokeObjectURL(cutoutUrl);
+      if (originalUrlRef.current) URL.revokeObjectURL(originalUrlRef.current);
+      if (cutoutUrlRef.current) URL.revokeObjectURL(cutoutUrlRef.current);
     };
+  }, []);
+
+  const reset = useCallback(() => {
+    if (originalUrl) URL.revokeObjectURL(originalUrl);
+    if (cutoutUrl) URL.revokeObjectURL(cutoutUrl);
+    setStatus("idle");
+    setError(null);
+    setOriginalUrl(null);
+    setCutoutUrl(null);
+    setCutoutBlob(null);
+    setElapsed(null);
+    setProgress(0);
+    setStage("");
+    setBg("transparent");
+    setCustomColor("#fcbb00");
+    setColorInput("");
+    setColorError(null);
+    setExportFormat("image/png");
   }, [originalUrl, cutoutUrl]);
 
   const run = useCallback(async (file: File) => {
@@ -75,6 +125,8 @@ export function BackgroundRemoverImpl() {
       setError(`That file is ${(file.size / 1048576).toFixed(1)}MB. The limit is 10MB.`);
       return;
     }
+    if (originalUrl) URL.revokeObjectURL(originalUrl);
+    if (cutoutUrl) URL.revokeObjectURL(cutoutUrl);
     setError(null);
     setCutoutUrl(null);
     setCutoutBlob(null);
@@ -84,11 +136,7 @@ export function BackgroundRemoverImpl() {
     setStatus("loading");
     setFileName(file.name.replace(/\.[^.]+$/, ""));
     setSrcFile(file);
-    const url = URL.createObjectURL(file);
-    setOriginalUrl(url);
-    const img = new Image();
-    img.onload = () => setImgDims({ w: img.naturalWidth, h: img.naturalHeight });
-    img.src = url;
+    setOriginalUrl(URL.createObjectURL(file));
 
     const started = performance.now();
     try {
@@ -107,7 +155,7 @@ export function BackgroundRemoverImpl() {
       setStatus("error");
       setError("The cutout failed on this image. Try a smaller file or a different photo.");
     }
-  }, []);
+  }, [originalUrl, cutoutUrl]);
 
   useEffect(() => {
     const onPaste = (e: ClipboardEvent) => {
@@ -118,63 +166,28 @@ export function BackgroundRemoverImpl() {
     return () => window.removeEventListener("paste", onPaste);
   }, [run]);
 
-  const applyBackground = async (targetBg = bg) => {
-    if (!cutoutBlob || !cutoutUrl) return;
-    if (targetBg === "transparent") return; // nothing to composite
-    const img = new Image();
-    img.src = cutoutUrl;
-    await img.decode();
-    const w = img.naturalWidth;
-    const h = img.naturalHeight;
-    const hasShadow = shadowOpacity > 0;
-    const canvas = document.createElement("canvas");
-    canvas.width = w;
-    canvas.height = h + (hasShadow ? Math.round(h * 0.12 * shadowSize) : 0);
-    const ctx = canvas.getContext("2d")!;
-    const sw = SWATCHES.find((s) => s.id === targetBg);
-    ctx.fillStyle = sw?.css ?? "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const previewBgCss = (() => {
+    if (bg === "transparent") return "transparent";
+    if (bg === "custom") return customColor;
+    return SWATCHES.find((s) => s.id === bg)?.css ?? "#ffffff";
+  })();
 
-    if (hasShadow) {
-      // simple bottom shadow: reuse cutout alpha as shape
-      const sh = document.createElement("canvas");
-      sh.width = w;
-      sh.height = h;
-      const sctx = sh.getContext("2d")!;
-      sctx.drawImage(img, 0, 0);
-      const data = sctx.getImageData(0, 0, w, h).data;
-      const contour: { x: number; y: number }[] = [];
-      const step = Math.max(1, Math.round(w / 120));
-      for (let col = 0; col < w; col += step) {
-        let y = -1;
-        for (let row = h - 1; row >= 0; row--) if (data[(row * w + col) * 4 + 3] > 30) { y = row; break; }
-        if (y >= 0) contour.push({ x: col, y });
-      }
-      if (contour.length >= 2) {
-        const shadowY = h + Math.round(h * 0.06 * shadowSize);
-        const blur = Math.round(Math.min(w, h) * 0.04 * shadowSize);
-        ctx.save();
-        ctx.shadowColor = `rgba(0,0,0,${shadowOpacity})`;
-        ctx.shadowBlur = blur;
-        ctx.beginPath();
-        ctx.moveTo(contour[0].x, shadowY);
-        for (let i = 1; i < contour.length; i++) ctx.lineTo(contour[i].x, shadowY);
-        for (let i = contour.length - 1; i >= 0; i--) ctx.lineTo(contour[i].x, shadowY - shadowSize * 6);
-        ctx.closePath();
-        ctx.fillStyle = "#000";
-        ctx.fill();
-        ctx.restore();
-      }
+  const handleColorInput = (val: string) => {
+    setColorInput(val);
+    const norm = normalizeColorInput(val);
+    if (!val.trim()) {
+      setColorError(null);
+      return;
     }
-    ctx.drawImage(img, 0, 0);
-    const blob: Blob = await new Promise((r) => canvas.toBlob((b) => r(b!), "image/png"));
-    const url = URL.createObjectURL(blob);
-    if (cutoutUrl) URL.revokeObjectURL(cutoutUrl);
-    setCutoutBlob(blob);
-    setCutoutUrl(url);
+    if (norm) {
+      setCustomColor(norm);
+      setBg("custom");
+      setColorError(null);
+    } else {
+      setColorError("Use HEX #fcbb00 or RGB 255, 0, 128");
+    }
   };
 
-  // fast export: canvas re-encode with bg + format; ponytail: no new deps, browser-native
   const exportSingle = async (format: string, quality?: number): Promise<Blob> => {
     if (!cutoutUrl) throw new Error("No cutout");
     const img = new Image();
@@ -183,31 +196,29 @@ export function BackgroundRemoverImpl() {
     const canvas = document.createElement("canvas");
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
-    const ctx = canvas.getContext("2d")!;
-    // JPG has no alpha — flatten onto bg or white
-    const needsFlatten = format === "image/jpeg" || (bg !== "transparent" && format !== "image/png" && format !== "image/webp" && format !== "image/avif");
-    const flatBg = bg === "transparent" ? "#ffffff" : (SWATCHES.find((s) => s.id === bg)?.css ?? "#ffffff");
-    if (needsFlatten || bg !== "transparent") {
-      ctx.fillStyle = bg === "transparent" && format !== "image/jpeg" ? "transparent" : flatBg;
-      if (bg !== "transparent" || format === "image/jpeg") {
-        ctx.fillStyle = flatBg;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
+    const ctx = canvas.getContext("2d", { alpha: format !== "image/jpeg" })!;
+    const needsFlatten = format === "image/jpeg" || (bg !== "transparent");
+    if (needsFlatten) {
+      ctx.fillStyle = bg === "transparent" ? "#ffffff" : previewBgCss;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
     ctx.drawImage(img, 0, 0);
     const blob: Blob | null = await new Promise((r) => canvas.toBlob((b) => r(b), format, quality));
     if (!blob) throw new Error(`Your browser can't encode ${format}. Try PNG.`);
-    // AVIF fallback: canvas.toBlob may silently return PNG
-    if (blob.type !== format && format === "image/avif") throw new Error("AVIF not supported in this browser — try WebP or PNG.");
+    if (blob.type !== format && format === "image/avif") throw new Error("AVIF not supported — try WebP or PNG.");
     return blob;
   };
 
   const download = async () => {
     if (!cutoutUrl || !cutoutBlob) return;
+    // preserve quality: transparent PNG direct blob, no recompression
+    if (bg === "transparent" && exportFormat === "image/png") {
+      triggerDownload(cutoutUrl, `${fileName}-cutout.png`);
+      return;
+    }
     setIsExporting(true);
     try {
       if (exportFormat === "zip") {
-        // 5th format: ZIP = download all 4 image formats sequentially (ponytail: no jszip dep)
         const formats: { id: string; ext: string; q?: number }[] = [
           { id: "image/png", ext: "png" },
           { id: "image/jpeg", ext: "jpg", q: 0.92 },
@@ -224,7 +235,7 @@ export function BackgroundRemoverImpl() {
         return;
       }
       const fmt = EXPORT_FORMATS.find((f) => f.id === exportFormat)!;
-      const blob = await exportSingle(fmt.id, fmt.quality ?? exportQuality);
+      const blob = await exportSingle(fmt.id, (fmt as unknown as { quality?: number }).quality ?? exportQuality);
       triggerDownload(URL.createObjectURL(blob), `${fileName}-cutout.${fmt.ext}`);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Export failed.");
@@ -232,39 +243,6 @@ export function BackgroundRemoverImpl() {
       setIsExporting(false);
     }
   };
-
-  const clear = () => {
-    setStatus("idle");
-    setError(null);
-    setOriginalUrl(null);
-    setCutoutUrl(null);
-    setCutoutBlob(null);
-    setSrcFile(null);
-    setElapsed(null);
-    setProgress(0);
-    setBg("transparent");
-    setRefineMode(false);
-  };
-
-  const activeBg = SWATCHES.find((s) => s.id === bg)!;
-
-  // refine mode takes over canvas
-  if (refineMode && cutoutUrl && originalUrl && imgDims.w > 0) {
-    return (
-      <RefineCanvas
-        originalUrl={originalUrl}
-        processedUrl={cutoutUrl}
-        width={imgDims.w}
-        height={imgDims.h}
-        onExport={(blob) => {
-          if (cutoutUrl) URL.revokeObjectURL(cutoutUrl);
-          setCutoutBlob(blob);
-          setCutoutUrl(URL.createObjectURL(blob));
-          setRefineMode(false);
-        }}
-      />
-    );
-  }
 
   return (
     <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-float">
@@ -277,12 +255,12 @@ export function BackgroundRemoverImpl() {
       </div>
 
       <div className="grid gap-0 lg:grid-cols-[1.35fr_1fr]">
-        {/* Canvas */}
         <div className="relative min-h-[420px] border-b border-border p-5 lg:border-r lg:border-b-0">
           {status === "idle" && (
             <button
               type="button"
               onClick={() => inputRef.current?.click()}
+              onMouseEnter={() => preloadBackgroundRemoval()}
               onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
               onDrop={(e) => { e.preventDefault(); setDragOver(false); const f = e.dataTransfer.files?.[0]; if (f) void run(f); }}
@@ -299,7 +277,7 @@ export function BackgroundRemoverImpl() {
           {status === "loading" && (
             <div className="grid h-full min-h-[380px] place-items-center rounded-2xl bg-surface p-8 text-center">
               <div className="w-full max-w-sm">
-                {originalUrl && <img src={originalUrl} alt="Processing" className="mx-auto mb-6 h-40 w-40 animate-pulse rounded-xl object-cover" />}
+                {originalUrl && <img src={originalUrl} alt="Processing" className="mx-auto mb-6 h-40 w-40 animate-pulse rounded-xl object-cover" width={160} height={160} />}
                 <p className="font-display text-lg font-semibold">{stage}</p>
                 <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-border">
                   <div className="h-full rounded-full bg-foreground transition-all duration-200" style={{ width: `${Math.max(6, progress)}%` }} />
@@ -313,61 +291,54 @@ export function BackgroundRemoverImpl() {
             <div className="grid h-full min-h-[380px] place-items-center rounded-2xl bg-surface p-8 text-center">
               <div>
                 <p className="font-display text-lg font-semibold text-destructive">{error}</p>
-                <button type="button" onClick={clear} className="btn-ink mt-5">Try another image</button>
+                <button type="button" onClick={() => { if (originalUrl) URL.revokeObjectURL(originalUrl); if (cutoutUrl) URL.revokeObjectURL(cutoutUrl); setStatus("idle"); setError(null); setOriginalUrl(null); setCutoutUrl(null); setCutoutBlob(null); }} className="btn-ink mt-5">Try another image</button>
               </div>
             </div>
           )}
 
           {status === "done" && cutoutUrl && (
-            <div className={`relative grid h-full min-h-[380px] place-items-center overflow-hidden rounded-2xl ${bg === "transparent" ? "checkerboard" : ""}`} style={bg === "transparent" ? undefined : { backgroundColor: activeBg.css }}>
-              <img src={showOriginal ? originalUrl! : cutoutUrl} alt={showOriginal ? "Original" : "Cutout"} className="max-h-[420px] w-auto max-w-full object-contain p-4" />
+            <div className={`relative grid h-full min-h-[380px] place-items-center overflow-hidden rounded-2xl ${bg === "transparent" ? "checkerboard" : ""}`} style={bg === "transparent" ? undefined : { backgroundColor: previewBgCss }}>
+              <img src={showOriginal ? originalUrl! : cutoutUrl} alt={showOriginal ? "Original" : "Cutout"} className="max-h-[420px] w-auto max-w-full object-contain p-4" width={800} height={600} />
               <button type="button" onPointerDown={() => setShowOriginal(true)} onPointerUp={() => setShowOriginal(false)} onPointerLeave={() => setShowOriginal(false)} className="absolute bottom-3 left-3 rounded-full border border-border bg-background/90 px-3 py-1.5 text-xs font-semibold backdrop-blur">Hold to compare</button>
               {elapsed !== null && <span className="absolute top-3 right-3 rounded-full bg-success/20 px-2.5 py-1 text-[10px] font-semibold tracking-[0.14em] uppercase">Done in {elapsed.toFixed(1)}s</span>}
             </div>
           )}
 
-          <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) void run(f); e.target.value = ""; }} />
+          <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/heic,image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) void run(f); e.target.value = ""; }} />
         </div>
 
-        {/* Sidebar */}
         <div className="flex flex-col gap-6 p-5">
           <div>
             <p className="label-mono">Background</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {SWATCHES.map((s) => (
-                <button key={s.id} type="button" title={s.label} aria-label={s.label} onClick={() => { setBg(s.id); if (s.id !== "transparent" && status === "done") setTimeout(() => void applyBackground(s.id), 0); }} className={`h-9 w-9 rounded-full border transition-transform ${bg === s.id ? "scale-110 border-foreground" : "border-border"} ${s.id === "transparent" ? "checkerboard" : ""}`} style={s.id === "transparent" ? undefined : { backgroundColor: s.css }} />
+                <button
+                  key={s.id}
+                  type="button"
+                  title={s.label}
+                  aria-label={s.label}
+                  onClick={() => { setBg(s.id); setColorError(null); }}
+                  className={`h-9 w-9 rounded-full border transition-transform ${bg === s.id ? "scale-110 border-foreground" : "border-border"} ${s.id === "transparent" ? "checkerboard" : ""}`}
+                  style={s.id === "transparent" ? undefined : { backgroundColor: s.css }}
+                />
               ))}
+              <label className={`h-9 w-9 rounded-full border flex items-center justify-center cursor-pointer transition-transform ${bg === "custom" ? "scale-110 border-foreground" : "border-border bg-background"}`} title="Custom color">
+                <input type="color" value={customColor} onChange={(e) => { setCustomColor(e.target.value); setBg("custom"); setColorInput(e.target.value); setColorError(null); }} className="sr-only" aria-label="Pick custom color" />
+                <span className="w-5 h-5 rounded-full border border-border" style={{ backgroundColor: customColor }} />
+              </label>
             </div>
-            <p className="mt-2 text-xs text-muted-foreground">Applied on download. Transparent exports a clean alpha-channel PNG.</p>
+            <div className="mt-3 flex gap-2">
+              <input type="text" value={colorInput} onChange={(e) => handleColorInput(e.target.value)} placeholder="#fcbb00 or 255, 187, 0" aria-label="Custom background color (HEX or RGB)" className="flex-1 rounded-full border border-border bg-background px-4 py-2 text-sm font-mono placeholder:text-muted-foreground/50 focus:border-foreground focus:outline-none" />
+              <input type="color" value={customColor} onChange={(e) => { setCustomColor(e.target.value); setColorInput(e.target.value); setBg("custom"); setColorError(null); }} aria-label="Color picker" className="h-9 w-9 rounded-full border border-border p-1 bg-background cursor-pointer" />
+            </div>
+            {colorError ? <p className="mt-2 text-xs text-destructive" role="alert">{colorError}</p> : <p className="mt-2 text-xs text-muted-foreground">Instant preview — type HEX #fcbb00 or RGB 252, 187, 0</p>}
           </div>
-
-          {bg !== "transparent" && status === "done" && (
-            <div>
-              <p className="label-mono">Shadow</p>
-              <div className="mt-3 grid grid-cols-2 gap-3 max-w-xs">
-                <label className="flex flex-col gap-1">
-                  <span className="text-xs text-muted-foreground">Opacity</span>
-                  <input type="range" min="0" max="0.6" step="0.05" value={shadowOpacity} onChange={(e) => { const v = Number(e.target.value); setShadowOpacity(v); if (status === "done" && bg !== "transparent") setTimeout(() => void applyBackground(), 0); }} className="accent-primary w-full" />
-                </label>
-                <label className="flex flex-col gap-1">
-                  <span className="text-xs text-muted-foreground">Size</span>
-                  <input type="range" min="0.5" max="2.5" step="0.1" value={shadowSize} onChange={(e) => { const v = Number(e.target.value); setShadowSize(v); if (status === "done" && bg !== "transparent" && shadowOpacity > 0) setTimeout(() => void applyBackground(), 0); }} className="accent-primary w-full" />
-                </label>
-              </div>
-            </div>
-          )}
 
           <div>
             <p className="label-mono">Export as</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {EXPORT_FORMATS.map((f) => (
-                <button
-                  key={f.id}
-                  type="button"
-                  onClick={() => setExportFormat(f.id as ExportId)}
-                  aria-pressed={exportFormat === f.id}
-                  className={`rounded-full px-3.5 py-1.5 text-sm font-medium border transition ${exportFormat === f.id ? "bg-foreground text-background border-foreground" : "border-border bg-background hover:bg-surface"}`}
-                >
+                <button key={f.id} type="button" onClick={() => setExportFormat(f.id as ExportId)} aria-pressed={exportFormat === f.id} className={`rounded-full px-3.5 py-1.5 text-sm font-medium border transition ${exportFormat === f.id ? "bg-foreground text-background border-foreground" : "border-border bg-background hover:bg-surface"}`}>
                   {f.label}
                 </button>
               ))}
@@ -379,7 +350,6 @@ export function BackgroundRemoverImpl() {
               </label>
             )}
             {exportFormat === "zip" && <p className="mt-2 text-xs text-muted-foreground">Downloads 4 files: PNG + JPG + WebP + AVIF</p>}
-            {exportFormat === "image/avif" && <p className="mt-2 text-xs text-muted-foreground">AVIF needs modern browser; falls back to WebP if unsupported.</p>}
           </div>
 
           <div className="flex flex-col gap-2">
@@ -387,12 +357,6 @@ export function BackgroundRemoverImpl() {
               {isExporting ? "Exporting…" : `Download ${EXPORT_FORMATS.find((f) => f.id === exportFormat)!.label}${exportFormat === "zip" ? " (4 files)" : ""}`}
             </button>
             <button type="button" onClick={() => inputRef.current?.click()} className="btn-ghost">{status === "done" ? "Remove another" : "Choose a file"}</button>
-            {cutoutUrl && imgDims.w > 0 && !refineMode && (
-              <button type="button" onClick={() => setRefineMode(true)} className="btn-ghost"><span aria-hidden>✎</span> Refine edges</button>
-            )}
-            {refineMode && (
-              <button type="button" onClick={() => setRefineMode(false)} className="btn-ghost">Back to preview</button>
-            )}
           </div>
 
           <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border">
@@ -408,7 +372,7 @@ export function BackgroundRemoverImpl() {
             <div className="flex flex-wrap gap-2">
               <SaveToHistory tool="background-remover" blob={cutoutBlob} filename={srcFile.name} description={`Background removed · ${(srcFile.size / 1024).toFixed(0)} KB → ${(cutoutBlob.size / 1024).toFixed(0)} KB`} />
               <CloudflareUpload tool="background-remover" blob={cutoutBlob} filename={srcFile.name} label="Save to cloud (24h)" />
-              <button type="button" onClick={clear} className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium hover:bg-surface transition">Start over</button>
+              <button type="button" onClick={() => { if (originalUrl) URL.revokeObjectURL(originalUrl); if (cutoutUrl) URL.revokeObjectURL(cutoutUrl); setStatus("idle"); setError(null); setOriginalUrl(null); setCutoutUrl(null); setCutoutBlob(null); setBg("transparent"); }} className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2 text-sm font-medium hover:bg-surface transition">Start over</button>
             </div>
           )}
 
@@ -424,4 +388,5 @@ function triggerDownload(href: string, name: string) {
   a.href = href;
   a.download = name;
   a.click();
+  setTimeout(() => { try { URL.revokeObjectURL(href); } catch {} }, 4000);
 }
