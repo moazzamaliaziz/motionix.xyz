@@ -30,6 +30,21 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [mobileOpen]);
+
   return (
     <>
       <header
@@ -97,32 +112,74 @@ export function SiteHeader() {
               <AnimatedShinyText>{t("tryATool")}</AnimatedShinyText>
               <span aria-hidden className="text-[11px]">→</span>
             </Link>
+
+            {/* Mobile hamburger button — A-1 fix */}
+            <button
+              type="button"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="lg:hidden flex items-center justify-center size-8 rounded-full hover:bg-black/[0.05] transition-colors ml-0.5"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                aria-hidden="true"
+              >
+                {mobileOpen ? (
+                  <>
+                    <line x1="4" y1="4" x2="14" y2="14" />
+                    <line x1="14" y1="4" x2="4" y2="14" />
+                  </>
+                ) : (
+                  <>
+                    <line x1="3" y1="5" x2="15" y2="5" />
+                    <line x1="3" y1="9" x2="15" y2="9" />
+                    <line x1="3" y1="13" x2="15" y2="13" />
+                  </>
+                )}
+              </svg>
+            </button>
           </div>
         </div>
       </header>
 
       {/* Mobile nav overlay */}
       {mobileOpen ? (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] max-w-sm bg-white rounded-2xl shadow-2xl p-4 animate-fade-up">
-            <nav className="flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`flex items-center h-10 px-4 rounded-xl text-[14px] font-medium transition-colors ${
-                    pathname === link.href
-                      ? "text-foreground bg-black/[0.04]"
-                      : "text-foreground/60 hover:text-foreground hover:bg-black/[0.03]"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+        <div
+          className="fixed inset-0 z-50 lg:hidden"
+          id="mobile-nav"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+        >
+          <div
+            className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+            onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
+          />
+          <nav className="absolute top-4 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] max-w-sm bg-white rounded-2xl shadow-2xl p-4 animate-fade-up">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className={`flex items-center h-10 px-4 rounded-xl text-[14px] font-medium transition-colors ${
+                  pathname === link.href
+                    ? "text-foreground bg-black/[0.04]"
+                    : "text-foreground/60 hover:text-foreground hover:bg-black/[0.03]"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       ) : null}
     </>
