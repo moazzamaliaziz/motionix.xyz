@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { removeBackgroundOnce } from "../lib/useBackgroundRemoval";
+import { preloadBackgroundRemoval, removeBackgroundOnce } from "../lib/useBackgroundRemoval";
 import { RefineCanvas } from "./RefineCanvas";
 import { SaveToHistory } from "../SaveToHistory";
 import { CloudflareUpload } from "../CloudflareUpload";
@@ -17,6 +17,16 @@ const SWATCHES = [
   { id: "emerald", label: "Emerald", css: "#00bb7f" },
   { id: "studio", label: "Studio grey", css: "#f2f1ee" },
 ] as const;
+
+// 5 export formats — ponytail: no new deps, canvas-native only
+const EXPORT_FORMATS = [
+  { id: "image/png", label: "PNG", ext: "png", alpha: true, quality: undefined as number | undefined },
+  { id: "image/jpeg", label: "JPG", ext: "jpg", alpha: false, quality: 0.92 },
+  { id: "image/webp", label: "WebP", ext: "webp", alpha: true, quality: 0.9 },
+  { id: "image/avif", label: "AVIF", ext: "avif", alpha: true, quality: 0.8 },
+  { id: "zip", label: "ZIP", ext: "zip", alpha: true, quality: undefined },
+] as const;
+type ExportId = typeof EXPORT_FORMATS[number]["id"];
 
 type Status = "idle" | "loading" | "done" | "error";
 
@@ -38,7 +48,13 @@ export function BackgroundRemoverImpl() {
   const [showOriginal, setShowOriginal] = useState(false);
   const [refineMode, setRefineMode] = useState(false);
   const [imgDims, setImgDims] = useState<{ w: number; h: number }>({ w: 0, h: 0 });
+  const [exportFormat, setExportFormat] = useState<ExportId>("image/png");
+  const [exportQuality, setExportQuality] = useState(0.9);
+  const [isExporting, setIsExporting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // fast: warm model cache on mount + on hover (ponytail: fire-and-forget)
+  useEffect(() => { preloadBackgroundRemoval(); }, []);
 
   // cleanup object URLs
   useEffect(() => {
@@ -158,13 +174,9 @@ export function BackgroundRemoverImpl() {
     setCutoutUrl(url);
   };
 
-  const download = async () => {
-    if (!cutoutUrl || !cutoutBlob) return;
-    if (bg === "transparent") {
-      triggerDownload(cutoutUrl, `${fileName}-cutout.png`);
-      return;
-    }
-    // ensure compositing is applied
+  // fast export: canvas re-encode with bg + format; ponytail: no new deps, browser-native
+  const exportSingle = async (format: string, quality?: number): Promise<Blob> => {
+    if (!cutoutUrl) throw new Error("No cutout");
     const img = new Image();
     img.src = cutoutUrl;
     await img.decode();
@@ -172,11 +184,53 @@ export function BackgroundRemoverImpl() {
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
     const ctx = canvas.getContext("2d")!;
-    const sw = SWATCHES.find((s) => s.id === bg);
-    ctx.fillStyle = sw?.css ?? "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // JPG has no alpha — flatten onto bg or white
+    const needsFlatten = format === "image/jpeg" || (bg !== "transparent" && format !== "image/png" && format !== "image/webp" && format !== "image/avif");
+    const flatBg = bg === "transparent" ? "#ffffff" : (SWATCHES.find((s) => s.id === bg)?.css ?? "#ffffff");
+    if (needsFlatten || bg !== "transparent") {
+      ctx.fillStyle = bg === "transparent" && format !== "image/jpeg" ? "transparent" : flatBg;
+      if (bg !== "transparent" || format === "image/jpeg") {
+        ctx.fillStyle = flatBg;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    }
     ctx.drawImage(img, 0, 0);
-    triggerDownload(canvas.toDataURL("image/png"), `${fileName}-cutout.png`);
+    const blob: Blob | null = await new Promise((r) => canvas.toBlob((b) => r(b), format, quality));
+    if (!blob) throw new Error(`Your browser can't encode ${format}. Try PNG.`);
+    // AVIF fallback: canvas.toBlob may silently return PNG
+    if (blob.type !== format && format === "image/avif") throw new Error("AVIF not supported in this browser — try WebP or PNG.");
+    return blob;
+  };
+
+  const download = async () => {
+    if (!cutoutUrl || !cutoutBlob) return;
+    setIsExporting(true);
+    try {
+      if (exportFormat === "zip") {
+        // 5th format: ZIP = download all 4 image formats sequentially (ponytail: no jszip dep)
+        const formats: { id: string; ext: string; q?: number }[] = [
+          { id: "image/png", ext: "png" },
+          { id: "image/jpeg", ext: "jpg", q: 0.92 },
+          { id: "image/webp", ext: "webp", q: 0.9 },
+          { id: "image/avif", ext: "avif", q: 0.8 },
+        ];
+        for (const f of formats) {
+          try {
+            const b = await exportSingle(f.id, f.q);
+            triggerDownload(URL.createObjectURL(b), `${fileName}-cutout.${f.ext}`);
+            await new Promise((r) => setTimeout(r, 250));
+          } catch {}
+        }
+        return;
+      }
+      const fmt = EXPORT_FORMATS.find((f) => f.id === exportFormat)!;
+      const blob = await exportSingle(fmt.id, fmt.quality ?? exportQuality);
+      triggerDownload(URL.createObjectURL(blob), `${fileName}-cutout.${fmt.ext}`);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Export failed.");
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   const clear = () => {
@@ -303,8 +357,35 @@ export function BackgroundRemoverImpl() {
             </div>
           )}
 
+          <div>
+            <p className="label-mono">Export as</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {EXPORT_FORMATS.map((f) => (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => setExportFormat(f.id as ExportId)}
+                  aria-pressed={exportFormat === f.id}
+                  className={`rounded-full px-3.5 py-1.5 text-sm font-medium border transition ${exportFormat === f.id ? "bg-foreground text-background border-foreground" : "border-border bg-background hover:bg-surface"}`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+            {(exportFormat === "image/jpeg" || exportFormat === "image/webp" || exportFormat === "image/avif") && (
+              <label className="mt-3 flex items-center gap-3">
+                <span className="text-xs text-muted-foreground whitespace-nowrap">Quality {Math.round(exportQuality * 100)}%</span>
+                <input type="range" min={0.5} max={1} step={0.05} value={exportQuality} onChange={(e) => setExportQuality(Number(e.target.value))} className="flex-1 accent-primary" />
+              </label>
+            )}
+            {exportFormat === "zip" && <p className="mt-2 text-xs text-muted-foreground">Downloads 4 files: PNG + JPG + WebP + AVIF</p>}
+            {exportFormat === "image/avif" && <p className="mt-2 text-xs text-muted-foreground">AVIF needs modern browser; falls back to WebP if unsupported.</p>}
+          </div>
+
           <div className="flex flex-col gap-2">
-            <button type="button" onClick={download} disabled={status !== "done"} className="btn-accent">Download PNG</button>
+            <button type="button" onClick={download} disabled={status !== "done" || isExporting} className="btn-accent">
+              {isExporting ? "Exporting…" : `Download ${EXPORT_FORMATS.find((f) => f.id === exportFormat)!.label}${exportFormat === "zip" ? " (4 files)" : ""}`}
+            </button>
             <button type="button" onClick={() => inputRef.current?.click()} className="btn-ghost">{status === "done" ? "Remove another" : "Choose a file"}</button>
             {cutoutUrl && imgDims.w > 0 && !refineMode && (
               <button type="button" onClick={() => setRefineMode(true)} className="btn-ghost"><span aria-hidden>✎</span> Refine edges</button>
